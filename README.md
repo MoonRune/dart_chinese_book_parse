@@ -6,10 +6,10 @@ in `lib/`, and example unit test in `test/`.
 2. ~~test Js pattern~~ use dll in cli app
 3. ~~test jsoup pattern~~
 3. ~~test xpath pattern~~ unsupported
-3. test regex pattern
+3. ~~test regex pattern~~ some incompatible 
 ## code gen
 1.  software structure
-1.  supprted fun
+1.  support fun
 1.  mock data
 2.  real data
 ## ui
