@@ -12,7 +12,11 @@ class JsonWorker extends IWorker<SingRule> {
   @override
   Future<String> getString(SingRule singRule, String json) async {
     if (!singRule.rule.contains(r'{$.')) {
-      final ob = JsonPath(singRule.rule);
+      var pattern = singRule.rule;
+      if (pattern.endsWith(r'.[*]')) {
+        pattern = pattern.replaceAll(r'.[*]', '[*]');
+      }
+      final ob = JsonPath(pattern);
       // print(
       //     JsonCodec().decoder.convert(json)["books"])
       var its = ob

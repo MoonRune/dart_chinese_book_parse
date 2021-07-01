@@ -31,6 +31,17 @@ class ParseRule {
       // isRegex = true
       vRuleStr = vRuleStr.substring(1);
     }
+    //todo 处理&& 需要并联操作
+    //$.classname&&.shouquanname
+    if (vRuleStr.contains('&&')) {
+      vRuleStr = vRuleStr.split('&&')[0];
+      // rules = rule.split('&&');
+      // elementsType = r'&';
+    } else if  (vRuleStr.contains('||')){
+      vRuleStr = vRuleStr.split('||')[0];
+      // rules = rule.split('||');
+      // elementsType = r'|';
+    }
     var start = 0;
     var tmp = "";
     if (JS_PATTERN.hasMatch(vRuleStr)) {
@@ -70,6 +81,9 @@ class SingRule {
   var putPattern = RegExp('@put:(\\{[^}]+?\\})');
 
   SingRule(this.mode, String originRule, {this.singleRule}) {
+
+
+
     if (this.mode!=Mode.Js && originRule.contains('@')) {
       this.rule = originRule.split('@')[0];
       var other = originRule.replaceFirst(this.rule, '');
@@ -94,3 +108,9 @@ class SingRule {
 }
 
 enum Mode { XPath, Json, Default, Js, Regex }
+
+//rule abstract rule  getString getStringList
+//orRule any get nonull return
+//andRule execute all and return combiane
+//paramRule  exp: js  rule executed after params executed
+//singleRule common
