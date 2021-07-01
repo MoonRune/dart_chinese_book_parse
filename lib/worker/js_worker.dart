@@ -10,6 +10,8 @@ class JsWorker extends IWorker<SingRule> {
   var putPattern = RegExp('@put:(\\{[^}]+?\\})');
   @override
   Future<String> getString(SingRule singRule, String json) async {
+
+
     if(putPattern.hasMatch(json)){
       for(var  match in  putPattern.allMatches(json)){
         print(match.input);
@@ -41,7 +43,7 @@ class JsWorker extends IWorker<SingRule> {
       var execute='var  java={}; java.put=function(sign){};';
       if(resultRule!=null){
         var result = await ParseFactory.getWorker(resultRule).getString(resultRule, json);
-        execute = execute+' var result=${result};';
+        execute = execute+' var result="${result}";';
       }
       var js = singRule.rule;
       return (await engine.evaluate('${execute} ${js}'));
