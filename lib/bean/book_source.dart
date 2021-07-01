@@ -1,6 +1,6 @@
+import 'package:BookSource/bean/parse_rule.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'book_source.g.dart';
 
 @JsonSerializable()
 class BookSource {
@@ -69,34 +69,25 @@ class BookSource {
     }
   }
 
-  factory BookSource.fromJson(Map<String, dynamic> json) =>
-      _$BookSourceFromJson(json);
-
-  Map<String, dynamic> toJson() => _$BookSourceToJson(this);
 }
 
 @JsonSerializable()
 class ExploreRule {
-  String? bookList;
-  String? name;
-  String? author;
-  String? intro;
-  String? kind;
-  String? lastChapter;
-  String? updateTime;
-  String? bookUrl;
-  String? coverUrl;
-  String? wordCount;
+  ParseRule bookList;
+  ParseRule name;
+  ParseRule author;
+  ParseRule intro;
+  ParseRule kind;
+  ParseRule lastChapter;
+  ParseRule updateTime;
+  ParseRule bookUrl;
+  ParseRule coverUrl;
+  ParseRule wordCount;
 
   @override
   String toString() {
     return 'ExploreRule{bookList: $bookList, name: $name, author: $author, intro: $intro, kind: $kind, lastChapter: $lastChapter, updateTime: $updateTime, bookUrl: $bookUrl, coverUrl: $coverUrl, wordCount: $wordCount}';
   }
-
-  factory ExploreRule.fromJson(Map<String, dynamic> json) =>
-      _$ExploreRuleFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ExploreRuleToJson(this);
 
   ExploreRule(
       this.bookList,
@@ -128,16 +119,16 @@ class ExploreRule {
 class SearchRule // implements BookListRule
 {
 
-  String? bookList;
-  String? name;
-  String? author;
-  String? intro;
-  String? kind;
-  String? lastChapter;
-  String? updateTime;
-  String? bookUrl;
-  String? coverUrl;
-  String? wordCount;
+  ParseRule bookList;
+  ParseRule name;
+  ParseRule author;
+  ParseRule intro;
+  ParseRule kind;
+  ParseRule lastChapter;
+  ParseRule updateTime;
+  ParseRule bookUrl;
+  ParseRule coverUrl;
+  ParseRule wordCount;
 
   SearchRule(
       this.bookList,
@@ -151,10 +142,6 @@ class SearchRule // implements BookListRule
       this.coverUrl,
       this.wordCount);
 
-  factory SearchRule.fromJson(Map<String, dynamic> json) =>
-      _$SearchRuleFromJson(json);
-
-  Map<String, dynamic> toJson() => _$SearchRuleToJson(this);
 
   @override
   String toString() {
@@ -193,11 +180,6 @@ class BookInfoRule {
       this.tocUrl,
       this.wordCount,
       this.canReName);
-
-  factory BookInfoRule.fromJson(Map<String, dynamic> json) =>
-      _$BookInfoRuleFromJson(json);
-
-  Map<String, dynamic> toJson() => _$BookInfoRuleToJson(this);
 }
 
 @JsonSerializable()
@@ -216,10 +198,6 @@ class TocRule {
 
   TocRule();
 
-  factory TocRule.fromJson(Map<String, dynamic> json) =>
-      _$TocRuleFromJson(json);
-
-  Map<String, dynamic> toJson() => _$TocRuleToJson(this);
 }
 
 @JsonSerializable()
@@ -234,17 +212,7 @@ class ContentRule {
   ContentRule(this.content, this.nextContentUrl, this.webJs, this.sourceRegex,
       this.replaceRegex, this.imageStyle); //默认大小居中,FULL最大宽度
 
-  factory ContentRule.fromOldJson(Map<String, dynamic> json) => ContentRule(
-        json['content'] as String?,
-        json['nextContentUrl'] as String?,
-        json['webJs'] as String?,
-        json['sourceRegex'] as String?,
-        json['replaceRegex'] as String?,
-        json['imageStyle'] as String?,
-      );
 
-  factory ContentRule.fromJson(Map<String, dynamic> json) =>
-      _$ContentRuleFromJson(json);
 
   @override
   String toString() {

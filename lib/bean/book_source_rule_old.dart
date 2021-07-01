@@ -1,10 +1,9 @@
 import 'dart:convert';
 
 import 'package:BookSource/bean/book_source.dart';
+import 'package:BookSource/bean/parse_rule.dart';
 
 class BookSourceOld {
-
-
   static const BOOK_SOURCE_TYPE_TEXT_AS_DEFAULT = '';
   static const BOOK_SOURCE_TYPE_AUDIO = 'AUDIO';
 
@@ -32,7 +31,6 @@ class BookSourceOld {
   String? ruleSearchUrl;
   int? serialNumber;
   int? weight;
-
 
   String? ruleFindUrl;
   String? loginUrl;
@@ -62,23 +60,25 @@ class BookSourceOld {
     return 'BookSourceOld{bookSourceGroup: $bookSourceGroup, bookSourceName: $bookSourceName, bookSourceType: $bookSourceType, bookSourceUrl: $bookSourceUrl, enable: $enable, httpUserAgent: $httpUserAgent, ruleBookUrlPattern: $ruleBookUrlPattern, ruleChapterList: $ruleChapterList, ruleChapterName: $ruleChapterName, ruleChapterUrl: $ruleChapterUrl, ruleChapterUrlNext: $ruleChapterUrlNext, ruleContentUrl: $ruleContentUrl, ruleContentUrlNext: $ruleContentUrlNext, ruleSearchAuthor: $ruleSearchAuthor, ruleSearchCoverUrl: $ruleSearchCoverUrl, ruleSearchIntroduce: $ruleSearchIntroduce, ruleSearchKind: $ruleSearchKind, ruleSearchLastChapter: $ruleSearchLastChapter, ruleSearchList: $ruleSearchList, ruleSearchName: $ruleSearchName, ruleSearchNoteUrl: $ruleSearchNoteUrl, ruleSearchUrl: $ruleSearchUrl, serialNumber: $serialNumber, weight: $weight, ruleFindUrl: $ruleFindUrl, loginUrl: $loginUrl, bookSourceComment: $bookSourceComment, ruleFindList: $ruleFindList, ruleFindName: $ruleFindName, ruleFindAuthor: $ruleFindAuthor, ruleFindIntroduce: $ruleFindIntroduce, ruleFindKind: $ruleFindKind, ruleFindLastChapter: $ruleFindLastChapter, ruleFindNoteUrl: $ruleFindNoteUrl, ruleFindCoverUrl: $ruleFindCoverUrl, ruleBookContent: $ruleBookContent, ruleBookContentReplace: $ruleBookContentReplace, ruleBookInfoInit: $ruleBookInfoInit, ruleBookName: $ruleBookName, ruleBookAuthor: $ruleBookAuthor, ruleIntroduce: $ruleIntroduce, ruleBookKind: $ruleBookKind, ruleBookLastChapter: $ruleBookLastChapter, ruleCoverUrl: $ruleCoverUrl}';
   }
 
-   var headerPattern = RegExp('@Header:\\{.+?\\}');
+  var headerPattern = RegExp('@Header:\\{.+?\\}');
   var jsPattern = RegExp('\\{\\{.+?\\}\\}');
-  String toNewUrl(String? url){
+
+  String toNewUrl(String? url) {
     var result = '';
-    if(url == null ||url.isEmpty){
+    if (url == null || url.isEmpty) {
       return result;
     }
     result = url;
-    if(result.toLowerCase().startsWith('<js>')){
-      result = result.replaceAll("=searchKey", "={{key}}")
+    if (result.toLowerCase().startsWith('<js>')) {
+      result = result
+          .replaceAll("=searchKey", "={{key}}")
           .replaceAll("=searchPage", "={{page}}");
       return result;
     }
-    var map={};
-    if(headerPattern.hasMatch(result)){
+    var map = {};
+    if (headerPattern.hasMatch(result)) {
       var header = headerPattern.firstMatch(result)!;
-      result=result.replaceFirst(header.input, '');
+      result = result.replaceFirst(header.input, '');
       map["headers"] = header.input.substring(8);
     }
     var urlList = result.split('|');
@@ -87,27 +87,24 @@ class BookSourceOld {
     if (urlList.length > 1) {
       map["charset"] = urlList[1].split("=")[1];
     }
-    var jsList=[];
-    if(jsPattern.hasMatch(result)){
-     for( var item in jsPattern.allMatches(result)){
-       jsList.add(item.input);
-       result = result.replaceAll(item.input, "\$${jsList.length - 1}");
-     }
-
+    var jsList = [];
+    if (jsPattern.hasMatch(result)) {
+      for (var item in jsPattern.allMatches(result)) {
+        jsList.add(item.input);
+        result = result.replaceAll(item.input, "\$${jsList.length - 1}");
+      }
     }
     result = result.replaceAll("{", "<").replaceAll("}", ">");
     result = result.replaceAll("searchKey", "{{key}}");
-    result = result.replaceAll("<searchPage([-+]1)>", "{{page\$1}}")
+    result = result
+        .replaceAll("<searchPage([-+]1)>", "{{page\$1}}")
         .replaceAll("searchPage([-+]1)", "{{page\$1}}")
         .replaceAll("searchPage", "{{page}}");
 
-    for (var index = 0; index<jsList.length;index++){
+    for (var index = 0; index < jsList.length; index++) {
       var item = jsList[index];
-      result = result.replaceAll(
-          "\$$index",
-          item.replaceAll("searchKey", "key").replaceAll("searchPage", "page")
-      );
-
+      result = result.replaceAll("\$$index",
+          item.replaceAll("searchKey", "key").replaceAll("searchPage", "page"));
     }
     urlList = result.split("@");
     result = urlList[0];
@@ -120,13 +117,13 @@ class BookSourceOld {
     }
     return result;
   }
-  BookSource convert2New() {
 
+  BookSource convert2New() {
     // if(bookSourceUrl!=null&& bookSourceUrl!.contains('https://api.zhuishushenqi.com')) {
     //   print(toString());
     // }
     // var content = toNewRule(this.ruleBookContent) ?: ""
-    var content = this.ruleBookContent??"";
+    var content = this.ruleBookContent ?? "";
     if (content.startsWith(r'$') && !content.startsWith(r"$.")) {
       content = content.substring(1);
     }
@@ -147,28 +144,28 @@ class BookSourceOld {
         this.weight,
         toNewUrl(this.ruleFindUrl),
         ExploreRule(
-            this.ruleFindList,
-            this.ruleFindName,
-            this.ruleFindAuthor,
-            this.ruleFindIntroduce,
-            this.ruleFindKind,
-            this.ruleFindLastChapter,
-            "",
-            this.ruleFindNoteUrl,
-            this.ruleFindCoverUrl,
-            ""),
+            ParseRule.parse(this.ruleFindList),
+            ParseRule.parse(this.ruleFindName),
+            ParseRule.parse(this.ruleFindAuthor),
+            ParseRule.parse(this.ruleFindIntroduce),
+            ParseRule.parse(this.ruleFindKind),
+            ParseRule.parse(this.ruleFindLastChapter),
+            ParseRule.parse(""),
+            ParseRule.parse(this.ruleFindNoteUrl),
+            ParseRule.parse(this.ruleFindCoverUrl),
+            ParseRule.parse("")),
         toNewUrl(this.ruleSearchUrl),
         SearchRule(
-            this.ruleSearchList,
-            this.ruleSearchName,
-            this.ruleSearchAuthor,
-            this.ruleSearchIntroduce,
-            this.ruleSearchKind,
-            this.ruleSearchLastChapter,
-            "",
-            this.ruleSearchNoteUrl,
-            this.ruleSearchCoverUrl,
-            ""),
+            ParseRule.parse(this.ruleSearchList),
+            ParseRule.parse(this.ruleSearchName),
+            ParseRule.parse(this.ruleSearchAuthor),
+            ParseRule.parse(this.ruleSearchIntroduce),
+            ParseRule.parse(this.ruleSearchKind),
+            ParseRule.parse(this.ruleSearchLastChapter),
+            ParseRule.parse(""),
+            ParseRule.parse(this.ruleSearchNoteUrl),
+            ParseRule.parse(this.ruleSearchCoverUrl),
+            ParseRule.parse("")),
         BookInfoRule(
             this.ruleBookInfoInit,
             this.ruleBookName,
@@ -187,9 +184,7 @@ class BookSourceOld {
           ..chapterUrl = this.ruleContentUrl
           ..isVip = ""
           ..updateTime = ""
-          ..nextTocUrl = this.ruleChapterUrlNext
-        ,
-
+          ..nextTocUrl = this.ruleChapterUrlNext,
         ContentRule(
           content,
           this.ruleContentUrlNext,
@@ -197,10 +192,8 @@ class BookSourceOld {
           "", //this.sourceRegex,
           this.ruleBookContentReplace,
           "", // this.imageStyle
-        )
-    );
+        ));
   }
-
 
   BookSourceOld(
       this.bookSourceGroup,
@@ -297,7 +290,6 @@ class BookSourceOld {
     ruleCoverUrl = json["ruleCoverUrl"];
   }
 
-
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
     map["bookSourceGroup"] = bookSourceGroup;
@@ -325,8 +317,6 @@ class BookSourceOld {
     map["serialNumber"] = serialNumber;
     map["weight"] = weight;
 
-
-
     map["ruleFindUrl"] = ruleFindUrl;
     map["loginUrl"] = loginUrl;
     map["bookSourceComment"] = bookSourceComment;
@@ -351,5 +341,4 @@ class BookSourceOld {
 
     return map;
   }
-
 }
