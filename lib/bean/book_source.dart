@@ -1,6 +1,5 @@
-import 'package:BookSource/bean/parse_rule.dart';
+import 'package:BookSource/rule/rule.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 
 @JsonSerializable()
 class BookSource {
@@ -68,21 +67,20 @@ class BookSource {
       return false;
     }
   }
-
 }
 
 @JsonSerializable()
 class ExploreRule {
-  ParseRule bookList;
-  ParseRule name;
-  ParseRule author;
-  ParseRule intro;
-  ParseRule kind;
-  ParseRule lastChapter;
-  ParseRule updateTime;
-  ParseRule bookUrl;
-  ParseRule coverUrl;
-  ParseRule wordCount;
+  Rule bookList;
+  Rule name;
+  Rule author;
+  Rule intro;
+  Rule kind;
+  Rule lastChapter;
+  Rule updateTime;
+  Rule bookUrl;
+  Rule coverUrl;
+  Rule wordCount;
 
   @override
   String toString() {
@@ -118,17 +116,16 @@ class ExploreRule {
 @JsonSerializable()
 class SearchRule // implements BookListRule
 {
-
-  ParseRule bookList;
-  ParseRule name;
-  ParseRule author;
-  ParseRule intro;
-  ParseRule kind;
-  ParseRule lastChapter;
-  ParseRule updateTime;
-  ParseRule bookUrl;
-  ParseRule coverUrl;
-  ParseRule wordCount;
+  Rule bookList;
+  Rule name;
+  Rule author;
+  Rule intro;
+  Rule kind;
+  Rule lastChapter;
+  Rule updateTime;
+  Rule bookUrl;
+  Rule coverUrl;
+  Rule wordCount;
 
   SearchRule(
       this.bookList,
@@ -141,7 +138,6 @@ class SearchRule // implements BookListRule
       this.bookUrl,
       this.coverUrl,
       this.wordCount);
-
 
   @override
   String toString() {
@@ -197,7 +193,6 @@ class TocRule {
   }
 
   TocRule();
-
 }
 
 @JsonSerializable()
@@ -211,8 +206,6 @@ class ContentRule {
 
   ContentRule(this.content, this.nextContentUrl, this.webJs, this.sourceRegex,
       this.replaceRegex, this.imageStyle); //默认大小居中,FULL最大宽度
-
-
 
   @override
   String toString() {

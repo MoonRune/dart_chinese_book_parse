@@ -1,36 +1,21 @@
-import 'package:BookSource/worker/js_worker.dart';
-import 'package:BookSource/worker/json_worker.dart';
-import 'package:BookSource/worker/or_worker.dart';
+import 'package:BookSource/rule/and_rule.dart';
+import 'package:BookSource/rule/error_rule.dart';
+import 'package:BookSource/rule/or_rule.dart';
+import 'package:BookSource/rule/rule.dart' ;
+import 'package:BookSource/rule/single/js_rule.dart';
+import 'package:BookSource/rule/single/single_rule.dart';
 
-import 'bean/parse_rule.dart';
-
-class ParseFactory{
-  static IWorker<SingRule> getWorker(SingRule rule){
-    switch (rule.mode) {
-      case Mode.Js:
-        return JsWorker();
-        break;
-      case Mode.Json:
-        return JsonWorker();
-        break;
-      case Mode.XPath:
-        break;
-      case Mode.Default:
-      //jsoup
-        return JsonWorker();
-        break;
+class ParseFactory {
+  static IParser<Rule> getParser(Rule rule) {
+    if (rule is AndRule) {
+      return AndParser(rule );
+    } else if (rule is SingleRule) {
+      return SingleParser(rule );
+    } else if (rule is OrRule) {
+      return OrParser(rule );
+    } else if (rule is JsRule) {
+      return JsParser(rule );
     }
-
-    return JsonWorker();
+    return ErrorParser(rule);
   }
-
-  static IWorker<ParseRule> getOrWorker(ParseRule rule){
-    return OrWorker();
-  }
-
 }
-abstract class IWorker<T>{
-  Future<String>  getString(T rule,String content) ;
-  Future<List<String>> getStringList(T rule,String content) ;
-}
-

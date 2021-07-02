@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:BookSource/bean/book_source.dart';
-import 'package:BookSource/bean/parse_rule.dart';
+import 'package:BookSource/rule/rule_factory.dart';
 
 class BookSourceOld {
   static const BOOK_SOURCE_TYPE_TEXT_AS_DEFAULT = '';
@@ -144,28 +144,28 @@ class BookSourceOld {
         this.weight,
         toNewUrl(this.ruleFindUrl),
         ExploreRule(
-            ParseRule.parse(this.ruleFindList),
-            ParseRule.parse(this.ruleFindName),
-            ParseRule.parse(this.ruleFindAuthor),
-            ParseRule.parse(this.ruleFindIntroduce),
-            ParseRule.parse(this.ruleFindKind),
-            ParseRule.parse(this.ruleFindLastChapter),
-            ParseRule.parse(""),
-            ParseRule.parse(this.ruleFindNoteUrl),
-            ParseRule.parse(this.ruleFindCoverUrl),
-            ParseRule.parse("")),
+            RuleFactory.parse(this.ruleFindList),
+            RuleFactory.parse(this.ruleFindName),
+            RuleFactory.parse(this.ruleFindAuthor),
+            RuleFactory.parse(this.ruleFindIntroduce),
+            RuleFactory.parse(this.ruleFindKind),
+            RuleFactory.parse(this.ruleFindLastChapter),
+            RuleFactory.parse(""),
+            RuleFactory.parse(this.ruleFindNoteUrl),
+            RuleFactory.parse(this.ruleFindCoverUrl),
+            RuleFactory.parse("")),
         toNewUrl(this.ruleSearchUrl),
         SearchRule(
-            ParseRule.parse(this.ruleSearchList),
-            ParseRule.parse(this.ruleSearchName),
-            ParseRule.parse(this.ruleSearchAuthor),
-            ParseRule.parse(this.ruleSearchIntroduce),
-            ParseRule.parse(this.ruleSearchKind),
-            ParseRule.parse(this.ruleSearchLastChapter),
-            ParseRule.parse(""),
-            ParseRule.parse(this.ruleSearchNoteUrl),
-            ParseRule.parse(this.ruleSearchCoverUrl),
-            ParseRule.parse("")),
+            RuleFactory.parse(this.ruleSearchList),
+            RuleFactory.parse(this.ruleSearchName),
+            RuleFactory.parse(this.ruleSearchAuthor),
+            RuleFactory.parse(this.ruleSearchIntroduce),
+            RuleFactory.parse(this.ruleSearchKind),
+            RuleFactory.parse(this.ruleSearchLastChapter),
+            RuleFactory.parse(""),
+            RuleFactory.parse(this.ruleSearchNoteUrl),
+            RuleFactory.parse(this.ruleSearchCoverUrl),
+            RuleFactory.parse("")),
         BookInfoRule(
             this.ruleBookInfoInit,
             this.ruleBookName,

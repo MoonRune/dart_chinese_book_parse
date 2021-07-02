@@ -1,42 +1,44 @@
+
 import 'dart:convert';
 
-import 'package:BookSource/bean/parse_rule.dart';
+import 'package:BookSource/rule/rule_factory.dart';
+import 'package:BookSource/rule/single/single_rule.dart';
+import 'package:flutter_qjs/flutter_qjs.dart';
 import 'package:json_path/json_path.dart';
 
-import '../parse_factory.dart';
+import '../../parse_factory.dart';
+import '../rule.dart';
 
-class JsonWorker extends IWorker<SingRule> {
-  static var jsonRulePattern = RegExp(r"(?<=\{)\$\..+?(?=\})");
+class JsonParser extends IParser<SingleRule> {
+  JsonParser(SingleRule rule) : super(rule);
+  static var jsonRulePattern = RegExp(r'(?<=\{)\$\..+?(?=\})');
   var jsonCode = JsonCodec();
 
   @override
-  Future<String> getString(SingRule singRule, String json) async {
-    if (!singRule.rule.contains(r'{$.')) {
-      var pattern = singRule.rule;
+  Future<String> getString(String json,{Map<String,dynamic>? valueMap}) async {
+
+    if (!rule.ruleContent.contains(r'{$.')) {
+      var pattern =rule.ruleContent;
       if (pattern.endsWith(r'.[*]')) {
         pattern = pattern.replaceAll(r'.[*]', '[*]');
       }
       final ob = JsonPath(pattern);
-      // print(
-      //     JsonCodec().decoder.convert(json)["books"])
       var its = ob
           .read(jsonCode.decoder.convert(json))
           .map((match) => '${match.value}');
       if (its.isEmpty) {
         return '';
-        // } else if (its.length == 1) {
-        //   return its.first;
       } else {
         return its.first;
       }
     } else {
       //https://www.hongshu.com/book/{$.bid}/
-      var result = singRule.rule;
-      if (jsonRulePattern.hasMatch(singRule.rule)) {
-        for (var matcher in jsonRulePattern.allMatches(singRule.rule)) {
-          var newRule = SingRule(Mode.Json, matcher.group(0)!);
+      var result = rule.ruleContent;
+      if (jsonRulePattern.hasMatch(rule.ruleContent)) {
+        for (var matcher in jsonRulePattern.allMatches(rule.ruleContent)) {
+          var newRule = RuleFactory.parse(matcher.group(0)!,dMode: Mode.Json);
           var newValue =
-              await ParseFactory.getWorker(newRule).getString(newRule, json);
+          await ParseFactory.getParser(newRule).getString(json,valueMap: valueMap);
           result=result.replaceAll('{${matcher.group(0)}}', newValue);
         }
       }
@@ -45,12 +47,12 @@ class JsonWorker extends IWorker<SingRule> {
   }
 
   @override
-  Future<List<String>> getStringList(SingRule rule, String json) async {
+  Future<List<String>> getStringList(String json,{Map<String,dynamic>? valueMap}) async {
     //这个是位jso
     var result = <String>[];
 
-    if (!rule.rule.contains(r'{$.')) {
-      var pattern = rule.rule;
+    if (!rule.ruleContent.contains(r'{$.')) {
+      var pattern = rule.ruleContent;
       if (pattern.endsWith(r'.[*]')) {
         pattern = pattern.replaceAll(r'.[*]', '[*]');
       }
@@ -72,12 +74,13 @@ class JsonWorker extends IWorker<SingRule> {
         }
       }
     }else {
-      var tempRule=rule.rule;
-      if (jsonRulePattern.hasMatch(rule.rule)) {
-        for (var matcher in jsonRulePattern.allMatches(rule.rule)) {
-          var newRule = SingRule(Mode.Json, matcher.group(0)!);
+      var tempRule=rule.ruleContent;
+      if (jsonRulePattern.hasMatch(rule.ruleContent)) {
+        for (var matcher in jsonRulePattern.allMatches(rule.ruleContent)) {
+          var newRule = RuleFactory.parse(matcher.group(0)!,dMode: Mode.Json);
+          //todo  json list？？？
           var newValue =
-          await ParseFactory.getWorker(newRule).getString(newRule, json);
+          await ParseFactory.getParser(newRule).getString(json,valueMap: valueMap);
           tempRule=tempRule.replaceAll('{${matcher.group(0)}}', newValue);
         }
         result.add(tempRule);

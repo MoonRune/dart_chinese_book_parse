@@ -2,33 +2,40 @@ import 'package:BookSource/rule/and_rule.dart';
 import 'package:BookSource/rule/or_rule.dart';
 import 'package:BookSource/rule/param_rule.dart';
 import 'package:BookSource/rule/rule.dart';
-import 'package:BookSource/rule/single_rule.dart';
+import 'package:BookSource/rule/single/js_rule.dart';
+import 'package:BookSource/rule/single/put_rule.dart';
+import 'single/single_rule.dart';
 
 import 'error_rule.dart';
 
 class RuleFactory {
   static var JS_PATTERN = RegExp(r'(<js>[\w\W]*?</js>|@js:[\w\W]*$)');
 
-  static Rule _parse(String ruleStr, {Mode dMode = Mode.Default}) {
+  static Rule parse(String? ruleStr, {Mode dMode = Mode.Default}) {
+    if(ruleStr == null){
+      return ErrorRule();
+    }
     //或最优先
     if (ruleStr.contains('||')) {
       var orRules = <Rule>[];
       for (var orRule in ruleStr.split('||')) {
-        orRules.add(_parse(orRule,dMode: dMode));
+        orRules.add(parse(orRule,dMode: dMode));
       }
       return OrRule(orRules);
     } else if (ruleStr.contains('&&')) {
       var andRules = <Rule>[];
       for (var andRule in ruleStr.split('&&')) {
-        andRules.add(_parse(andRule,dMode: dMode));
+        andRules.add(parse(andRule,dMode: dMode));
       }
       return AndRule(andRules);
-    } else {}
+    } else {
+      return _parseOther(ruleStr,dMode: dMode);
+    }
   }
 
   static var putPattern = RegExp('@put:(\\{[^}]+?\\})');
 
-  static Rule _parseMode(String ruleStr, {Mode dMode = Mode.Default}) {
+  static Rule _parseOther(String ruleStr, {Mode dMode = Mode.Default}) {
     var vRuleStr = ruleStr;
     //
     // if (vRuleStr.isEmpty) return ruleList;
@@ -61,31 +68,37 @@ class RuleFactory {
         }
         // ruleList.add(SourceRule(jsMatcher.group(), Mode.Js));
         var group = m.group(0) ?? "";
+        var jsResultRule=ruleStr.replaceAll(group, '');
         if (tmp.isNotEmpty) {
           group = group
               .replaceAll("<js>", '')
               .replaceAll("</js>", '')
               .replaceAll("@js:", '');
 
+          // todo put get 标记位独立的rule
           if (tmp.contains('@')) {
-            var paramsMap = {};
             var paramRule = tmp.split('@')[0];
             var other = tmp.replaceFirst(paramRule, '');
+            //PUT
+            var putMap=<String,Rule>{};
             if (putPattern.hasMatch(other)) {
               for (var match in putPattern.allMatches(other)) {
-                String? group = match.group(1);
+                var group = match.group(1);
                 if (group != null) {
                   group = group.replaceAll('{', '').replaceAll('}', '');
                   var splitedGroup = group.split(':');
-                  paramsMap.addAll({splitedGroup[0]: splitedGroup[1]});
+                  putMap.addAll({splitedGroup[0]: RuleFactory.parse(splitedGroup[1])});
                 }
               }
             }
-
-            return ParamRule(Mode.Js, group, paramsMap, _parse(paramRule,dMode:_mode));
+            var putRule=PutRule(putMap );
+            var resultJsRule=JsRule(parse(paramRule,dMode:_mode),  group );
+           return  AndRule(<Rule>[putRule,resultJsRule]);
+            // return JsRule(parse(jsResultRule,dMode:_mode), group );
           } else {
-            return (SingleRule(Mode.Js, group));
+            return JsRule(parse(jsResultRule,dMode:_mode), group );
           }
+          // return JsRule(parse(jsResultRule,dMode:_mode), group );
         }
 
         start = m.end;
