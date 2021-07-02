@@ -78,8 +78,16 @@ class BookSourceOld {
     var map = {};
     if (headerPattern.hasMatch(result)) {
       var header = headerPattern.firstMatch(result)!;
-      result = result.replaceFirst(header.input, '');
-      map["headers"] = header.input.substring(8);
+      result = result.replaceFirst(header.group(0)!, '');
+      var headers = header.group(0)!.substring(8);
+      var regex=RegExp(r"('?\w*'?){1}:");
+      var json=(headers.replaceAllMapped(regex,
+              (m) => r"'$1':".replaceAllMapped(RegExp(r"\$(\d)"),
+                  (m2) => m.group(int.parse(m2.group(1)!))!))).replaceAll(r"'", '"');
+
+        // var jsonHeader = JsonCodec().decoder.convert(json);
+
+      map["headers"]= json;
     }
     var urlList = result.split('|');
     result = urlList[0];

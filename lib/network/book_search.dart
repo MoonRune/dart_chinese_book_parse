@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:BookSource/bean/book_source.dart';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
 class BookSearch {
@@ -34,9 +35,11 @@ class BookSearch {
     url = getAbsoluteURL(baseUrl, urlArray[0]);
 
     if (urlArray.length > 1) {
-      JsonCodec json = JsonCodec();
+      var json = JsonCodec();
       var option = json.decode(urlArray[1]);
-      method = option["method"];
+      if (option["method"] != null) {
+        method = option["method"];
+      }
     }
     return this;
   }
@@ -71,22 +74,57 @@ class BookSearch {
   }
 
   Future<String> searchBooks() async {
-    var uri = Uri.parse(baseUrl);
+    var option = BaseOptions();
+    var uri = Uri.parse(baseUrl,);
     if (ruleUrl.contains(',')) {
       // uri= uri.replace(path:ruleUrl.split(',')[0]);
-      var desc = JsonCodec().decoder.convert(ruleUrl.replaceFirst(ruleUrl.split(',')[0]+',',''));
+      var desc = JsonCodec()
+          .decoder
+          .convert(ruleUrl.replaceFirst(ruleUrl.split(',')[0] + ',', ''));
 
-      uri = uri.replace(path: ruleUrl.split(',')[0]).replace(
-          query: desc["body"]
-              .replaceAll("{{key}}", key)
-              .replaceAll("{{page}", "1"));
+      var convertedPath = ruleUrl.split(',')[0] .replaceAll('{{key}}', key)
+          .replaceAll('{{page}}', '1');
+      if(convertedPath.contains('?')){
+
+        var query= convertedPath.split('?')[1];
+        convertedPath= convertedPath.split('?')[0];
+        uri = uri.replace(path: convertedPath);
+        uri = uri.replace(
+            query: query);
+      }else {
+        uri = uri.replace(path: convertedPath);
+      }
+      // uri = uri.replace(query: newPath);
+      if (desc['body'] != null) {
+        uri = uri.replace(
+            query: desc["body"]
+                .replaceAll("{{key}}", key)
+                .replaceAll("{{page}}", "1"));
+      }
+      if (desc['headers'] != null) {
+        String headers=desc['headers'];
+
+        option.headers=JsonCodec().decoder.convert(headers);
+
+      }
     } else {
-       uri = Uri.parse((baseUrl + ruleUrl)
+      uri = Uri.parse((baseUrl + ruleUrl)
           .replaceAll("{{key}}", key)
-          .replaceAll("{{page}", "1"));
+          .replaceAll("{{page}}", "1"));
     }
     try {
-      var response = await Dio().getUri(uri);
+
+      var dio=new Dio(option);
+      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+        // config the http client
+        client.findProxy = (uri) {
+          //proxy all request to localhost:8888
+          return "PROXY localhost:8888"; //这里将localhost设置为自己电脑的IP，其他不变，注意上线的时候一定记得把代理去掉
+        };
+        // you can also create a HttpClient to dio
+        // return HttpClient();
+      };
+      var response = await dio.getUri(uri);
       if (response.statusCode == 200) {
         print(uri);
         print(response);

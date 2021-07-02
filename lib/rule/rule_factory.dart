@@ -86,7 +86,7 @@ class RuleFactory {
                 var group = match.group(1);
                 if (group != null) {
                   group = group.replaceAll('{', '').replaceAll('}', '');
-                  var splitedGroup = group.split(':');
+                  var splitedGroup = group.split(RegExp(',|:'));
                   putMap.addAll({splitedGroup[0]: RuleFactory.parse(splitedGroup[1])});
                 }
               }

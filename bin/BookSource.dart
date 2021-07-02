@@ -28,28 +28,65 @@ void main(List<String> arguments) {
   // callJS().then((value) => print(value));
   // callRegex().then((value) => print(value));
   // testJs();
+  // callRegex();
+  // callRegex();
   search();
 }
 
 Future<String> callRegex() async {
+  var unjson="{Seq: '1f9caa033a22bc75e72437d8952992cd',PushToken: 'AqJmTQBjP541B9G8V90FwOfjyWUbqhf9dOrENy47ckhK'}";
+  var regex=RegExp(r"('?\w*'?){1}:");
+  regex.allMatches(unjson).forEach((element) {
+    print(element.group(0));
+    print(element.group(1));
+  });
+  var json=(unjson.replaceAllMapped(regex,
+          (m) => r"'$1':".replaceAllMapped(RegExp(r"\$(\d)"),
+              (m2) => m.group(int.parse(m2.group(1)!))!))).replaceAll(r"'", '"');
+  print(JsonCodec().decoder.convert(json));
+  if(true){
+    return '';
+  }
+  final s = "123-4567-89,987-6543-21";
+  print(s.replaceAllMapped(RegExp(r"(\d+)-(\d+)-(\d+)"),
+          (m) => r"$3-$1-$2".replaceAllMapped(RegExp(r"\$(\d)"),
+              (m2) => m.group(int.parse(m2.group(1)!))!)));
+
   var content =
       '{"code":0,"count":100,"data":[{"author":"龙鳞","chapterCnt":373,"clsId":2,"clsIdSecond":23,"clsName":"奇幻 - 魔法校园","createTime":"2018-11-19 07:04:34","downCnt":0,"esScore":33629,"fullFlag":3,"id":394785,"intro":"","isOnShelf":0,"lastUpdate":"2018-03-30 16:26:00","loveCnt":0,"name":"天外飞仙","photoPath":"/70/147e3429e29bb996dc0b828643e29a7f.jpg","postDate":"2018-11-12 00:04:19.000","readCnt":0,"relTagName":[],"retention":2073,"score":6363,"status":1,"strScore":"6.4","wordCnt":1286498},{"author":"戚少","chapterCnt":20,"clsId":4,"clsIdSecond":29,"clsName":"仙侠 - 奇幻修真","createTime":"2018-11-23 21:44:35","downCnt":0,"esScore":33384,"fullFlag":2,"id":532157,"intro":"天道不仁，以万物为刍狗。天地为棋盘，众生皆为棋子。问苍茫大地，谁主沉浮？死亡并不是结束，而是新的开始。天外来客坠入西冥山脉，是意外还是意图？天道布局谁能阻挡？欧阳天身为天眷之子，命运之路到底何去何从？强者，注定踏着累累白骨走上巅峰。而弱者注定成为…\n","isOnShelf":0,"lastUpdate":"2017-04-26 16:08:35","loveCnt":0,"name":"天外飞仙","photoPath":"/70/147e3429e29bb996dc0b828643e29a7f.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":630,"score":6500,"status":1,"strScore":"6.5","wordCnt":73161},{"author":"小昌","chapterCnt":1,"clsId":4,"clsIdSecond":28,"clsName":"仙侠 - 现代修真","createTime":"2019-03-06 12:56:26","downCnt":0,"esScore":33140,"fullFlag":3,"id":724767,"intro":"小昌，80后新锐作家，广西作家协会会员，山东冠县人，1982年出生，大学教师。曾在《北方文学》、《黄河文学》、《延河》等杂志发表中短篇小说若干。现居广西北海。","isOnShelf":0,"lastUpdate":"2018-06-01 17:47:09","loveCnt":0,"name":"天外飞仙","photoPath":"/2035/649160F2994BDDC20291FEC05110F9E8/t5_215476.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":735,"score":6300,"status":1,"strScore":"6.3","wordCnt":2464},{"author":"天外飞仙","chapterCnt":4,"clsId":5,"clsIdSecond":31,"clsName":"都市 - 医道圣手","createTime":"2019-01-14 11:35:37","downCnt":0,"esScore":29701,"fullFlag":2,"id":624088,"intro":"最强邪医强势下山，专给各路美女治病……","isOnShelf":0,"lastUpdate":"","loveCnt":0,"name":"最强都市邪医","photoPath":"/1583/1D2648901520E7697BC1CAEBA560B25A/1D2648901520E7697BC1CAEBA560B25A.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":100,"score":8044,"status":1,"strScore":"8.0","wordCnt":13029},{"author":"天外飞仙","chapterCnt":661,"clsId":5,"clsIdSecond":31,"clsName":"都市 - 医道圣手","createTime":"2019-06-12 07:37:23","downCnt":0,"esScore":29285,"fullFlag":2,"id":893139,"intro":"主角:苏怡凡,唐诚。 “臭小子，你眼睛往哪里瞄？”“小姐姐，不要生气嘛，我在给你看病呢。”最强都市邪医强势下山，专给各路美女治病……","isOnShelf":0,"lastUpdate":"2018-10-25 05:06:00","loveCnt":0,"name":"至强都市邪医","photoPath":"/1078/795EA00B390593F2C1984E94436839C1/795EA00B390593F2C1984E94436839C1.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":463,"score":6000,"status":1,"strScore":"6.0","wordCnt":1823386},{"author":"月神","chapterCnt":2178,"clsId":5,"clsIdSecond":31,"clsName":"都市 - 医道圣手","createTime":"2019-04-07 11:09:23","downCnt":0,"esScore":20750,"fullFlag":2,"id":820213,"intro":"主角:。 有些女人不能碰，碰一碰，要你命！太上老君炼丹童子——徐甲，睡了嫦娥，惹怒玉皇大帝，在孙猴子的庇护下，魂穿人间，凭着一手炼丹术、医术，风水，道术，混的风生水起。懂天文，识地理，...","isOnShelf":0,"lastUpdate":"2018-07-01 11:56:00","loveCnt":0,"name":"天外飞医","photoPath":"/3262/5810EAD9263DAF07DEE85B903BC9C64E/5810EAD9263DAF07DEE85B903BC9C64E.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":1123,"score":6000,"status":1,"strScore":"6.0","wordCnt":6514932},{"author":"月神_幻文小说网","chapterCnt":179,"clsId":5,"clsIdSecond":31,"clsName":"都市 - 医道圣手","createTime":"2018-11-23 23:53:03","downCnt":0,"esScore":19746,"fullFlag":2,"id":543251,"intro":"有些女人不能碰，碰一碰，要你命！太上老君炼丹童子——徐甲，睡了嫦娥，惹怒玉皇大帝，在孙猴子的庇护下，魂穿人间，凭着一手炼丹术、医术，风水，道术，混的风生水起。懂天文，识地理，能捉鬼，能降妖。精医术，通道术，会治病，会杀人。很热血、很邪…\n","isOnShelf":0,"lastUpdate":"2016-09-06 04:09:24","loveCnt":0,"name":"天外飞医","photoPath":"/70/147e3429e29bb996dc0b828643e29a7f.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":2613,"score":6545,"status":1,"strScore":"6.5","wordCnt":469558},{"author":"夜天寒(书坊)","chapterCnt":145,"clsId":4,"clsIdSecond":29,"clsName":"仙侠 - 奇幻修真","createTime":"2018-11-19 02:18:59","downCnt":0,"esScore":19331,"fullFlag":2,"id":380533,"intro":"天，何谓天？仙，又何谓仙？造化之下，众生蝼蚁，皆可为仙，世间却无仙！仙在何方，地葬之下。仙在何方，苍莽之天！\n","isOnShelf":0,"lastUpdate":"2015-06-05 14:37:33","loveCnt":0,"name":"飞仙天外天","photoPath":"/257/4DDF78AED43882E3F299237F0131C0CA/4DDF78AED43882E3F299237F0131C0CA.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":1000,"score":6100,"status":1,"strScore":"6.1","wordCnt":461062},{"author":"天外肥仙","chapterCnt":6544,"clsId":6,"clsIdSecond":43,"clsName":"校园 - 校园修真","createTime":"2019-10-07 12:00:46","downCnt":0,"esScore":18693,"fullFlag":2,"id":906703,"intro":"  温柔似水的校花，匪气十足的少年，因为一支神奇钢笔，自此生活变的多姿多彩了起来。","isOnShelf":0,"lastUpdate":"2019-10-06 18:56:11","loveCnt":0,"name":"校园花心高手","photoPath":"/3123/6661E82CAF738405A329BB92D305D711/6661E82CAF738405A329BB92D305D711.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":3069,"score":6500,"status":1,"strScore":"6.5","wordCnt":15066421},{"author":"天外肥仙","chapterCnt":5572,"clsId":6,"clsIdSecond":42,"clsName":"校园 - 校园生活","createTime":"2019-06-12 04:43:16","downCnt":0,"esScore":18448,"fullFlag":2,"id":892191,"intro":"主角:。 温柔似水的校花，匪气十足的少年，因为一支神奇钢笔，自此生活变的多姿多彩了起来。","isOnShelf":0,"lastUpdate":"2018-04-01 03:57:00","loveCnt":0,"name":"校园护花高手","photoPath":"/72/0014b4d4b9c91c6fde386eb1343d94be.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":1108,"score":6333,"status":1,"strScore":"6.3","wordCnt":12552107},{"author":"夜天寒","chapterCnt":200,"clsId":5,"clsIdSecond":33,"clsName":"都市 - 都市高手","createTime":"2019-04-04 19:14:40","downCnt":0,"esScore":18381,"fullFlag":2,"id":792135,"intro":"长剑舞天，问道征仙！ 天路轮回，问一声何为天？天道天道，天既无道，那我便逆了这天！ 仙道佛途，万万年下，谁已成仙? 乱古的迷局，喋血的飞影，仙陨天陨，谁操纵了背后的一切？ 沉沦的大世，一路血歌，破开三界！开万世飞升，盛世成仙！ 开了一个读者群，喜欢玩的就来吧：272616807","isOnShelf":0,"lastUpdate":"","loveCnt":0,"name":"飞仙天外天","photoPath":"/3674/2DA486B80060E85C56C2EE920A455D2A/2DA486B80060E85C56C2EE920A455D2A.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":1000,"score":6000,"status":1,"strScore":"6.0","wordCnt":535183},{"author":"屿霖铃","chapterCnt":226,"clsId":1,"clsIdSecond":19,"clsName":"玄幻 - 斗气世界","createTime":"2018-12-04 00:36:04","downCnt":0,"esScore":17948,"fullFlag":3,"id":589991,"intro":"他，是异界大陆的王子，运筹帷幄，能征善战，唯独悲情；她，是地球的普通女孩，为了朋友，和地球一修真门派的师姐师兄们到了异界；因为，这门派和异界有一个千年契约。人、兽、魔、妖、神，谁才是最后的霸主？ 河蟹大军、蚕豹魔军、飞龙骑士、火焰骑兵、金甲武士、天弓骑兵，公主、王子，谁是你的千年一梦？尽在“天外飞蝶”！","isOnShelf":0,"lastUpdate":"","loveCnt":0,"name":"天外飞蝶","photoPath":"/282/84BB9CE296C1082CAA3D6514A4A31AAB/84BB9CE296C1082CAA3D6514A4A31AAB.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":1000,"score":6500,"status":1,"strScore":"6.5","wordCnt":521012},{"author":"屿霖铃","chapterCnt":226,"clsId":1,"clsIdSecond":22,"clsName":"玄幻 - 东方玄幻","createTime":"2019-04-06 23:47:47","downCnt":0,"esScore":17720,"fullFlag":3,"id":815925,"intro":"主角:。 绝对值得一读的作品他，是异界大陆的王子，运筹帷幄，能征善战，唯独悲情；她，是地球的普通女孩，为了朋友，和地球一修真门派的师姐师兄们到了异界；因为，这门派和异界有一个千年契约。人、兽、魔、妖、神，谁才是最后的霸主？河蟹大军、蚕豹魔军、飞龙骑士、火焰骑兵、金甲武士、天弓骑兵，公主、王子，谁是你的千年一梦？尽在《天外飞蝶》！","isOnShelf":0,"lastUpdate":"2018-11-02 06:42:00","loveCnt":0,"name":"天外飞蝶","photoPath":"/846/44187074E375EE80DC5AB6C1A6B01E4C/44187074E375EE80DC5AB6C1A6B01E4C.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":1000,"score":6000,"status":1,"strScore":"6.0","wordCnt":545956},{"author":"天外有仙","chapterCnt":315,"clsId":5,"clsIdSecond":37,"clsName":"都市 - 乡土生活","createTime":"2018-11-23 01:29:07","downCnt":0,"esScore":17671,"fullFlag":3,"id":450865,"intro":"平凡大学生手机里突然多了一个叫做天庭淘宝的软件，由此他走上了一条不同凡响的淘宝店主生涯，卖东西给神仙，同样，仙界的东西也被他买到了手中。山神的人参种子和快速成长试剂帮他发家致富。符仙的各种符咒能帮他锄强扶弱。太上老君的各式丹药能帮他救死扶伤。……厨神：求求你卖一本精品菜谱给我吧，玉皇大帝已经吃腻了我做的菜了。太上老君座下童子：我用太上老君亲手炼制的丹药换你一个空调吧，我坐在火炉旁边都快热死了。逍遥仙子：我用一颗仙果换你岛国的女明星影碟给我解锁新姿势好不好？……刘志感觉这个世界乱套了，这天上的神仙也太没节操了吧！三十年河东，三十年河西，莫欺少年穷！且看一平凡少年如何逆袭，走上发家致富之路。","isOnShelf":0,"lastUpdate":"","loveCnt":0,"name":"我在乡村开淘宝","photoPath":"/672/75138D7E2D18318BAD34FFF73C6B4B4B/75138D7E2D18318BAD34FFF73C6B4B4B.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":1153,"score":6461,"status":1,"strScore":"6.5","wordCnt":744104},{"author":"金铃动","chapterCnt":3893,"clsId":4,"clsIdSecond":29,"clsName":"仙侠 - 奇幻修真","createTime":"2019-02-24 12:51:45","downCnt":0,"esScore":17437,"fullFlag":2,"id":663045,"intro":"仙与魔的永恒争斗，琴与剑的绝世情缘，这是一个宏大而瑰丽的仙侠世界，一对少男少女踏上修仙路……","isOnShelf":0,"lastUpdate":"","loveCnt":0,"name":"极品飞仙","photoPath":"/2190/B13A7A9E4931EEE3E4154ED711634320/B13A7A9E4931EEE3E4154ED711634320.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":4244,"score":8984,"status":1,"strScore":"9.0","wordCnt":8556812},{"author":"天外肥仙","chapterCnt":2441,"clsId":5,"clsIdSecond":40,"clsName":"都市 - 职场生活","createTime":"2019-05-20 00:43:52","downCnt":0,"esScore":16780,"fullFlag":2,"id":873790,"intro":"温柔似水的校花，匪气十足的少年，因为一支神奇钢笔，自此生活变的多姿多彩了起来。","isOnShelf":0,"lastUpdate":"","loveCnt":0,"name":"校园护花高手(校对)","photoPath":"/1608/6DBEB45D127F410F3D60D84D1719F23D/6DBEB45D127F410F3D60D84D1719F23D.jpg","postDate":"2019-05-14 22:48:00.000","readCnt":0,"relTagName":[],"retention":291,"score":6000,"status":1,"strScore":"6.0","wordCnt":11986132},{"author":"天外飞鞋","chapterCnt":150,"clsId":5,"clsIdSecond":33,"clsName":"都市 - 都市高手","createTime":"2018-12-03 20:38:07","downCnt":0,"esScore":16353,"fullFlag":2,"id":578428,"intro":"谁说只有男人能重生，左拥右抱好不逍遥．女人照样可以，混娱乐卖流行，天下大事照样参与！左拥右抱就免了吧，其实我是一个腐女！腐的最高境界，天下大同！我拍耽美剧，我开娱乐公司，我祸害整个娱乐圈。各位狼女们，你们最萌的配对有哪些？本书都能找到！绝对精彩！==================感谢凌嘉ｍｍ帮偶做封面书友群：50461389腐女联盟—即将人满1284906很ｃj的腐女群（女生群）—人满！57631872包月读者群（新开）—包月用户请进！\n","isOnShelf":0,"lastUpdate":"2013-05-13 09:44:48","loveCnt":0,"name":"腐女重生","photoPath":"/407/51E824B0BFBECF5CA3D3B8DFCB439BCD/51E824B0BFBECF5CA3D3B8DFCB439BCD.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":1744,"score":7076,"status":1,"strScore":"7.1","wordCnt":402936},{"author":"天外有仙","chapterCnt":315,"clsId":5,"clsIdSecond":38,"clsName":"都市 - 都市生活","createTime":"2019-04-06 16:14:12","downCnt":0,"esScore":16191,"fullFlag":3,"id":812447,"intro":"主角:。 平凡大学生手机里突然多了一个叫做天庭淘宝的软件，由此他走上了一条不同凡响的淘宝店主生涯，卖东西给神仙，同样，仙界的东西也被他买到了手中。山神的人参种子和快速成长试剂帮他发家致富。符仙的各种符咒能帮他锄强扶弱。太上老君的各式丹药能帮他救死扶伤。……厨神：求求你卖一本精品菜谱给我吧，玉皇大帝已经吃腻了我做的菜了。太上老君座下童子：我用太上老君亲手炼制的丹药换你一个空调吧，我坐在火炉旁边都快热死了。逍遥仙子：我用一颗仙果换你岛国的女明星影碟给我解锁新姿势好不好？……刘志感觉这个世界乱套了，这天上的神仙也太没节操了吧！三十年河东，三十年河西，莫欺少年穷！且看一平凡少年如何逆袭，走上发家致富之路。","isOnShelf":0,"lastUpdate":"2018-09-16 03:53:00","loveCnt":0,"name":"我在乡村开淘宝","photoPath":"/1124/35CEFAB503B0BBA46B6B7067741E7264/35CEFAB503B0BBA46B6B7067741E7264.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":1000,"score":6000,"status":1,"strScore":"6.0","wordCnt":686285},{"author":"玄色","chapterCnt":96,"clsId":2,"clsIdSecond":23,"clsName":"奇幻 - 魔法校园","createTime":"2018-12-03 22:05:37","downCnt":0,"esScore":16186,"fullFlag":3,"id":584330,"intro":"","isOnShelf":0,"lastUpdate":"2011-12-15 20:42:00","loveCnt":0,"name":"天外非仙","photoPath":"/2235/ABD16E4AA630A087DE67096A80D13565/ABD16E4AA630A087DE67096A80D13565.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":985,"score":6727,"status":1,"strScore":"6.7","wordCnt":258128},{"author":"天外散仙","chapterCnt":121,"clsId":4,"clsIdSecond":30,"clsName":"仙侠 - 古典仙侠","createTime":"2018-11-19 07:43:36","downCnt":0,"esScore":16065,"fullFlag":2,"id":396133,"intro":"大禹治水的传说，是中华民族悠久历史和灿烂文化的重要组成部分，也是中华民族远古神话传说里的最精彩的一章。他的治水经历，充满了我国古代先民在征服自然，改造自然的过程中，坚韧不拔和不屈不挠的斗争精神。千百年来，大禹治水的传说和治服洪水的丰功伟绩，一直为后世的人们所传诵。在这传诵的过程中，又给这一壮举披上了神话的外衣，使这一传说更加美丽，迷人。\n","isOnShelf":0,"lastUpdate":"2016-06-15 08:25:00","loveCnt":0,"name":"大禹治水演义","photoPath":"/3311/33F309CD8D9867BCC88D89864AB097BE/33F309CD8D9867BCC88D89864AB097BE.jpg","postDate":"","readCnt":0,"relTagName":[],"retention":1000,"score":6100,"status":1,"strScore":"6.1","wordCnt":518541}],"enumCode":"SUCCESS","msg":"20","pageCount":5,"pageNo":1,"pageSize":20,"success":true}';
+
   var reg = RegExp(
       r'author":"([^"]*)[^}]*clsName":"([^"]*)[^}]*id":(\d+),"intro":"([^}]*?)",[^}]*lastUpdate":"([^"]*)[^}]*name":"([^"]*)","photoPath":"([^"]*)');
   // var content=  await io.File(r'C:\Users\baziii\Desktop\regex.html')
   //     .readAsString();
   // var reg=RegExp('href(?:[^"]*"){7}([^"]*)(?:[^"]*"){6}([^"]*)(?:[^>]*>)([^<]*)(?:[^:]*:)([^<]*)(?:[^>]*>){2}([^<]*)(?:[^:]*:)([^<]*)(?:[^>]*>){3}([^<]*)');
+
+  var reg1=RegExp(r'$1');
+  // reg=RegExp('href(?:[^\"]*\"){7}([^\"]*)(?:[^\"]*\"){6}([^\"]*)(?:[^>]*>)([^<]*)(?:[^：]*：)([^<]*)(?:[^>]*>)');
+
   reg.allMatches(content).forEach((element) {
-    // print(element.input);
+    print(element.group(0));
+    var replace= element.group(0)!.replaceAllMapped(reg, (m) =>
+        r'$1'.replaceAllMapped(RegExp(r"\$(\d)"),
+                (m2) => m.group(int.parse(m2.group(1)!))!
+        ));
+    print(replace);
+    // var list=[];
+    // for (var i=1;i<=element.groupCount;i++){
+    //   // print(element.group(i));
+    //   list.add(element.group(i));
+    // }
     // print(element.group(0));
-    print(element.group(1)); //author
-    print(element.group(2)); //tag
-    print(element.group(3)); //bookId
-    print(element.group(4)); // intro
-    print(element.group(5)); //lastUpdate
-    print(element.group(6)); //bookname
-    print(element.group(7)); //pic
-    print('---------------');
+    // print(element.group(1)); //author
+    // print(element.group(2)); //tag
+    // print(element.group(3)); //bookId
+    // print(element.group(4)); // intro
+    // print(element.group(5)); //lastUpdate
+    // print(element.group(6)); //bookname
+    // print(element.group(7)); //pic
+    // print('---------------');
+    // print( parse(list.toString()).querySelector(r'$1'));
+
   });
   return "";
 }
@@ -171,9 +208,9 @@ void printBookSourceUrl(BookSource source) async {
   if (
   // source.bookSourceUrl.contains('https://www.hongshu.com')
   // ||
-      source.bookSourceUrl.contains('https://api.zhuishushenqi.com')
+  //     source.bookSourceUrl.contains('https://api.zhuishushenqi.com')
   // ||
-
+true
       // source.bookSourceUrl.contains('https://read.xiaoshuo1-sm.com')
 
   ) {
