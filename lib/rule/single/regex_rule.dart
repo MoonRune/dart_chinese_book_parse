@@ -21,7 +21,9 @@ class RegexParser extends IParser<SingleRule>{
   Future<String> getString(String content, {Map<String, dynamic>? valueMap}) async{
 
     if(index>=0){
-      return content.split(';')[index];
+
+      var replace= content.split(';')[index];
+      return rule.ruleContent.replaceAll(regex.firstMatch(rule.ruleContent)!.group(0)!, replace);
     }
     var result = '';
     if(regExp.hasMatch(content)) {
