@@ -5,7 +5,7 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
 class BookSearch {
-  String ruleUrl;
+  BookSource source;
 
   String key;
 
@@ -21,16 +21,17 @@ class BookSearch {
   // var pagePattern = Pattern("<(.*?)>")
   late String url;
 
-  BookSearch(this.ruleUrl, this.key, this.page, this.baseUrl, this.headerMapF,
+  BookSearch(this.source, this.key, this.page, this.baseUrl, this.headerMapF,
       this.book);
 
   factory BookSearch.fromRule(BookSource source, String key, int page) =>
       BookSearch(
-          source.searchUrl ?? "", key, page, source.bookSourceUrl, Map(), "");
+          source, key, page, source.bookSourceUrl, Map(), "").init();
 
   late String method;
 
   BookSearch init() {
+    var ruleUrl=source.bookSourceUrl;
     var urlArray = ruleUrl.split(splitUrlRegex);
     url = getAbsoluteURL(baseUrl, urlArray[0]);
 
@@ -76,6 +77,8 @@ class BookSearch {
   Future<String> searchBooks() async {
     var option = BaseOptions();
     var uri = Uri.parse(baseUrl,);
+
+    var ruleUrl=source.searchUrl??'';
     if (ruleUrl.contains(',')) {
       // uri= uri.replace(path:ruleUrl.split(',')[0]);
       var desc = JsonCodec()
@@ -131,13 +134,14 @@ class BookSearch {
         return response.toString();
       }
     } catch (e) {
-      // print(url);
-      // print(e);
+      print(url);
+      print(e);
     }
     return '';
   }
 
   String getSearchUrl() {
-    return getAbsoluteURL(baseUrl, ruleUrl);
+
+    return getAbsoluteURL(baseUrl, source.bookSourceUrl);
   }
 }
