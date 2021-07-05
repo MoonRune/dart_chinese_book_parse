@@ -186,13 +186,13 @@ class BookSourceOld {
             "",
             "",
             ""),
-        TocRule()
-          ..chapterList = this.ruleChapterList
-          ..chapterName = this.ruleChapterName
-          ..chapterUrl = this.ruleContentUrl
-          ..isVip = ""
-          ..updateTime = ""
-          ..nextTocUrl = this.ruleChapterUrlNext,
+        TocRule(
+          RuleFactory.parse(this.ruleChapterList),
+          RuleFactory.parse(this.ruleChapterName),
+          RuleFactory.parse(this.ruleContentUrl),
+          RuleFactory.parse(""),
+          RuleFactory.parse(""),
+          RuleFactory.parse(this.ruleChapterUrlNext)),
         ContentRule(
           content,
           this.ruleContentUrlNext,

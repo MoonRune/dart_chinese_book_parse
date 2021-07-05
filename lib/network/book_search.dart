@@ -115,15 +115,15 @@ class BookSearch {
     try {
 
       var dio=new Dio(option);
-      (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-        // config the http client
-        client.findProxy = (uri) {
-          //proxy all request to localhost:8888
-          return "PROXY localhost:8888"; //这里将localhost设置为自己电脑的IP，其他不变，注意上线的时候一定记得把代理去掉
-        };
-        // you can also create a HttpClient to dio
-        // return HttpClient();
-      };
+      // (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+      //   // config the http client
+      //   client.findProxy = (uri) {
+      //     //proxy all request to localhost:8888
+      //     return "PROXY localhost:8888"; //这里将localhost设置为自己电脑的IP，其他不变，注意上线的时候一定记得把代理去掉
+      //   };
+      //   // you can also create a HttpClient to dio
+      //   // return HttpClient();
+      // };
       var response = await dio.getUri(uri);
       if (response.statusCode == 200) {
         print(uri);

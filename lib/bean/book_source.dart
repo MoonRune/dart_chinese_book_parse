@@ -180,19 +180,20 @@ class BookInfoRule {
 
 @JsonSerializable()
 class TocRule {
-  String? chapterList;
-  String? chapterName;
-  String? chapterUrl;
-  String? isVip;
-  String? updateTime;
-  String? nextTocUrl;
+  Rule chapterList;
+  Rule chapterName;
+  Rule chapterUrl;
+  Rule isVip;
+  Rule updateTime;
+  Rule nextTocUrl;
 
   @override
   String toString() {
     return 'TocRule{chapterList: $chapterList, chapterName: $chapterName, chapterUrl: $chapterUrl, isVip: $isVip, updateTime: $updateTime, nextTocUrl: $nextTocUrl}';
   }
 
-  TocRule();
+  TocRule(this.chapterList, this.chapterName, this.chapterUrl, this.isVip,
+      this.updateTime, this.nextTocUrl);
 }
 
 @JsonSerializable()
