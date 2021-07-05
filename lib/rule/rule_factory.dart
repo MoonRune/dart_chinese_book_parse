@@ -4,6 +4,7 @@ import 'package:BookSource/rule/param_rule.dart';
 import 'package:BookSource/rule/rule.dart';
 import 'package:BookSource/rule/single/js_rule.dart';
 import 'package:BookSource/rule/single/put_rule.dart';
+import 'package:BookSource/rule/single/regex_child_rule.dart';
 import 'single/single_rule.dart';
 
 import 'error_rule.dart';
@@ -103,6 +104,9 @@ class RuleFactory {
 
         start = m.end;
       }
+    }
+    if(RegexChildParser.regex.hasMatch(vRuleStr)){
+      _mode = Mode.Regex;
     }
     if (vRuleStr.length > start) {
       tmp = vRuleStr.substring(start).trim();

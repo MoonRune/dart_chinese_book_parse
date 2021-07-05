@@ -1,6 +1,7 @@
 import 'package:BookSource/rule/rule.dart';
 import 'package:BookSource/rule/single/js_rule.dart';
 import 'package:BookSource/rule/single/json_rule.dart';
+import 'package:BookSource/rule/single/regex_rule.dart';
 
 class SingleRule extends Rule {
   Mode mode;
@@ -22,6 +23,8 @@ class SingleParser extends IParser<SingleRule> {
       // case Mode.Js:
       //   return JsParser(rule).getString(content);
       //   break;
+      case Mode.Regex:
+        return RegexParser(rule).getString(content,valueMap: valueMap);
       case Mode.Json:
         return  JsonParser(rule).getString(content,valueMap: valueMap);
         break;
@@ -32,6 +35,10 @@ class SingleParser extends IParser<SingleRule> {
         return  JsonParser(rule).getString(content,valueMap: valueMap);
         break;
     }
+
+    // if(RegexChildParser.regex.hasMatch(rule.)){
+    //   return RegexParser(rule).getString(content,valueMap: valueMap);
+    // }
     return '';
   }
 
@@ -41,6 +48,9 @@ class SingleParser extends IParser<SingleRule> {
       // case Mode.Js:
       //   return JsParser(rule).getStringList(content);
       //   break;
+
+      case Mode.Regex:
+        return RegexParser(rule).getStringList(content,valueMap: valueMap);
       case Mode.Json:
         return await JsonParser(rule).getStringList(content,valueMap: valueMap);
         break;
