@@ -38,8 +38,10 @@ class JsParser extends IParser<JsRule> {
     final setToGlobalObject = await engine.evaluate(" (key, val) => { this[key] = val; }");
     await setToGlobalObject.invoke([
       "put",
-      IsolateFunction((String url) {
-        print(url);
+      IsolateFunction((String key,String value) {
+        if(valueMap!=null){
+          valueMap[key]=value;
+        }
       }),
     ]);
     await setToGlobalObject.invoke([
@@ -60,7 +62,8 @@ class JsParser extends IParser<JsRule> {
             await ParseFactory.getParser(resultRule).getString(content,valueMap: valueMap);
         execute =  'var result="$result";';
       }
-      var js = rule.js.replaceAll('java.', 'await ');
+      var js = rule.js.replaceAll('java.ajax(', 'await ajax(');
+      var js = rule.js.replaceAll('java.put(', 'put(');
       js='$execute$js';
 
       js = ' async function dothis(){$js}; dothis()';
