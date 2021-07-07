@@ -1,0 +1,717 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0041)https://www.hongshu.com/bookreader/42203/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./天外飞蝶txt-全文阅读-红薯中文网_files/hm.js.下载"></script><script src="./天外飞蝶txt-全文阅读-红薯中文网_files/hm.js.下载"></script><script type="text/javascript" async="" src="./天外飞蝶txt-全文阅读-红薯中文网_files/tjsitecount.js.下载"></script><script>(function(){function hookGeo() {
+    //<![CDATA[
+  const WAIT_TIME = 100;
+  const hookedObj = {
+    getCurrentPosition: navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),
+    watchPosition: navigator.geolocation.watchPosition.bind(navigator.geolocation),
+    fakeGeo: true,
+    genLat: 38.883333,
+    genLon: -77.000
+  };
+
+  function waitGetCurrentPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        hookedObj.tmp_successCallback({
+          coords: {
+            latitude: hookedObj.genLat,
+            longitude: hookedObj.genLon,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        });
+      } else {
+        hookedObj.getCurrentPosition(hookedObj.tmp_successCallback, hookedObj.tmp_errorCallback, hookedObj.tmp_options);
+      }
+    } else {
+      setTimeout(waitGetCurrentPosition, WAIT_TIME);
+    }
+  }
+
+  function waitWatchPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        navigator.getCurrentPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+        return Math.floor(Math.random() * 10000); // random id
+      } else {
+        hookedObj.watchPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+      }
+    } else {
+      setTimeout(waitWatchPosition, WAIT_TIME);
+    }
+  }
+
+  Object.getPrototypeOf(navigator.geolocation).getCurrentPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp_successCallback = successCallback;
+    hookedObj.tmp_errorCallback = errorCallback;
+    hookedObj.tmp_options = options;
+    waitGetCurrentPosition();
+  };
+  Object.getPrototypeOf(navigator.geolocation).watchPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp2_successCallback = successCallback;
+    hookedObj.tmp2_errorCallback = errorCallback;
+    hookedObj.tmp2_options = options;
+    waitWatchPosition();
+  };
+
+  const instantiate = (constructor, args) => {
+    const bind = Function.bind;
+    const unbind = bind.bind(bind);
+    return new (unbind(constructor, null).apply(null, args));
+  }
+
+  Blob = function (_Blob) {
+    function secureBlob(...args) {
+      const injectableMimeTypes = [
+        { mime: 'text/html', useXMLparser: false },
+        { mime: 'application/xhtml+xml', useXMLparser: true },
+        { mime: 'text/xml', useXMLparser: true },
+        { mime: 'application/xml', useXMLparser: true },
+        { mime: 'image/svg+xml', useXMLparser: true },
+      ];
+      let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+      if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+        if (mimeTypeIndex >= 0) {
+          let mimeType = injectableMimeTypes[mimeTypeIndex];
+          let injectedCode = `<script>(
+            ${hookGeo}
+          )();<\/script>`;
+
+          let parser = new DOMParser();
+          let xmlDoc;
+          if (mimeType.useXMLparser === true) {
+            xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+          } else {
+            xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+          }
+
+          if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+            xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+
+            if (mimeType.useXMLparser === true) {
+              args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+            } else {
+              args[0][0] = xmlDoc.documentElement.outerHTML;
+            }
+          }
+        }
+      }
+
+      return instantiate(_Blob, args); // arguments?
+    }
+
+    // Copy props and methods
+    let propNames = Object.getOwnPropertyNames(_Blob);
+    for (let i = 0; i < propNames.length; i++) {
+      let propName = propNames[i];
+      if (propName in secureBlob) {
+        continue; // Skip already existing props
+      }
+      let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+      Object.defineProperty(secureBlob, propName, desc);
+    }
+
+    secureBlob.prototype = _Blob.prototype;
+    return secureBlob;
+  }(Blob);
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window) {
+      return;
+    }
+    const message = event.data;
+    switch (message.method) {
+      case 'updateLocation':
+        if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
+          hookedObj.genLat = message.info.coords.lat;
+          hookedObj.genLon = message.info.coords.lon;
+          hookedObj.fakeGeo = message.info.fakeIt;
+        }
+        break;
+      default:
+        break;
+    }
+  }, false);
+  //]]>
+    }hookGeo();})()</script>
+    <title>天外飞蝶txt-全文阅读-红薯中文网</title>
+    <meta name="keywords" content="天外飞蝶在线阅读,全文阅读,VIP章节,独家首发">
+    <meta name="description" content="《天外飞蝶》是【屿霖铃】原创由红薯中文网提供全文免费阅读和最新章节目录的玄幻小说作品,在线阅读天外飞蝶的最新最快更新的VIP章节">
+    <meta name="robots" content="all">
+    <meta name="googlebot" content="all">
+    <meta name="baiduspider" content="all">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta property="qc:admins" content="56666307776076730563757">
+    <meta name="copyright" content="本页版权 www.hongshu.com 红薯小说阅读网所有 All right reserved">
+    <link rel="shortcut icon" href="https://img2.hongshu.com/Public/images/favicon.ico" type="image/vnd.microsoft.icon">
+    <link rel="shortcut icon" href="https://img2.hongshu.com/Public/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://img2.hongshu.com/Public/images/apple-touch-icon.png">
+    <link href="./天外飞蝶txt-全文阅读-红薯中文网_files/css&amp;f=base.css" rel="stylesheet" type="text/css" charset="utf-8">
+    <script type="text/javascript" language="javascript" src="./天外飞蝶txt-全文阅读-红薯中文网_files/javascript&amp;f=jquery.min.js,jquery.lazyload.min.js.下载" charset="utf-8"></script>
+    <script type="text/javascript" language="javascript" src="./天外飞蝶txt-全文阅读-红薯中文网_files/lib&amp;f=config.js,logstatic.js,clicktracker.js,template.js,templatehelper.js,util.js.下载" charset="utf-8"></script>
+    <script type="text/javascript" language="javascript" src="./天外飞蝶txt-全文阅读-红薯中文网_files/javascript&amp;f=core.js,book.js,top.js.下载" charset="utf-8"></script>
+    <script type="text/javascript" language="javascript" src="./天外飞蝶txt-全文阅读-红薯中文网_files/mod&amp;f=header.js.下载" charset="utf-8"></script>
+    <link href="./天外飞蝶txt-全文阅读-红薯中文网_files/jquery-ui&amp;f=jquery-ui.css" rel="stylesheet" type="text/css" charset="utf-8">
+    <script type="text/javascript" language="javascript" src="./天外飞蝶txt-全文阅读-红薯中文网_files/jquery-ui&amp;f=jquery-ui.js.下载" charset="utf-8"></script>
+    <!--[if IE 6]>
+	<link href="https://img2.hongshu.com/Public/css/ie6.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="https://img2.hongshu.com/Public/javascript/lib/DD_belatedPNG.js" ></script>
+	<script type="text/javascript"> DD_belatedPNG.fix('.tlist li , img ,.titnan-hd span, .titnv-hd span, .titnan-hd span.icon01, .titnan-hd span.icon02, .titnv-hd span, .titnv-hd span.icon01, .titnv-hd span.icon02 , .list2-rank li.num1 span, .list2-rank li.num2 span, .list2-rank li.num3 span, .list3-rank li.num1 span, .list3-rank li.num2 span, .list3-rank li.num3 span, .list4-rank li.num1 span, .list4-rank li.num2 span, .list4-rank li.num3 span , .fmvip , .subsearch , .icon-laba , .footercon .left , .cover .share span, .cover .list span, .cover .phone span , .props .left span , .readsetlf span , .readsetrt span , .zanshang .zanshangicon , .choicebtnnv, .choicebtn3:hover , .form-warp .correct , .choicebtnnan, .choicebtn2:hover , .newcondetail .right .share , .fszmbg'); </script>
+	<![endif]-->
+    <!--[if lt IE 7]>
+    <link href="https://img2.hongshu.com/Public/css/ie7.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+
+    <meta http-equiv="mobile-agent" content="format=xhtml; url=http://g.hongshu.com/chapterlist/42203.html">
+    <meta http-equiv="mobile-agent" content="format=html5; url=https://m.hongshu.com/chapterlist/42203.html">
+</head>
+
+    <body>
+        <!--header-start-->
+        <style type="text/css">
+            .nav .rtnav li { padding: 8px 0px 0 15px;}
+        </style>
+        <div style="display: none;">
+            <script type="text/javascript" src="https://s9.cnzz.com/z_stat.php?id=1278559970&amp;web_id=1278559970"></script><script src="./天外飞蝶txt-全文阅读-红薯中文网_files/core.php" charset="utf-8" type="text/javascript"></script><a href="https://www.cnzz.com/stat/website.php?web_id=1278559970" target="_blank" title="站长统计">站长统计</a>
+        </div>
+        <div id="divMainHead" class="header">
+            <div class="con">
+                <div class="logo" style="position:relative;">
+                    <a href="https://www.hongshu.com/" title="红薯中文网"><img src="./天外飞蝶txt-全文阅读-红薯中文网_files/logo.png" width="146" height="64"></a><!-- <img src="https://img2.hongshu.com/Public/images/paozhu.png" style="position: absolute;top: -10px;z-index: 9; width: 54px;height: 78px;left: 148px;"/> -->
+                </div>
+                <div class="input-group" id="head_search_div">
+                    <input id="txtSkeyWords" class="subsearch subsearch-nan" value="" type="text" placeholder="请输入书名或作者名.. " maxlength="250" autocomplete="off">
+                    <span class="input-group-btn input-group-nan-btn" onclick="goToSearch(&#39;&#39;, 1);">搜&nbsp;&nbsp;索</span>
+                    <div class="searchmenu" id="divSearchTip" style="display:none;">
+                        <ul class="related01" id="divSearchTipBook">
+                        </ul>
+                        <ul class="related02" id="divSearchTipAuthor">
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="loginInfoForm">
+                    <div class="per">
+                        <div class="left"><a href="javascript:goToLogin(1);" class="loginlink">登录 </a></div>
+                        <div class="right">
+                            <a href="https://i.hongshu.com/third/sina/login.html" target="_blank"><img src="./天外飞蝶txt-全文阅读-红薯中文网_files/weibo-m.png" alt="新浪微博登录"></a>
+                            <a href="https://i.hongshu.com/third/qq/login.html" target="_blank"><img src="./天外飞蝶txt-全文阅读-红薯中文网_files/qq-m.png" alt="qq登录"></a>
+                            <a href="https://i.hongshu.com/third/wechat/login.html" target="_blank"><img src="./天外飞蝶txt-全文阅读-红薯中文网_files/weixin-m.png" alt="微信登录"></a>
+                            <a href="https://i.hongshu.com/third/baidu/login.html" target="_blank"><img src="./天外飞蝶txt-全文阅读-红薯中文网_files/baidu-m.png" alt="百度登录"></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="nav navnan yahei">
+            <div class="con">
+                <ul class="mainnav">
+                    <li><a href="https://www.hongshu.com/">首页</a></li>
+                    <li><a href="https://gg.hongshu.com/" class="select">男频</a></li>
+                    <li><a href="https://mm.hongshu.com/">女频</a></li>
+                    <li><a href="https://www.hongshu.com/rankboy.html">排行榜</a></li>
+                    <li><a href="https://www.hongshu.com/bookstore.html">书库</a></li>
+                    <li>            	<a href="https://www.hongshu.com/static/help/fuli.html" target="_blank">福利</a>            </li>
+
+                    <li><a id="liAuthor" href="https://i.hongshu.com/authorapply.do" target="_blank">申请作者</a></li>
+                    <li><a href="https://wallet.hongshu.com/cash.html" target="_blank">充值</a></li>
+                </ul>
+                <ul class="rtnav">
+                    <li id="liwechattip">
+                        <a href="https://www.hongshu.com/ipcooperate.html" class="navkhd">版权专区</a>
+                        <!--
+                        <a href="javascript:void(0)"><span></span>微信</a>
+                        <div id="divwechattip" class="phonemask phonemask3" style="display: none;"> <i class="arrow arrow-1"></i> <i class="arrow arrow-2"></i>
+                            <ul>
+                                <li><img src="https://img2.hongshu.com/Public/images/hongshu_wechat.jpg" width="112px" height="112px" />
+                                    <p>微信</p>
+                                </li>
+                            </ul>
+                        </div>
+                        -->
+
+                    </li>
+                    <li id="limediatip">
+                        <!--<span href="javascript:void(0)" class="navkhd">客户端<em></em>
+                            <div id="divmediatip" class="phonemask phonemask2" style="display: none;">
+                                <i class="arrow arrow-1"></i>
+                                <i class="arrow arrow-2"></i>
+                                <ul>
+                                    <li><img src="https://img2.hongshu.com/Public/images/hongshu_android.png" width="112px" height="112px" />
+                                        <p>
+                                            <a href="https://www.hongshu.com/androidzhuanti/" target="_blank" class="applj">
+                                                安卓版
+                                            </a>
+                                        </p>
+                                    </li>
+                                    <li><img src="https://img2.hongshu.com/Public/images/hongshu_ios.png" width="112px" height="112px" />
+                                        <p>
+                                            <a href="http://author.hongshu.com/zhuanti/ioszhuanti/" target="_blank" class="applj">
+                                                苹果版
+                                            </a>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </span>-->
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!--模态框背景start-->
+        <div class="bodybg" style="display:none; z-index: 1000;"></div>
+        <!--模态框背景start-->
+        <script type="text/html" id="index_user_info_tmpl">
+            {{if user}}
+            <div class="per on">
+                <div class="left">
+                    <a href="{{hs_const_domain.userHost}}/profile/center.do" class="logintx" title="进入个人中心">
+                        <img src="{{user.avatar}}" alt="头像" />
+                    </a>
+                    <span>
+                        <a href="{{hs_const_domain.userHost}}/profile/center.do" title="进入个人中心">
+                            {{ if user.isquick == 1 }}
+                            {{ user.username }}
+                            {{ else }}
+                            {{(user.nickname == "" || user.nickname == null)  ? user.username : user.nickname}}
+                            {{ /if }}
+                        </a>
+                    </span>
+                </div>
+                <div class="right">
+                    <a href="{{hs_const_domain.homeHost}}/profile/bookshelf.do" class="bkshelf" title="我的书架"></a>
+                    <a href="#" onclick="getmessage(1);return false;" class="{{ user.messagecount == 0 ? 'new' : 'new2' }}" title="我的消息"></a>
+                    <a href="javascript:showMenu();" class="more4" title="菜单"></a>
+                    <span class="ic_messagetop mymsg" style="display:none;"></span>
+                    <div class="menu2con ic_message mymsg" style="display:none;"><i class="arrow arrow-1"></i> <i class="arrow arrow-2" ></i>
+                        <div class="ic_messagetit"><a class="allread" href="#" onclick="deletemsg();return false;">清空消息</a><a href="#" class="messageclose" onclick="$('.mymsg').hide();return false;"></a></div>
+                        <ul id="messagelist" pagenum="0" totalpage="1">
+                        </ul>
+                        <div class="ic_message_more" onclick="getmessage();"><a href="#" class="an" id="moremsg">加载更多</a> </div>
+
+                    </div>
+                </div>
+                <div id="divUserMenu" class="menu2 menu3" style="display:none">
+                    <div class="menu2con menu3con"><i class="arrow arrow-1"></i> <i class="arrow arrow-2"></i>
+                        <ul>
+                            <li><a href="{{hs_const_url.usercenter}}">个人中心</a></li>
+                            <li><a href="{{hs_const_url.userset}}">资料设置</a></li>
+                            {{if user.isauthor == 1}}
+                            <li><a href="{{hs_const_domain.homeHost}}/authorlogin/2.do" target="_blank">我的作品</a></li>
+                            {{else}}
+                            <li><a href="{{hs_const_domain.userHost}}/authorapply.html" target="_blank">申请作者</a></li>
+                            {{/if}}
+                            <li><a href="javascript:void(0)" onclick="goToLogout()">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            <div class="per">
+                <div class="left"><a href="javascript:goToLogin(1);" class="loginlink">登录 </a></div>
+                <div class="right">
+                    <a href="{{hs_const_url.weibo_login}}" target="_blank"><img src="https://img2.hongshu.com/Public/images/login/weibo-m.png" alt="新浪微博登录"></a>
+                    <a href="{{hs_const_url.qq_login}}" target="_blank"><img src="https://img2.hongshu.com/Public/images/login/qq-m.png" alt="qq登录"></a>
+                    <a href="{{hs_const_url.wexin_login}}" target="_blank"><img src="https://img2.hongshu.com/Public/images/login/weixin-m.png" alt="微信登录"></a>
+                    <a href="{{hs_const_url.baidu_login}}" target="_blank"><img src="https://img2.hongshu.com/Public/images/login/baidu-m.png" alt="百度登录"></a>
+                </div>
+            </div>
+            {{/if}}
+        </script>
+
+        <div id="divModelLogin" class="login2 yahei clearfix" style="display:none">
+            <div class="form-tit2 clearfix"> <span></span>
+                <h2>欢迎您登录红薯中文网</h2>
+                <a class="closebtn " href="javascript:user_modellogin.forcecloseLoginDialog()">关闭</a> </div>
+            <div class="loginway top20 bom20 clearfix">
+                <p class="c2">不用注册，您可以直接用微信号，QQ号，新浪微博号等登录。</p>
+                <p class="c2">放心，我们不会记住您的这些账号密码</p>
+                <ul class="clearfix top20">
+                    <li><a class="weixin-b" target="_blank" href="https://i.hongshu.com/third/wechat/login.html"></a>
+                        <p>微信</p>
+                    </li>
+                    <li><a class="qq-b" target="_blank" href="https://i.hongshu.com/third/qq/login.html"></a>
+                        <p>QQ</p>
+                    </li>
+                    <li><a class="weibo-b" target="_blank" href="https://i.hongshu.com/third/sina/login.html"></a>
+                        <p>微博</p>
+                    </li>
+                    <li><a class="baidu-b" target="_blank" href="https://i.hongshu.com/third/baidu/login.html"></a>
+                        <p>百度</p>
+                    </li>
+                    <li id="liAlipayLogin" style="display:none;"><a class="zhifubao-b" target="_blank" href="https://i.hongshu.com/third/alipay/login.html"></a>
+                        <p>支付宝</p>
+                    </li>
+                </ul>
+                <div class="more morelogin rt20">
+                    <a id="a_MoreloginTip" href="javascript:void(0)" onclick="$(&#39;#liAlipayLogin&#39;).show();$(this).hide();"><span></span><span></span><span></span></a>
+                </div>
+            </div>
+            <div class="form-warp clearfix">
+
+                <div class="form-tit3 bom10 clearfix">
+                    <h3>使用红薯中文网账号登录：</h3><a href="https://i.hongshu.com/register.html" target="_blank" class="registerbtn2">注册红薯中文网账号</a>
+                </div>
+                <p class="clearfix">
+                    <input class="" type="text" placeholder="注册用户名、手机号或电子邮箱" autocomplete="off" id="txtModelUsername">
+                </p>
+                <div id="divModelUsernameTip" class="wrong" style="display:inline-block;">&nbsp;</div>
+                <p class="passwordp clearfix"><a id="a_showModelEyes" href="javascript:user_modellogin.showModelPassword()" class="eye-closed"></a>
+                    <input id="txtModelPassword" class="password" type="password" name="password" maxlength="20" placeholder="密码" autocomplete="off">
+                </p>
+                <div id="divModelPasswordTip" class="wrong" style="display:inline-block;">&nbsp;</div>
+                <p class="clearfix">
+                    <input type="button" value="登录" class="submitbtn" onclick="user_modellogin.modelLogin()">
+                </p>
+                <p class="forgot">
+                    <label>
+                        <input type="checkbox" tabindex="1" id="chkRemeber" class="checkbox">记住我
+                    </label>
+                    <a class="forgot-password" target="_blank" href="https://i.hongshu.com/account/findpassword.html">忘记密码？</a>
+                </p>
+            </div>
+        </div>
+
+        <div id="floatingCirclesG" style="position: absolute; z-index: 3000; display:none;">
+            <div class="f_circleG" id="frotateG_01"></div>
+            <div class="f_circleG" id="frotateG_02"></div>
+            <div class="f_circleG" id="frotateG_03"></div>
+            <div class="f_circleG" id="frotateG_04"></div>
+            <div class="f_circleG" id="frotateG_05"></div>
+            <div class="f_circleG" id="frotateG_06"></div>
+            <div class="f_circleG" id="frotateG_07"></div>
+            <div class="f_circleG" id="frotateG_08"></div>
+        </div>
+        <script type="text/html" id="messagetpl">
+            {{each list as row i}}
+            {{if row.type == 0}}
+            <li onclick="delonemsg('{{row.id}}');go('https://www.hongshu.com/commentdetail/{{row.bid}}/{{row.comment_id}}.do');"><span class="name2">{{row.reply_name}}</span>回复了你的书评<span class="wordnr"><a href="javascript:void(0);">{{row.title}}</a></span></li>
+            {{else if row.type == 1}}
+            <li onclick="delonemsg('{{row.id}}');go('https://www.hongshu.com/commentdetail/{{row.bid}}/{{row.comment_id}}.do');"><span class="name2">{{row.reply_name}}</span>回复了你对书评<span class="wordnr"><a href="javascript:void(0);">{{row.title}}</a></span>的回复</li>
+            {{else if row.type == 5}}
+            <li onclick="delonemsg('{{row.id}}');go('https://www.hongshu.com/activity/{{row.active_id}}/{{row.comment_id}}.do');"><span class="name2">您</span>参与的<span class="wordnr"><a href="javascript:void(0);">{{row.catename}}</a></span>有奖活动，结果公布了</li>
+            {{else if row.type == 6}}
+            <li onclick="delonemsg('{{row.id}}');go('https://i.hongshu.com/profile/center.do');"><span class="name2">{{row.reply_name}}</span>{{row.title}}</li>
+            {{else if row.type == 7}}
+            <li onclick="delonemsg('{{row.id}}');go('https://i.hongshu.com/profile/center.do');"><span class="name2">{{row.reply_name}}</span>{{row.title}}</li>
+            {{/if}}
+            {{/each}}
+        </script>
+        <script type="text/javascript">
+            function getmessage(){
+            var pagenum = parseInt($('#messagelist').attr('pagenum'))+1;
+            var totalpage = $('#messagelist').attr('totalpage');
+            $('.mymsg').show();
+            if(pagenum>totalpage){
+            $('#moremsg').html('没有更多消息');
+            return;
+            }
+            $.ajax({
+            url: hs_const_url.bookajax,
+            type: 'post',
+            dataType: 'json',
+            async: false,
+            data: {
+            method: 'getUserMessage',
+            pagenum: pagenum
+            },
+            success: function(data) {
+            if(data.status==1){
+            $('#moremsg').html('正在加载..');
+            setTimeout(function(){
+            var html = template('messagetpl',data);
+            $('#messagelist').append(html).attr({pagenum:data.pagenum,totalpage:data.totalpage});
+            $('#moremsg').html('加载更多');
+            },1000)
+            }else{
+            $('#moremsg').html('暂无消息');
+            }
+
+            }
+            })
+            }
+            function deletemsg(){
+            $.ajax({
+            url: hs_const_url.bookajax,
+            type: 'get',
+            dataType: 'jsonp',
+            async: false,
+            data: {
+            method: 'readUserMessage'
+            },
+            success: function(data) {
+            if(data.status==1){
+            $('#messagelist').html('');
+            $('#moremsg').html('暂无消息');
+            }
+            }
+            })
+            }
+            function delonemsg(id){
+            $.ajax({
+            type:'get',
+            url: hs_const_url.bookajax,
+            data:{id:id,method:'readOneMsg'},
+            success: function (data){
+            }
+            });
+            }
+            function go(url){
+            window.location.href = url;
+            }
+        </script>
+        <!--header-end-->
+
+        <!--con-start-->
+        <div class="main">
+            <div class="guanggaozhanwei">
+                <div class="guanggao960">
+                    <a href="https://www.hongshu.com/book/51063/" target="_blank"><img src="./天外飞蝶txt-全文阅读-红薯中文网_files/171017.jpg" width="960" height="90" border="0"></a>            </div>
+            </div>
+            <div class="padding10 clearfix">
+                <div class="col-3 top25 clearfix">
+                    <div class="chapter01 lf15 clearfix">
+                        <h1><a class="qh" href="https://www.hongshu.com/book/42203/" target="_blank" title="天外飞蝶">天外飞蝶</a></h1>
+                        <p class="top20">作者：
+                            <a href="https://www.hongshu.com/userspace/a/340377/index.html" target="_blank" class="cboy" title="屿霖铃">屿霖铃</a>
+                        </p>
+                        <p><a href="https://www.hongshu.com/index.html" target="_blank">红薯中文网</a> &gt; <a href="https://gg.hongshu.com/" target="_blank">男生频道</a> &gt; <a href="https://www.hongshu.com/book/42203/" class="qh" target="_blank">天外飞蝶</a></p>
+                        <p>
+                            <span>章节数：<count id="c_total">227</count>(免费：<count id="c_mf">112</count>)</span>
+                            <span>总字数：50.37万                        </span>
+                            <span>更新时间：8年前</span>
+                        </p>
+                    </div>
+                    <div class="hd top10 clearfix">
+                        <div class="tit-hd titred-hd">
+                            <h5 class="cred">目录</h5>
+                            <div class="progress"><span id="spanReadTitle">我的阅读进度：暂未开始</span><span id="spanPrecent">0/227</span></div>
+                        </div>
+                        <div category="chapterfix" index="1" style="width:734px; cursor: pointer;position: fixed; top: 0; display:none" class="subtitle">
+                            <h2>第一卷 楔子(3)</h2>
+                            <div class="tips6" style="display:block;" onclick="$(&#39;body,html&#39;).animate({scrollTop:0},500);">点击回到顶部</div>
+                        </div>
+                        <div category="chapter" index="1" style="cursor: pointer" class="subtitle top15">
+                            <h2>第一卷 楔子(3)</h2>
+                            <a class="up">图标</a>
+                            <a class="down" style="display: none">图标</a>
+                        </div>
+                        <div category="chapterlist" index="1" class="chapter-list2  clearfix">
+                            <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/54840-1318695.html" target="_blank" title="序 1(2012-07-05 19:25:03)" class="qh">序 1</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/54840-1378791.html" target="_blank" title="序 2(2012-11-08 21:32:40)" class="qh">序 2</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/54840-1480453.html" target="_blank" title="上架感言(2012-11-26 13:19:25)" class="qh">上架感言</a><span class="free">免费</span></li>                    </ul></div><div category="chapterfix" index="2" style="width:734px; cursor: pointer;position: fixed; top: 0; display:none" class="subtitle">
+                        <h2>第二卷 蜕变(108)</h2>
+                        <div class="tips6" style="display:block;" onclick="$(&#39;body,html&#39;).animate({scrollTop:0},500);">点击回到顶部</div>
+                    </div>
+                        <div category="chapter" index="2" style="cursor: pointer" class="subtitle top15">
+                            <h2>第二卷 蜕变(108)</h2>
+                            <a class="up">图标</a>
+                            <a class="down" style="display: none">图标</a>
+                        </div>
+                        <div category="chapterlist" index="2" class="chapter-list2  clearfix">
+                            <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/57111-1352584.html" target="_blank" title="第一章 初到异界（上）(2012-09-03 12:39:45)" class="qh">第一章 初到异界（上）</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1353005.html" target="_blank" title="第二章 初到异界（中）(2012-09-04 11:46:59)" class="qh">第二章 初到异界（中）</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1353138.html" target="_blank" title="第三章 初到异界（下）(2012-09-04 20:04:53)" class="qh">第三章 初到异界（下）</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1353195.html" target="_blank" title="第四章 此娃非人（上）(2012-09-04 22:56:27)" class="qh">第四章 此娃非人（上）</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1353446.html" target="_blank" title="第五章 此娃非人（中）(2012-09-05 15:52:10)" class="qh">第五章 此娃非人（中）</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1353518.html" target="_blank" title="第六章 此娃非人（下）(2012-09-05 20:10:22)" class="qh">第六章 此娃非人（下）</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1353622.html" target="_blank" title="第七章 死亡之怒(上）(2012-09-06 02:54:58)" class="qh">第七章 死亡之怒(上）</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1353918.html" target="_blank" title="第八章 死亡之怒（中）(2012-09-06 19:15:40)" class="qh">第八章 死亡之怒（中）</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1354827.html" target="_blank" title="第九章 死亡之怒（下）(2012-09-08 20:43:08)" class="qh">第九章 死亡之怒（下）</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1355078.html" target="_blank" title="第十章 梦魇之骇(2012-09-09 10:44:02)" class="qh">第十章 梦魇之骇</a><span class="free">免费</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/57111-1355262.html" target="_blank" title="第十一章 别离之苦(2012-09-09 20:42:07)" class="qh">第十一章 别离之苦</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1355444.html" target="_blank" title="第十二章 见面之喜(2012-09-10 10:38:32)" class="qh">第十二章 见面之喜</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1355543.html" target="_blank" title="第十三章 寻找瞎子(2012-09-10 15:52:46)" class="qh">第十三章 寻找瞎子</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1357856.html" target="_blank" title="第十四章 受骗上当(2012-09-16 14:11:31)" class="qh">第十四章 受骗上当</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1358241.html" target="_blank" title="第十五章 遇算命人(2012-09-17 13:36:04)" class="qh">第十五章 遇算命人</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1360229.html" target="_blank" title="第十六章 瞎子预言(2012-09-22 21:07:57)" class="qh">第十六章 瞎子预言</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1360574.html" target="_blank" title="第十七章 窥探地道(2012-09-23 18:39:16)" class="qh">第十七章 窥探地道</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1368497.html" target="_blank" title="第十八章 地道怪兽(2012-10-14 13:39:32)" class="qh">第十八章 地道怪兽</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1372126.html" target="_blank" title="第十九章 如有神助(2012-10-23 16:06:32)" class="qh">第十九章 如有神助</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1372534.html" target="_blank" title="第二十章 逃离地道(2012-10-24 12:44:34)" class="qh">第二十章 逃离地道</a><span class="free">免费</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/57111-1375768.html" target="_blank" title="第二十一章 地下奇物(2012-11-01 07:55:01)" class="qh">第二十一章 地下奇物</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1375878.html" target="_blank" title="第二十二章 奇鳞怪肉(2012-11-01 13:55:07)" class="qh">第二十二章 奇鳞怪肉</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1375956.html" target="_blank" title="第二十三 魔怪突袭(2012-11-01 18:25:01)" class="qh">第二十三 魔怪突袭</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1376125.html" target="_blank" title="第二十四章 狗之惨死(2012-11-02 07:55:02)" class="qh">第二十四章 狗之惨死</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1376215.html" target="_blank" title="第二十五章 掠走小孩(2012-11-02 12:10:55)" class="qh">第二十五章 掠走小孩</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1376312.html" target="_blank" title="第二十六章 志同道合(2012-11-02 17:55:02)" class="qh">第二十六章 志同道合</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1376515.html" target="_blank" title="第二十七章 白骨累累(2012-11-03 07:55:01)" class="qh">第二十七章 白骨累累</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1376653.html" target="_blank" title="第二十八章 催眠大法(2012-11-03 13:52:28)" class="qh">第二十八章 催眠大法</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1376708.html" target="_blank" title="第二十九章 追查线索(2012-11-03 17:02:35)" class="qh">第二十九章 追查线索</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1376953.html" target="_blank" title="第三十章 知心朋友(2012-11-04 07:55:02)" class="qh">第三十章 知心朋友</a><span class="free">免费</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/57111-1377105.html" target="_blank" title="第三十一章 惊悚卦象(2012-11-04 13:55:02)" class="qh">第三十一章 惊悚卦象</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1377196.html" target="_blank" title="第三十二章 小蓝失踪(2012-11-04 17:55:01)" class="qh">第三十二章 小蓝失踪</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1377356.html" target="_blank" title="第三十三章 奇异石头(2012-11-05 07:55:01)" class="qh">第三十三章 奇异石头</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1377457.html" target="_blank" title="第三十四章 石头奇异(2012-11-05 13:55:02)" class="qh">第三十四章 石头奇异</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1377553.html" target="_blank" title="第三十五章 如是神人(2012-11-05 17:55:02)" class="qh">第三十五章 如是神人</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1377777.html" target="_blank" title="第三十六章 三角空间(2012-11-06 07:55:01)" class="qh">第三十六章 三角空间</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1377888.html" target="_blank" title="第三十七章 可疑之人(2012-11-06 13:55:02)" class="qh">第三十七章 可疑之人</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1377953.html" target="_blank" title="第三十八章 墓地通道(2012-11-06 17:55:01)" class="qh">第三十八章 墓地通道</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1378155.html" target="_blank" title="第三十九章 重返地道(2012-11-07 08:30:02)" class="qh">第三十九章 重返地道</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1378240.html" target="_blank" title="第四十章 失踪地带(2012-11-07 13:26:15)" class="qh">第四十章 失踪地带</a><span class="free">免费</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/57111-1378307.html" target="_blank" title="第四十一章 夜探墓地(2012-11-07 17:55:01)" class="qh">第四十一章 夜探墓地</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1378498.html" target="_blank" title="第四十二章 寻仙问道(2012-11-08 07:55:02)" class="qh">第四十二章 寻仙问道</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1378624.html" target="_blank" title="第四十三章 前往空元(2012-11-08 13:55:10)" class="qh">第四十三章 前往空元</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1378681.html" target="_blank" title="第四十四章 百兽惊魂(2012-11-08 17:55:01)" class="qh">第四十四章 百兽惊魂</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1378896.html" target="_blank" title="第四十五章 躲过一劫(2012-11-09 07:55:06)" class="qh">第四十五章 躲过一劫</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1379031.html" target="_blank" title="第四十六章 猴子森林(2012-11-09 13:55:01)" class="qh">第四十六章 猴子森林</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1379104.html" target="_blank" title="第四十七章 恐怖猴子(2012-11-09 17:55:02)" class="qh">第四十七章 恐怖猴子</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1379321.html" target="_blank" title="第四十八章 遇行军蚁(2012-11-10 07:55:02)" class="qh">第四十八章 遇行军蚁</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1379444.html" target="_blank" title="第四十九章 进入幻境(2012-11-10 13:55:04)" class="qh">第四十九章 进入幻境</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1379515.html" target="_blank" title="第五十章 异界南斗(2012-11-10 17:55:02)" class="qh">第五十章 异界南斗</a><span class="free">免费</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/57111-1379712.html" target="_blank" title="第五十一章 南斗大神(2012-11-11 07:55:02)" class="qh">第五十一章 南斗大神</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1379840.html" target="_blank" title="第五十二章 读心之术(2012-11-11 13:55:02)" class="qh">第五十二章 读心之术</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1379898.html" target="_blank" title="第五十三章 未来之路(2012-11-11 17:55:01)" class="qh">第五十三章 未来之路</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1380104.html" target="_blank" title="第五十四章 泄露天机(2012-11-12 08:45:01)" class="qh">第五十四章 泄露天机</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1380206.html" target="_blank" title="第五十五章 羞涩自责(2012-11-12 13:55:01)" class="qh">第五十五章 羞涩自责</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1380263.html" target="_blank" title="第五十六章 修心少年(2012-11-12 17:55:02)" class="qh">第五十六章 修心少年</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1380464.html" target="_blank" title="第五十七章 萍水相逢(2012-11-13 07:55:01)" class="qh">第五十七章 萍水相逢</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1380569.html" target="_blank" title="第五十八章 魔幻台阶(2012-11-13 13:55:01)" class="qh">第五十八章 魔幻台阶</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1380630.html" target="_blank" title="第五十九章 修炼之界(2012-11-13 17:55:01)" class="qh">第五十九章 修炼之界</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1380802.html" target="_blank" title="第六十章 入空元门(2012-11-14 07:55:01)" class="qh">第六十章 入空元门</a><span class="free">免费</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/57111-1380933.html" target="_blank" title="第六十章一 初见师尊(2012-11-14 13:55:04)" class="qh">第六十章一 初见师尊</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1380990.html" target="_blank" title="第六十二章 拜见掌门(2012-11-14 17:03:38)" class="qh">第六十二章 拜见掌门</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1381169.html" target="_blank" title="第六十三章 追随师尊(2012-11-15 07:55:02)" class="qh">第六十三章 追随师尊</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1381309.html" target="_blank" title="第六十四章 南斗神庙(2012-11-15 13:55:02)" class="qh">第六十四章 南斗神庙</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1381357.html" target="_blank" title="第六十五章 进入神庙(2012-11-15 17:55:01)" class="qh">第六十五章 进入神庙</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1381551.html" target="_blank" title="第六十六章 接受洗礼(2012-11-16 07:55:01)" class="qh">第六十六章 接受洗礼</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1381648.html" target="_blank" title="第六十七章 身世混乱(2012-11-16 13:55:08)" class="qh">第六十七章 身世混乱</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1381816.html" target="_blank" title="第六十八章 危险信号(2012-11-16 17:55:01)" class="qh">第六十八章 危险信号</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1382376.html" target="_blank" title="第六十九章 气氛紧张(2012-11-17 07:55:01)" class="qh">第六十九章 气氛紧张</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1382534.html" target="_blank" title="第七十章 人才济济(2012-11-17 14:05:02)" class="qh">第七十章 人才济济</a><span class="free">免费</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/57111-1382598.html" target="_blank" title="第七十一章 异界之危(2012-11-17 17:55:02)" class="qh">第七十一章 异界之危</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1382805.html" target="_blank" title="第七十二章 庙中奇遇(2012-11-18 07:55:01)" class="qh">第七十二章 庙中奇遇</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1382949.html" target="_blank" title="第七十三章 气法八阶(2012-11-18 13:55:01)" class="qh">第七十三章 气法八阶</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1383050.html" target="_blank" title="第七十四章 空元五法(2012-11-18 17:55:03)" class="qh">第七十四章 空元五法</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1383124.html" target="_blank" title="第七十五章 修炼之道(2012-11-18 21:55:01)" class="qh">第七十五章 修炼之道</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1383225.html" target="_blank" title="第七十六章 众人之诧(2012-11-19 08:50:02)" class="qh">第七十六章 众人之诧</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1383287.html" target="_blank" title="第七十七章 髭须心思(2012-11-19 11:15:47)" class="qh">第七十七章 髭须心思</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1384688.html" target="_blank" title="第七十八章 青姬之愿(2012-11-19 15:39:29)" class="qh">第七十八章 青姬之愿</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1385651.html" target="_blank" title="第七十九章 特异之能(2012-11-19 19:11:28)" class="qh">第七十九章 特异之能</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1385708.html" target="_blank" title="第八十章 隔空取物(2012-11-19 21:55:02)" class="qh">第八十章 隔空取物</a><span class="free">免费</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/57111-1385813.html" target="_blank" title="第八十一章 玄之又玄(2012-11-20 07:55:54)" class="qh">第八十一章 玄之又玄</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1389593.html" target="_blank" title="第八十二章  遭遇袭击(2012-11-20 11:55:02)" class="qh">第八十二章  遭遇袭击</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1392447.html" target="_blank" title="第八十三章 仓皇逃命(2012-11-20 14:47:35)" class="qh">第八十三章 仓皇逃命</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1393843.html" target="_blank" title="第八十四章 洞中奇书(2012-11-20 17:55:12)" class="qh">第八十四章 洞中奇书</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1395054.html" target="_blank" title="第八十五章 闯入禁地(2012-11-20 18:53:13)" class="qh">第八十五章 闯入禁地</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1395216.html" target="_blank" title="第八十六章 阻神之河(2012-11-21 07:54:24)" class="qh">第八十六章 阻神之河</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1396814.html" target="_blank" title="第八十七章 针锋相对(2012-11-21 10:27:57)" class="qh">第八十七章 针锋相对</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1399982.html" target="_blank" title="第八十八章 谁去谁留(2012-11-21 11:45:00)" class="qh">第八十八章 谁去谁留</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1403205.html" target="_blank" title="第八十九章 各有所长(2012-11-21 15:37:11)" class="qh">第八十九章 各有所长</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1405712.html" target="_blank" title="第九十章 谈心说愿(2012-11-21 16:30:58)" class="qh">第九十章 谈心说愿</a><span class="free">免费</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/57111-1416280.html" target="_blank" title="九第十一章 大赛开始(2012-11-21 19:28:34)" class="qh">九第十一章 大赛开始</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1416678.html" target="_blank" title="第九十二章 振林之战01(2012-11-22 09:42:19)" class="qh">第九十二章 振林之战01</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1420583.html" target="_blank" title="第九十三章 振林之战02(2012-11-22 10:56:47)" class="qh">第九十三章 振林之战02</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1425125.html" target="_blank" title="第九十四章 初尝胜果(2012-11-22 12:34:36)" class="qh">第九十四章 初尝胜果</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1449895.html" target="_blank" title="第九十五章 雏菊来访(2012-11-22 16:27:27)" class="qh">第九十五章 雏菊来访</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1470876.html" target="_blank" title="第九十六章 雏菊心愿(2012-11-22 21:56:27)" class="qh">第九十六章 雏菊心愿</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1478897.html" target="_blank" title="第九十七章 再回神庙(2012-11-23 12:05:01)" class="qh">第九十七章 再回神庙</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1479083.html" target="_blank" title="第九十八章 青姬计谋(2012-11-23 16:05:01)" class="qh">第九十八章 青姬计谋</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1479150.html" target="_blank" title="第九十九章 霸气外露(2012-11-23 19:33:09)" class="qh">第九十九章 霸气外露</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1479200.html" target="_blank" title="第一百章 险胜险胜(2012-11-23 21:55:01)" class="qh">第一百章 险胜险胜</a><span class="free">免费</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/57111-1479340.html" target="_blank" title="第一百零一章 无极威力(2012-11-24 09:03:57)" class="qh">第一百零一章 无极威力</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1479457.html" target="_blank" title="第一百零二章 奇灵怪梦(2012-11-24 11:55:01)" class="qh">第一百零二章 奇灵怪梦</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1479583.html" target="_blank" title="第一百零三章 再入禁地(2012-11-24 16:55:02)" class="qh">第一百零三章 再入禁地</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1479662.html" target="_blank" title="第一百零四章 如何是好(2012-11-24 19:39:00)" class="qh">第一百零四章 如何是好</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1479716.html" target="_blank" title="第一百零五章 惊慌失措(2012-11-24 21:55:01)" class="qh">第一百零五章 惊慌失措</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1479892.html" target="_blank" title="第一百零六章 列队之争(2012-11-25 09:55:02)" class="qh">第一百零六章 列队之争</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1479970.html" target="_blank" title="第一百零七章 前八诞生(2012-11-25 11:55:15)" class="qh">第一百零七章 前八诞生</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/57111-1480108.html" target="_blank" title="第一百零八章 沉门七碎(2012-11-25 18:32:00)" class="qh">第一百零八章 沉门七碎</a><span class="free">免费</span></li>                    </ul></ul></ul></ul></ul></ul></ul></ul></ul></ul></ul></div><div category="chapterfix" index="3" style="width:734px; cursor: pointer;position: fixed; top: 0; display:none" class="subtitle">
+                        <h2>第三卷 空元浩劫(31)</h2>
+                        <div class="tips6" style="display:block;" onclick="$(&#39;body,html&#39;).animate({scrollTop:0},500);">点击回到顶部</div>
+                    </div>
+                        <div category="chapter" index="3" style="cursor: pointer" class="subtitle top15">
+                            <h2>第三卷 空元浩劫(31)</h2>
+                            <a class="up">图标</a>
+                            <a class="down" style="display: none">图标</a>
+                        </div>
+                        <div category="chapterlist" index="3" class="chapter-list2  clearfix">
+                            <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/60833-1480320.html" target="_blank" title="第109章 空元大事(2012-11-26 09:51:30)" class="qh">第109章 空元大事</a><span class="free">免费</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1480454.html" target="_blank" title="第110章 武学奇才(2012-11-26 13:21:30)" class="qh">第110章 武学奇才</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1480731.html" target="_blank" title="第111章 身世之谜(2012-11-27 09:55:06)" class="qh">第111章 身世之谜</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1480827.html" target="_blank" title="第112章 化解危机(2012-11-27 15:13:47)" class="qh">第112章 化解危机</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1487537.html" target="_blank" title="第113章 小小戏弄(2012-11-28 09:49:52)" class="qh">第113章 小小戏弄</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1492683.html" target="_blank" title="第114章 相识相知(2012-11-28 17:24:12)" class="qh">第114章 相识相知</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1492942.html" target="_blank" title="第115 基情岁月(2012-11-29 09:55:07)" class="qh">第115 基情岁月</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1493168.html" target="_blank" title="第116章 我形我塑(2012-11-29 19:55:02)" class="qh">第116章 我形我塑</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1493366.html" target="_blank" title="第117章 胜得蹊跷(2012-11-30 08:45:14)" class="qh">第117章 胜得蹊跷</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1493522.html" target="_blank" title="第118章 真相大白(2012-11-30 14:31:01)" class="qh">第118章 真相大白</a><span class="vip">vip</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/60833-1493642.html" target="_blank" title="第119章 羞涩造访(2012-11-30 19:55:01)" class="qh">第119章 羞涩造访</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1493709.html" target="_blank" title="第120章 乱人心志(2012-11-30 21:55:02)" class="qh">第120章 乱人心志</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1493886.html" target="_blank" title="第121章 小心试力(2012-12-01 09:43:13)" class="qh">第121章 小心试力</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1494035.html" target="_blank" title="第122章 反败为胜(2012-12-01 15:55:01)" class="qh">第122章 反败为胜</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1494124.html" target="_blank" title="第123章 从轻发落(2012-12-01 19:55:04)" class="qh">第123章 从轻发落</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1494333.html" target="_blank" title="第124章 尽人皆知(2012-12-02 09:55:09)" class="qh">第124章 尽人皆知</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1494509.html" target="_blank" title="第125章 神器亮相(2012-12-02 17:55:02)" class="qh">第125章 神器亮相</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1494546.html" target="_blank" title="第126章 意外分配(2012-12-02 19:55:03)" class="qh">第126章 意外分配</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1495142.html" target="_blank" title="第127章 意外之外(2012-12-03 18:38:10)" class="qh">第127章 意外之外</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1495144.html" target="_blank" title="第128章 英雄远征(2012-12-03 18:39:27)" class="qh">第128章 英雄远征</a><span class="vip">vip</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/60833-1495146.html" target="_blank" title="第129章 动魂亲情(2012-12-03 18:40:34)" class="qh">第129章 动魂亲情</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1495485.html" target="_blank" title="第130章 小蓝何去(2012-12-04 13:25:09)" class="qh">第130章 小蓝何去</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1495532.html" target="_blank" title="第131章 谁是老大(2012-12-04 15:23:09)" class="qh">第131章 谁是老大</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1495588.html" target="_blank" title="第132章 离别礼物(2012-12-04 18:31:38)" class="qh">第132章 离别礼物</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1495857.html" target="_blank" title="第133章 集体失踪(2012-12-05 08:51:49)" class="qh">第133章 集体失踪</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1495986.html" target="_blank" title="第134章 城市战火(2012-12-05 13:55:03)" class="qh">第134章 城市战火</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1496100.html" target="_blank" title="第135章 心灵感应(2012-12-05 19:55:01)" class="qh">第135章 心灵感应</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1496372.html" target="_blank" title="第136章 空元浩劫(2012-12-06 13:26:43)" class="qh">第136章 空元浩劫</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1496453.html" target="_blank" title="第137章 发现活口(2012-12-06 17:55:05)" class="qh">第137章 发现活口</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/60833-1496484.html" target="_blank" title="第138章 狼子野心(2012-12-06 19:55:01)" class="qh">第138章 狼子野心</a><span class="vip">vip</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/60833-1496819.html" target="_blank" title="第139章 惊天身份(2012-12-07 14:45:20)" class="qh">第139章 惊天身份</a><span class="vip">vip</span></li>                    </ul></ul></ul></ul></div><div category="chapterfix" index="4" style="width:734px; cursor: pointer;position: fixed; top: 0; display:none" class="subtitle">
+                        <h2>第四卷 异界烽烟(50)</h2>
+                        <div class="tips6" style="display:block;" onclick="$(&#39;body,html&#39;).animate({scrollTop:0},500);">点击回到顶部</div>
+                    </div>
+                        <div category="chapter" index="4" style="cursor: pointer" class="subtitle top15">
+                            <h2>第四卷 异界烽烟(50)</h2>
+                            <a class="up">图标</a>
+                            <a class="down" style="display: none">图标</a>
+                        </div>
+                        <div category="chapterlist" index="4" class="chapter-list2 bom150 clearfix">
+                            <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/61198-1496966.html" target="_blank" title="第140章 依依舍之(2012-12-07 19:55:02)" class="qh">第140章 依依舍之</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1497031.html" target="_blank" title="第141章 酒醒何处(2012-12-07 21:55:04)" class="qh">第141章 酒醒何处</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1497205.html" target="_blank" title="第142章 衣冠禽兽(2012-12-08 10:51:10)" class="qh">第142章 衣冠禽兽</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1497352.html" target="_blank" title="第143章 惩凶罚恶(2012-12-08 17:55:03)" class="qh">第143章 惩凶罚恶</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1497388.html" target="_blank" title="第144章 怪兽当康(2012-12-08 19:55:02)" class="qh">第144章 怪兽当康</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1497617.html" target="_blank" title="第145章 遇凶杀人(2012-12-09 11:24:03)" class="qh">第145章 遇凶杀人</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1497802.html" target="_blank" title="第146章 成也萧何(2012-12-09 18:25:02)" class="qh">第146章 成也萧何</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1497846.html" target="_blank" title="第147章 匪夷所思(2012-12-09 19:55:02)" class="qh">第147章 匪夷所思</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1498039.html" target="_blank" title="第148章 王子之威(2012-12-10 09:55:08)" class="qh">第148章 王子之威</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1498247.html" target="_blank" title="第149章 出使皓石(2012-12-10 19:55:02)" class="qh">第149章 出使皓石</a><span class="vip">vip</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/61198-1498496.html" target="_blank" title="第150章 大臣遇刺(2012-12-11 11:57:46)" class="qh">第150章 大臣遇刺</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1498579.html" target="_blank" title="第151章 唬人之形(2012-12-11 17:55:10)" class="qh">第151章 唬人之形</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1498618.html" target="_blank" title="第152章 震惊世界(2012-12-11 19:54:36)" class="qh">第152章 震惊世界</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1498872.html" target="_blank" title="第153章 蛮横公主(2012-12-12 13:10:01)" class="qh">第153章 蛮横公主</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1498982.html" target="_blank" title="第154章 主帅之争(2012-12-12 18:05:19)" class="qh">第154章 主帅之争</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1499068.html" target="_blank" title="第155章 智高一筹(2012-12-12 20:55:08)" class="qh">第155章 智高一筹</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1499224.html" target="_blank" title="第156章 兵无常形(2012-12-13 09:09:37)" class="qh">第156章 兵无常形</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1499659.html" target="_blank" title="第157章 偷天度日(2012-12-13 17:55:05)" class="qh">第157章 偷天度日</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1499981.html" target="_blank" title="第158章 偷潜入城(2012-12-14 09:55:07)" class="qh">第158章 偷潜入城</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1500198.html" target="_blank" title="第159章 突破防卫(2012-12-14 20:23:11)" class="qh">第159章 突破防卫</a><span class="vip">vip</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/61198-1500185.html" target="_blank" title="第160章 神秘协议(2012-12-14 20:00:01)" class="qh">第160章 神秘协议</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1500555.html" target="_blank" title="第161章 天涯缘客(2012-12-15 13:19:56)" class="qh">第161章 天涯缘客</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1500611.html" target="_blank" title="第162章 伏击之战(2012-12-15 15:23:07)" class="qh">第162章 伏击之战</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1500740.html" target="_blank" title="第163章 何事被捕(2012-12-15 21:31:57)" class="qh">第163章 何事被捕</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1507263.html" target="_blank" title="第164章 王族金殿(2012-12-16 13:25:46)" class="qh">第164章 王族金殿</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1507264.html" target="_blank" title="第165章 贵宾礼遇(2012-12-16 13:26:11)" class="qh">第165章 贵宾礼遇</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1507266.html" target="_blank" title="第166章 偶遇公主(2012-12-16 13:26:39)" class="qh">第166章 偶遇公主</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1507610.html" target="_blank" title="第167章 缔盟之约(2012-12-17 12:51:49)" class="qh">第167章 缔盟之约</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1507612.html" target="_blank" title="第168章 逃离天灵(2012-12-17 12:52:38)" class="qh">第168章 逃离天灵</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1507613.html" target="_blank" title="第169章 飞龙在天(2012-12-17 12:53:09)" class="qh">第169章 飞龙在天</a><span class="vip">vip</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/61198-1508001.html" target="_blank" title="第170章 夏宇将军(2012-12-18 14:28:27)" class="qh">第170章 夏宇将军</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1508002.html" target="_blank" title="第171章 妖兽偷袭(2012-12-18 14:29:07)" class="qh">第171章 妖兽偷袭</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1508451.html" target="_blank" title="第172章 良辰美景(2012-12-19 15:59:04)" class="qh">第172章 良辰美景</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1508553.html" target="_blank" title="第173章 国王中毒(2012-12-19 22:03:14)" class="qh">第173章 国王中毒</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1508597.html" target="_blank" title="第174章 惊天访谈(2012-12-19 23:20:10)" class="qh">第174章 惊天访谈</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1508874.html" target="_blank" title="第175章 艰难抉择(2012-12-20 15:36:24)" class="qh">第175章 艰难抉择</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1508905.html" target="_blank" title="第176章 两个傻帽(2012-12-20 17:00:33)" class="qh">第176章 两个傻帽</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1508993.html" target="_blank" title="第177章 大军突袭(2012-12-20 22:12:42)" class="qh">第177章 大军突袭</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1509321.html" target="_blank" title="第178章  王子归征(2012-12-21 18:13:57)" class="qh">第178章  王子归征</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1509496.html" target="_blank" title="第179章 释权出走(2012-12-21 22:50:16)" class="qh">第179章 释权出走</a><span class="vip">vip</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/61198-1509849.html" target="_blank" title="第180章 新王即位(2012-12-22 21:14:01)" class="qh">第180章 新王即位</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1509919.html" target="_blank" title="第181章 大国政变(2012-12-22 23:52:17)" class="qh">第181章 大国政变</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1510157.html" target="_blank" title="第182章 英雄相别(2012-12-23 18:05:07)" class="qh">第182章 英雄相别</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1510226.html" target="_blank" title="第183章 迷魂铁甲(2012-12-23 21:32:12)" class="qh">第183章 迷魂铁甲</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1510266.html" target="_blank" title="第184章 各显神通(2012-12-23 23:45:42)" class="qh">第184章 各显神通</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1511150.html" target="_blank" title="第185章 皓石风情(2012-12-24 23:39:24)" class="qh">第185章 皓石风情</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1511151.html" target="_blank" title="第186章 说服侯爷(2012-12-24 23:39:53)" class="qh">第186章 说服侯爷</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1511152.html" target="_blank" title="第187章 尊严之战(2012-12-24 23:40:17)" class="qh">第187章 尊严之战</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1511652.html" target="_blank" title="第188章 先头部队(2012-12-25 18:28:43)" class="qh">第188章 先头部队</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61198-1511654.html" target="_blank" title="第189章  初遇雏菊(2012-12-25 18:29:22)" class="qh">第189章  初遇雏菊</a><span class="vip">vip</span></li>                    </ul></ul></ul></ul></ul></div><div category="chapterfix" index="5" style="width:734px; cursor: pointer;position: fixed; top: 0; display:none" class="subtitle">
+                        <h2>第五卷 人族的全面战争(35)</h2>
+                        <div class="tips6" style="display:block;" onclick="$(&#39;body,html&#39;).animate({scrollTop:0},500);">点击回到顶部</div>
+                    </div>
+                        <div category="chapter" index="5" style="cursor: pointer" class="subtitle top15">
+                            <h2>第五卷 人族的全面战争(35)</h2>
+                            <a class="up">图标</a>
+                            <a class="down" style="display: none">图标</a>
+                        </div>
+                        <div category="chapterlist" index="5" class="chapter-list2  clearfix">
+                            <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/61666-1512196.html" target="_blank" title="第190章 与王子同骑(2012-12-26 18:43:15)" class="qh">第190章 与王子同骑</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1512282.html" target="_blank" title="第191章 军营耍顽皮(2012-12-26 22:13:40)" class="qh">第191章 军营耍顽皮</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1512307.html" target="_blank" title="第192章 大军初战捷(2012-12-26 23:24:42)" class="qh">第192章 大军初战捷</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1512523.html" target="_blank" title="第193章 突袭(2012-12-27 17:25:39)" class="qh">第193章 突袭</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1512589.html" target="_blank" title="第194章 天下第一塞(2012-12-27 20:45:42)" class="qh">第194章 天下第一塞</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1512624.html" target="_blank" title="第195章 血流成河(2012-12-27 22:27:26)" class="qh">第195章 血流成河</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1513045.html" target="_blank" title="第196章 败将见主(2012-12-28 22:24:17)" class="qh">第196章 败将见主</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1513046.html" target="_blank" title="第197章 当康高论(2012-12-28 22:24:47)" class="qh">第197章 当康高论</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1513068.html" target="_blank" title="第198章 兵临城下(2012-12-28 23:22:58)" class="qh">第198章 兵临城下</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1514441.html" target="_blank" title="第199章 得意(2012-12-29 17:42:55)" class="qh">第199章 得意</a><span class="vip">vip</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/61666-1514517.html" target="_blank" title="第200章 使者(2012-12-29 19:49:32)" class="qh">第200章 使者</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1514936.html" target="_blank" title="第201章 羞辱(2012-12-30 18:46:23)" class="qh">第201章 羞辱</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1515002.html" target="_blank" title="第202章 破城(2012-12-30 21:27:52)" class="qh">第202章 破城</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1515332.html" target="_blank" title="第203章 调戏公主(2012-12-31 16:45:24)" class="qh">第203章 调戏公主</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1515419.html" target="_blank" title="第204章 兄妹重逢(2012-12-31 20:40:21)" class="qh">第204章 兄妹重逢</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1515450.html" target="_blank" title="第205章 调戏公主的代价(2012-12-31 21:34:40)" class="qh">第205章 调戏公主的代价</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1517085.html" target="_blank" title="第206章 疑云(2013-01-05 12:09:38)" class="qh">第206章 疑云</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1519283.html" target="_blank" title="第207章 侯爷奸情(2013-01-11 12:11:24)" class="qh">第207章 侯爷奸情</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1521361.html" target="_blank" title="第208章 同瞑刀(2013-01-16 13:43:04)" class="qh">第208章 同瞑刀</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1521791.html" target="_blank" title="第209章 遭遇雪狼(2013-01-17 16:05:29)" class="qh">第209章 遭遇雪狼</a><span class="vip">vip</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/61666-1521792.html" target="_blank" title="第210章 大难不死(2013-01-17 16:06:07)" class="qh">第210章 大难不死</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1522180.html" target="_blank" title="第111章 小重逢(2013-01-18 14:56:12)" class="qh">第111章 小重逢</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1522370.html" target="_blank" title="第212章 泪湿青衫(2013-01-19 00:49:28)" class="qh">第212章 泪湿青衫</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1523422.html" target="_blank" title="第213章 能力恢复(2013-01-21 17:38:25)" class="qh">第213章 能力恢复</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1523423.html" target="_blank" title="第214章 体香(2013-01-21 17:38:58)" class="qh">第214章 体香</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1523425.html" target="_blank" title="第215章 被困洞中(2013-01-21 17:39:25)" class="qh">第215章 被困洞中</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1523609.html" target="_blank" title="第216章 遗址(2013-01-22 02:08:24)" class="qh">第216章 遗址</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1523610.html" target="_blank" title="第217章 洞中相遇(2013-01-22 02:09:07)" class="qh">第217章 洞中相遇</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1524568.html" target="_blank" title="第218章 女幽(2013-01-24 14:12:22)" class="qh">第218章 女幽</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1525436.html" target="_blank" title="第219章 禁品(2013-01-26 15:01:16)" class="qh">第219章 禁品</a><span class="vip">vip</span></li>                                        <ul class="columns clearfix">                                        <li><a href="https://www.hongshu.com/content/42203/61666-1525437.html" target="_blank" title="第220章 虚伪之国(2013-01-26 15:01:48)" class="qh">第220章 虚伪之国</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1525438.html" target="_blank" title="第221章 强渡黑水河（上）(2013-01-26 15:02:22)" class="qh">第221章 强渡黑水河（上）</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1526538.html" target="_blank" title="第222章 强渡黑水河（中）(2013-01-29 01:01:27)" class="qh">第222章 强渡黑水河（中）</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1526539.html" target="_blank" title="第223章 强渡黑水河（下）(2013-01-29 01:01:57)" class="qh">第223章 强渡黑水河（下）</a><span class="vip">vip</span></li>                                                                                <li><a href="https://www.hongshu.com/content/42203/61666-1526540.html" target="_blank" title="第224章 王子回归(2013-01-29 01:02:31)" class="qh">第224章 王子回归</a><span class="vip">vip</span></li>                    </ul></ul></ul></ul></div>                </div>
+                    <div class="readprompt bom30">
+                        <p> 1、《天外飞蝶》为作者『屿霖铃』原创玄幻小说作品。</p>
+                        <p>2、如果您喜欢《天外飞蝶》,请给与作者鼓励和帮助,哪怕是一段简短的书评都能让作者很开心,以后就能看到『屿霖铃』为我们写出更多的好文。</p>
+                        <p>3、小说《天外飞蝶》所描述的内容只是作者『屿霖铃』个人观点，与红薯中文网的立场无关，本站只为广大用户提供电子阅读平台。</p>
+                        <p>4、《天外飞蝶》是一部非常好看的玄幻小说作品，您可以收藏到自己的书架,赠送鲜花,每天签到,订阅作品章节,打赏作品,这都是对作者的支持和鼓励。</p>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="fm2 top10 flrt">
+                        <a href="https://www.hongshu.com/book/42203/" target="_blank" class="bom10 img qh" title="天外飞蝶"><img src="./天外飞蝶txt-全文阅读-红薯中文网_files/42203_large.jpg" alt=""></a>
+                        <div class="c2 tags padding10">
+                            <p>作品标签：</p>
+                            <p>
+                                <a href="https://www.hongshu.com/tag/%E7%8E%84%E5%B9%BB/" target="_blank" title="玄幻">玄幻</a><a href="https://www.hongshu.com/tag/%E5%8D%87%E7%BA%A7/" target="_blank" title="升级">升级</a><a href="https://www.hongshu.com/tag/%E7%83%AD%E8%A1%80/" target="_blank" title="热血">热血</a><a href="https://www.hongshu.com/tag/%E7%88%BD%E6%96%87/" target="_blank" title="爽文">爽文</a>                    </p></div>
+                    </div>
+                    <div class="rank top25 flrt clearfix">
+                        <div class="tit-rank">
+                            <h5>作者公告</h5>
+                        </div>
+                        <div class="list7-rank">
+                            <p>
+                                屿霖铃，红薯中文网作家，拥有庞大的书迷群体，代表作有:《天外飞蝶》,《衣服里的秘密探索》,《复原图的诅咒》,《无间江湖》,《星际追杀令》,《古灵精怪》,《今夜你会不会来》,《唐朝瘦梦》                        </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--con-end-->
+        <!--底开始-->
+        <div class="footer">
+            <div class="footercon">
+                <div class="left">
+                    <p class="bom30">
+                        <a href="https://www.hongshu.com/static/about/index.html" target="_blank">关于红薯</a>　|　<a href="https://www.hongshu.com/static/about/lxwm.html" target="_blank">联系我们</a>　|　<a href="https://www.hongshu.com/static/about/yhxy.html" target="_blank">用户协议</a>　|　<a href="https://www.hongshu.com/static/about/tgsm.html" target="_blank">投稿说明</a>　|　<a href="https://www.hongshu.com/static/help/index.html" target="_blank">帮助中心</a>　|　<a href="https://www.hongshu.com/static/about/bqsm.html" target="_blank">版权声明</a>　|　<a href="https://www.hongshu.com/static/about/kefu.html" target="_blank">客服中心</a>　|　<a href="https://www.hongshu.com/message.do" target="_blank">反馈留言</a></p>
+                    <p>Copyright (C)  All rights reserved 版权所有 南京触手科技有限公司</p>
+                    <p>
+                        <a rel="noreferrer" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备17008861号-3</a>
+                        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32010402000339"><img src="./天外飞蝶txt-全文阅读-红薯中文网_files/gongan.png" style="width: 16px;margin: 0 5px 0 20px;">苏公网安备 32010402000339号</a><a onclick="$(&#39;#www&#39;).show();"><img src="./天外飞蝶txt-全文阅读-红薯中文网_files/wenhuajingying.png" style="width: 16px;margin: 0 5px 0 20px;">苏网文〔2018〕1918-034号</a></p>
+                    <p style=" color:#999;padding-top:10px;">红薯网一贯提倡和支持作品的原创性，为维护作品原创作者的权益，打击盗版、剽窃、抄袭等违法和不道德行为，</p><!--
+                <p style=" color:#999;">息存储空间，本站不改变所有作品和书评，也不对其进行编辑修改等操作。红薯网一贯提倡和支持作品的原创性，为维护</p> -->
+                    <p style=" color:#999;">谨请用户如发现作品有侵权行为请及时与<a style="color: #49cc3b;" href="https://www.hongshu.com/message.do" target="_blank">红薯网联系</a>，一经查实，立即删除，并保留追究当事人法律责任的权利。</p>
+                </div>
+                <div class="ww" style="display:none;" id="www"><img src="./天外飞蝶txt-全文阅读-红薯中文网_files/cs.jpg"></div>
+                <div class="right">
+                    <ul>
+                        <li><img width="100" height="100" src="./天外飞蝶txt-全文阅读-红薯中文网_files/hongshu_weibo.png" alt="">
+                            <p class="c5">官方微博</p>
+                        </li>
+                        <li><img width="100" height="100" src="./天外飞蝶txt-全文阅读-红薯中文网_files/hongshu_wechat.jpg" alt="">
+                            <p class="c6">官方微信</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="dialog-confirm" title="提示" style="display: none">
+            <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>确认此操作吗？</p>
+        </div>
+        <div id="dialog-message" title="通知" style="display: none">
+            <p>
+                <span class="ui-icon ui-icon-contact" style="float:left; margin:0 7px 50px 0;"></span>
+                <span></span>
+            </p>
+            <p>&nbsp;
+
+            </p>
+        </div>
+        <script>
+            (function(){
+            var hs_ga = document.createElement('script');
+            hs_ga.type = 'text/javascript';
+            hs_ga.async = true;
+            hs_ga.src = hs_const_url.tjsitecount_js;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(hs_ga, s);
+            })();
+
+            $(function () {
+            // 获取链接中的sid
+            var urlhash =  document.location.hash;
+            var _bid = '';
+            if (!_bid) {
+            _bid = '';
+            }
+            var _chapterid = '';
+            if (!_chapterid) {
+            _chapterid = '';
+            }
+            // 获取cookie中sid
+            var sid = CookieUtil.getCookie('_from_sid');
+            if (urlhash) {
+            var fromsid = '';
+            if (sid) {
+            fromsid = sid;
+            } else {
+            fromsid = urlhash.substring(urlhash.indexOf('fromsid=')+8,urlhash.length);
+            }
+            if(typeof fromsid !== undefined && fromsid != '' && fromsid != null){
+            if(!sid){
+            sid = fromsid;
+            }
+            }
+            }
+
+            if (sid) {
+            sendsid(sid,_bid,_chapterid);
+            var img=new Image();
+            img.setAttribute('lazy','y');
+            var url = "/home/tjsitecount/setsid.html" + '?sid=' + sid;
+            img.src = url;
+            $('body').append(img);
+
+            }
+            });
+            function sendsid(fromsid, bid, chapid) {
+            if(fromsid!=undefined && fromsid!='' && fromsid!=null) {
+            var oImg = new Image();
+            oImg.setAttribute('lazy','y');
+            var url = "/home/tjsitecount/statics.html" + '?sid=' + fromsid + '&bid='+bid + '&cid=' + chapid;
+            oImg.src = url;
+            $('body').append(oImg);
+            }
+
+            }
+            $('#www').on('click',function(){
+            $('#www').hide();
+            })
+        </script>
+        <script type="text/javascript" src="https://tajs.qq.com/stats?sId=66146130" charset="UTF-8"></script>
+        <script type="text/javascript" language="javascript" src="./天外飞蝶txt-全文阅读-红薯中文网_files/b=hs2&amp;f=all_foot.js.下载" charset="utf-8"></script>
+
+        <!--底结束-->
+        <!--回顶部开始-->
+        <!-- <div class="returntop" style="position: fixed; right: 0px; bottom: 90px"><a id="aback" href="javascript:void(0)"></a></div> -->
+        <!--回顶部结束-->
+        <input id="hidPageType" type="hidden" value="chapterlist">
+        <input id="hidBid" type="hidden" value="42203">
+        <script src="./天外飞蝶txt-全文阅读-红薯中文网_files/hit.php"></script>
+
+        <script type="text/javascript">
+            $(function () {
+            getbookstatus();
+            });
+            function getbookstatus() {
+            var url = "https://www.hongshu.com"+"/"+"bookajax.do";
+            var bid = '42203';
+            $.ajax({
+            type:'get',
+            url: url,
+            data: {bid: bid,method:"getbookstatus"},
+            success: function (data) {
+            console.log(data);
+            if(data.status == 1){
+            if (data['list']['isxiajia']) {
+            $('.qh').attr("href","https://www.hongshu.com/xiajia.html");
+            $('.progress').hide();
+            }
+            }
+            },
+            });
+            }
+        </script>
+        <div class="returntop" style="position: fixed; right: 0px; bottom: 90px; display: none;"><a href="javascript:void(0)"></a></div></body></html>

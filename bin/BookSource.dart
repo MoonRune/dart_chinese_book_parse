@@ -1,10 +1,13 @@
 import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:BookSource/bean/book_source_rule_old.dart';
 import 'package:BookSource/bean/book_source.dart';
 import 'package:BookSource/parse_factory.dart';
+import 'package:BookSource/rule/rule_factory.dart';
+import 'package:BookSource/xpath_selector.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import '../lib/parttern_rule.dart';
@@ -33,10 +36,59 @@ void main(List<String> arguments) {
   // testJs();
   // callRegex();
   // callRegex();
-  search();
+  // callXpath();
   // testGet();
+  // search();
+
+  // testDetailJsoup();
+  testJsJavaAjax();
 }
 
+
+Future<void> testDetailJsoup() async {
+  // print(doc);
+  //"http://www.ireader.com
+  print('-----start-----');
+  var detail=await
+  io.File(r'C:\Users\baziii\IdeaProjects\BookSource\book_detail.xml').readAsString();
+  var element=parse(detail);
+  print(element);
+//"class.sResult@tag.li|class.newShow@tag.li
+    element.querySelectorAll('input[id=hidbid]').forEach((e1) {
+    // print(element.outerHtml);
+    print(e1.attributes['value']);
+    print('-----split-----');
+  });
+    // element.querySelectorAll('class.introduce').forEach((element) {
+    //   print(element.text);
+    //  });
+}
+testJsJavaAjax() async {
+  var html = await
+  io.File(r'C:\Users\baziii\IdeaProjects\BookSource\book_detail.xml').readAsString();
+  var ruleContent="[id=hidbid]@value&&[id=hidjid]@value&&[id=hidcid]@value\n<js>\n;function _long2str(v,w){var vl=v.length;var sl=v[vl-1]&0xffffffff;for(var i=0;i<vl;i++){v[i]=String.fromCharCode(v[i]&0xff,v[i]>>>8&0xff,v[i]>>>16&0xff,v[i]>>>24&0xff);}if(w){return v.join('').substring(0,sl);}else{return v.join('');}}\r\n;function _str2long(s,w){var len=s.length;var v=[];for(var i=0;i<len;i+=4){v[i>>2]=s.charCodeAt(i)|s.charCodeAt(i+1)<<8|s.charCodeAt(i+2)<<16|s.charCodeAt(i+3)<<24;}if(w){v[v.length]=len;}return v;}\r\n;function _hs_decrypt(str,key){if(str==''){return'';}var v=_str2long(str,false);var k=_str2long(key,false);var n=v.length-1;var z=v[n-1],y=v[0],delta=0x9E3779B9;var mx,e,q=Math.floor(6+52/(n+1)),sum=q*delta&0xffffffff;while(sum!=0){e=sum>>>2&3;for(var p=n;p>0;p--){z=v[p-1];mx=(z>>>5^y<<2)+(y>>>3^z<<4)^(sum^y)+(k[p&3^e]^z);y=v[p]=v[p]-mx&0xffffffff;}z=v[n];mx=(z>>>5^y<<2)+(y>>>3^z<<4)^(sum^y)+(k[p&3^e]^z);y=v[0]=v[0]-mx&0xffffffff;sum=sum-delta&0xffffffff;}return _long2str(v,true);}\r\n;function _my_base64decode(str){var c1,c2,c3,c4,base64DecodeChars=new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,62,-1,-1,-1,63,52,53,54,55,56,57,58,59,60,61,-1,-1,-1,-1,-1,-1,-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,-1,-1,-1,-1,-1,-1,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,-1,-1,-1,-1,-1);var i,len,out;len=str.length;i=0;out='';while(i<len){do{c1=base64DecodeChars[str.charCodeAt(i++)&0xff];}while(i<len&&c1==-1);if(c1==-1)break;do{c2=base64DecodeChars[str.charCodeAt(i++)&0xff];}while(i<len&&c2==-1);if(c2==-1)break;out+=String.fromCharCode((c1<<2)|((c2&0x30)>>4));do{c3=str.charCodeAt(i++)&0xff;if(c3==61)return out;c3=base64DecodeChars[c3];}while(i<len&&c3==-1);if(c3==-1)break;out+=String.fromCharCode(((c2&0XF)<<4)|((c3&0x3C)>>2));do{c4=str.charCodeAt(i++)&0xff;if(c4==61)return out;c4=base64DecodeChars[c4];}while(i<len&&c4==-1);if(c4==-1)break;out+=String.fromCharCode(((c3&0x03)<<6)|c4);}return out;}\r\n;function _utf8to16(str){var out,i,len,c;var char2,char3;out='';len=str.length;i=0;while(i<len){c=str.charCodeAt(i++);switch(c>>4){case 0:case 1:case 2:case 3:case 4:case 5:case 6:case 7:out+=str.charAt(i-1);break;case 12:case 13:char2=str.charCodeAt(i++);out+=String.fromCharCode(((c&0x1F)<<6)|(char2&0x3F));break;case 14:char2=str.charCodeAt(i++);char3=str.charCodeAt(i++);out+=String.fromCharCode(((c&0x0F)<<12)|((char2&0x3F)<<6)|((char3&0x3F)<<0));break;}}return out;}\n;function _myreplace(s,a,b){return s.replace(new RegExp(a,'g'),b);};\n;function _mytrim(s){return _myreplace(_myreplace(s,'\\r',''),'\\n','');};\n\nvar document = {\n    createElement : function(){return this;},\n    setAttribute : function(){return;},\n    getElementsByTagName : function(){return [this];},\n    parentNode : {\n        insertBefore : function(){return;},\n    },\n    styleSheets : [\n        {\n            addRule : function(){return;},\n        },\n    ],\n},\ntop = {\n    window : {\n        location : {\n            href : '',\n        },\n    },\n},\nwindow = top['window'],\n_mycon = '获取内容失败',\n_myjs,\narr = result.split('\\n'),\n_curbid = arr[0],\n_curjid = arr[1],\n_curcid = arr[2],\n_ajaxurl = 'https://www.hongshu.com/bookajax.do',\n_tkey = _ajaxurl +'@method=getchptkey&bid='+ _curbid +'&cid='+ _curcid,\n_key = JSON.parse(java.ajax(_tkey)).key, _tcon = _ajaxurl +'@method=getchpcontent&bid='+ _curbid +'&jid='+ _curjid +'&cid='+ _curcid;\n_tcon = JSON.parse(java.ajax(_tcon));\nif(_tcon.content != ''){\n    _mycon = _myreplace(_utf8to16(_hs_decrypt(_my_base64decode(_tcon.content), _key)), '&lt;p&gt;', '');\n    _mycon = _myreplace(_mycon, '&lt;/p&gt;', '_thebr_');\n};\nif(_tcon.hasOwnProperty('other')){\n    if(_tcon.other != ''){\n        _mycon = _myreplace(_mycon, '&lt;span class=', '');\n        _mycon = _myreplace(_mycon, '&gt;&lt;/span&gt;', '');\n        _mycon = _myreplace(_mycon, '\\r', '');\n        _mycon = _myreplace(_mycon, '\\n', '_thebr_');\n        _mycon = _myreplace(_mycon, '`',  '｀');\n        _mycon = _myreplace(_mycon, \"'\", '｀');\n        _myjs = _mytrim(_utf8to16(_hs_decrypt(_my_base64decode(_tcon.other), _key)));\n        eval(_myjs);\n        words.forEach(function(e,i){\n            _mycon = _myreplace(_mycon, '｀context_kw'+i+'｀', e);\n        });\n        _mycon = _myreplace(_mycon, '_thebr_', '\\n');\n        _mycon = '已加密☄ฺ(◣д◢)☄ฺ ☄ฺ(◣д◢)☄ฺ ☄ฺ(◣д◢)☄ฺ\\n' + _mycon;\n    }else{\n        _mycon = '未加密(づ ●─● )づ (づ ●─● )づ (づ ●─● )づ\\n' + _myreplace(_mycon, '_thebr_', '\\n');\n    };\n};return _mycon;\n</js>";
+  var rule= RuleFactory.parse(ruleContent);
+  print(await ParseFactory.getParser(rule).getString(html));
+  ////*[@class='chapter-list2 bom150 clearfix']//li
+  // XPath.source(html).query("//*[@category='chapterlist']//li").list().forEach((element) {print(element);});
+
+  // var li=r'<li><a href="/content/42203/61198-1496966.html" target="_blank" title="第140章 依依舍之(2012-12-07 19:55:02)" class="qh">第140章 依依舍之</a><span class="vip">vip</span></li>';
+  //
+  // XPath.source(li).query("//a/@href").list().forEach((element) {print(element);});
+  // XPath.source(li).query("//a[@class='qh']/text()").list().forEach((element) {print(element);});
+}
+
+ callXpath() async {
+  var html = await
+   io.File(r'C:\Users\baziii\IdeaProjects\BookSource\book.xml').readAsString();
+  ////*[@class='chapter-list2 bom150 clearfix']//li
+  XPath.source(html).query("//*[@category='chapterlist']//li").list().forEach((element) {print(element);});
+
+  // var li=r'<li><a href="/content/42203/61198-1496966.html" target="_blank" title="第140章 依依舍之(2012-12-07 19:55:02)" class="qh">第140章 依依舍之</a><span class="vip">vip</span></li>';
+  //
+  // XPath.source(li).query("//a/@href").list().forEach((element) {print(element);});
+  // XPath.source(li).query("//a[@class='qh']/text()").list().forEach((element) {print(element);});
+}
 Future<String> callRegex() async {
   var unjson =
       "{Seq: '1f9caa033a22bc75e72437d8952992cd',PushToken: 'AqJmTQBjP541B9G8V90FwOfjyWUbqhf9dOrENy47ckhK'}";
@@ -108,15 +160,73 @@ Future<String> callJS() async {
   // } on PlatformException catch (e) {
   //   print('ERRO: ${e.details}');
   // }
-  final engine = FlutterQjs(
-    stackSize: 1024 * 1024, // change stack size here.
+  final engine = IsolateQjs (
+  // final engine = FlutterQjs (
+    stackSize: 1024 * 1024
   );
-  print("engine start");
-  engine.dispatch();
-  print("engine ready");
+  // engine.dispatch();
+  // final setToGlobalObject = await engine.evaluate(" (key, val) => { this[key] = val; }");
+  final setToGlobalObject = await engine.evaluate("(key, val) => { this[key] = val; }");
+  // await setToGlobalObject.invoke([
+  //   "print",
+  //   IsolateFunction((dynamic? url) async{
+  //     if(url == null){
+  //       print("null");
+  //     }else {
+  //       if(url is Future){
+  //         print( await (url as Future));
+  //       }else {
+  //         print(url.toString());
+  //       }
+  //     }
+  //   }),
+  // ]);
+  await (setToGlobalObject as JSInvokable ).invoke(["print", IsolateFunction((dynamic? url) async {
+    if(url == null){
+      print("null");
+    }else {
+      if(url is Future){
+        print( await (url as Future));
+      }else {
+        print(url.toString());
+      }
+    }
+  })]);
+  Future? future ;
+  Future? urlFuture ;
+  await (setToGlobalObject as JSInvokable ).invoke(["http", IsolateFunction((String url) async {
+    // var reulst=  (await Dio().get(url)).toString();
+    var r=await  Dio().get(url);
+    return '123';
+  })]);
+  // await setToGlobalObject.invoke([
+  //   "http",
+  //   IsolateFunction((String url) async {
+  //     print(url);
+  //     // var result =await Dio().get(url);
+  //     // print(result);
+  //     // return "1234567";
+  //
+  //     var result=await  Dio().get(url).then((response) => response.data);
+  //     return "123";
+  //   }),
+  // ]);
+
+  // var json2 = await io.File(r'C:\Users\baziii\IdeaProjects\BookSource\json2.js').readAsString();
+  //  await engine.evaluate(json2);
   try {
-    var js = await io.File(r'C:\Users\baziii\Desktop\bookjs.js').readAsString();
-    return (await engine.evaluate('var result=7106468; ${js}'));
+    var js = await io.File(r'C:\Users\baziii\IdeaProjects\BookSource\bookjs.js').readAsString();
+    // future = engine.evaluate('var result=7106468; ${js}');
+    // urlFuture!.asStream().forEach((element) {
+    //   Isolate.current.
+    //
+    // });
+    js='var result=7106468; ${js}';
+    // js = ' async function dothis(){$js}; dothis()';
+    var jsResult= ( await engine.evaluate(js));
+
+    print('jsresult : $jsResult');
+    return jsResult;
     //
     // parsejs(value, filename: 'test.js')
     // window.console.debug(value)
@@ -126,18 +236,45 @@ Future<String> callJS() async {
     // return (await engine.evaluate(
     //     "Math.trunc(Math.random() * 100).toString();"));
   }
-  // catch (e) {
-  //   return (e.toString());
-  // }
+  catch (e) {
+    print (e.toString());
+  }
    finally {
     try {
-      engine.port.close(); // stop dispatch loop
-      engine.close(); // close engine
+      // setToGlobalObject.free();
+      // engine.port.close(); // stop dispatch loop
+      // engine.close(); // close engine
     } on JSError catch (e) {
       print(e); // catch reference leak exception
     }
   }
   return "null";
+}
+class AwaitFunction extends JSInvokable {
+  final Function _func;
+  AwaitFunction(this._func);
+
+  @override
+  invoke(List args, [thisVal]) async {
+    /// wrap this into function
+    final passThis =
+    RegExp('{.*thisVal.*}').hasMatch(_func.runtimeType.toString());
+    print('await start');
+    final ret =
+    await Function.apply(_func, args, passThis ? {#thisVal: thisVal} : null);
+    JSRef.freeRecursive(args);
+    JSRef.freeRecursive(thisVal);
+    print('await result:${ret}');
+    return ret;
+  }
+
+  @override
+  String toString() {
+    return _func.toString();
+  }
+
+  @override
+  destroy() {}
 }
 
 Future<void> testJs() async {
@@ -347,13 +484,14 @@ parseBook(BookSource source, String content) async {
 }
 
 parseChapt(BookSource source, String content) async {
+  print(content);
   var chapt = {};
   chapt['chapterName'] =
       await ParseFactory.getParser(source.ruleToc!.chapterName)
           .getString(content);
   chapt['chapterUrl'] = await ParseFactory.getParser(source.ruleToc!.chapterUrl)
       .getString(content);
-  chapt['nextTocUrl'] = await ParseFactory.getParser(source.ruleToc!.nextTocUrl)
-      .getString(content);
+  // chapt['nextTocUrl'] = await ParseFactory.getParser(source.ruleToc!.nextTocUrl)
+  //     .getString(content);
   return chapt;
 }

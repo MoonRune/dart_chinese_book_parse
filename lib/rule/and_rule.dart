@@ -16,7 +16,7 @@ class AndParser extends IParser<AndRule>{
     var result = '';
     for(var rule in rule.andRules){
       var append = await ParseFactory.getParser(rule).getString(content,valueMap: valueMap);
-      result= '$result$append';
+      result= '$result$append\\n';
     }
     return result;
   }

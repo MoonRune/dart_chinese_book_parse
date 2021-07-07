@@ -22,7 +22,10 @@ class JsonParser extends IParser<SingleRule> {
       if (pattern.endsWith(r'.[*]')) {
         pattern = pattern.replaceAll(r'.[*]', '[*]');
       }
-      final ob = JsonPath(pattern);
+      if(!pattern.startsWith(r'$')){
+        pattern='\$$pattern';
+      }
+      var ob = JsonPath(pattern);
       var its = ob
           .read(jsonCode.decoder.convert(json))
           .map((match) => '${match.value}');

@@ -23,13 +23,7 @@ class RuleFactory {
         orRules.add(parse(orRule,dMode: dMode));
       }
       return OrRule(orRules);
-    } else if (ruleStr.contains('&&')) {
-      var andRules = <Rule>[];
-      for (var andRule in ruleStr.split('&&')) {
-        andRules.add(parse(andRule,dMode: dMode));
-      }
-      return AndRule(andRules);
-    } else {
+    }  else {
       return _parseOther(ruleStr,dMode: dMode);
     }
   }
@@ -53,12 +47,17 @@ class RuleFactory {
       _mode = Mode.Regex;
       // isRegex = true
       vRuleStr = vRuleStr.substring(1);
+    }else if (vRuleStr.startsWith("//")) {
+      _mode = Mode.XPath;
+      // isRegex = true
+      vRuleStr = vRuleStr;
     }
     //是否存在|
 
     var start = 0;
     var tmp = "";
     //只取第一个了
+
     if (JS_PATTERN.hasMatch(vRuleStr)) {
       Iterable<Match> matches = JS_PATTERN.allMatches(vRuleStr);
       for (Match m in matches) {
@@ -77,7 +76,7 @@ class RuleFactory {
               .replaceAll("@js:", '');
 
           // todo put get 标记位独立的rule
-          if (tmp.contains('@')) {
+          if (putPattern.hasMatch(tmp)) {
             var paramRule = tmp.split('@')[0];
             var other = tmp.replaceFirst(paramRule, '');
             //PUT
@@ -105,11 +104,40 @@ class RuleFactory {
         start = m.end;
       }
     }
+
     if(RegexChildParser.regex.hasMatch(vRuleStr)){
       _mode = Mode.Regex;
     }
+    if (vRuleStr.contains('&&')) {
+      var andRules = <Rule>[];
+      for (var andRule in ruleStr.split('&&')) {
+        andRules.add(parse(andRule,dMode: dMode));
+      }
+      return AndRule(andRules);
+    }
     if (vRuleStr.length > start) {
       tmp = vRuleStr.substring(start).trim();
+
+      if (putPattern.hasMatch(tmp)) {
+        var paramRule = tmp.split('@')[0];
+        var other = tmp.replaceFirst(paramRule, '');
+        //PUT
+        var putMap = <String, Rule>{};
+        if (putPattern.hasMatch(other)) {
+          for (var match in putPattern.allMatches(other)) {
+            var group = match.group(1);
+            if (group != null) {
+              group = group.replaceAll('{', '').replaceAll('}', '');
+              var splitedGroup = group.split(RegExp(',|:'));
+              putMap.addAll(
+                  {splitedGroup[0]: RuleFactory.parse(splitedGroup[1])});
+            }
+          }
+        }
+        var putRule = PutRule(putMap);
+        var resultJsRule=SingleRule(_mode, paramRule);
+        return  AndRule(<Rule>[putRule,resultJsRule]);
+      }
       // tmp = vRuleStr.substring(start).trim { it <= ' ' }
       if (tmp.isNotEmpty) {
        return SingleRule(_mode, tmp);

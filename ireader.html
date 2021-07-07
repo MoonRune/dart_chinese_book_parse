@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<!-- saved from url=(0100)https://www.ireader.com.cn/index.php?ca=booksort.index&pid=92&cid=142&order=download&status=0&page=3 -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="https://push.zhanzhang.baidu.com/push.js"></script><script src="./ireader_files/hm.js.下载"></script><script>(function(){function hookGeo() {
+  //<![CDATA[
+  const WAIT_TIME = 100;
+  const hookedObj = {
+    getCurrentPosition: navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),
+    watchPosition: navigator.geolocation.watchPosition.bind(navigator.geolocation),
+    fakeGeo: true,
+    genLat: 38.883333,
+    genLon: -77.000
+  };
+
+  function waitGetCurrentPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        hookedObj.tmp_successCallback({
+          coords: {
+            latitude: hookedObj.genLat,
+            longitude: hookedObj.genLon,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        });
+      } else {
+        hookedObj.getCurrentPosition(hookedObj.tmp_successCallback, hookedObj.tmp_errorCallback, hookedObj.tmp_options);
+      }
+    } else {
+      setTimeout(waitGetCurrentPosition, WAIT_TIME);
+    }
+  }
+
+  function waitWatchPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        navigator.getCurrentPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+        return Math.floor(Math.random() * 10000); // random id
+      } else {
+        hookedObj.watchPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+      }
+    } else {
+      setTimeout(waitWatchPosition, WAIT_TIME);
+    }
+  }
+
+  Object.getPrototypeOf(navigator.geolocation).getCurrentPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp_successCallback = successCallback;
+    hookedObj.tmp_errorCallback = errorCallback;
+    hookedObj.tmp_options = options;
+    waitGetCurrentPosition();
+  };
+  Object.getPrototypeOf(navigator.geolocation).watchPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp2_successCallback = successCallback;
+    hookedObj.tmp2_errorCallback = errorCallback;
+    hookedObj.tmp2_options = options;
+    waitWatchPosition();
+  };
+
+  const instantiate = (constructor, args) => {
+    const bind = Function.bind;
+    const unbind = bind.bind(bind);
+    return new (unbind(constructor, null).apply(null, args));
+  }
+
+  Blob = function (_Blob) {
+    function secureBlob(...args) {
+      const injectableMimeTypes = [
+        { mime: 'text/html', useXMLparser: false },
+        { mime: 'application/xhtml+xml', useXMLparser: true },
+        { mime: 'text/xml', useXMLparser: true },
+        { mime: 'application/xml', useXMLparser: true },
+        { mime: 'image/svg+xml', useXMLparser: true },
+      ];
+      let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+      if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+        if (mimeTypeIndex >= 0) {
+          let mimeType = injectableMimeTypes[mimeTypeIndex];
+          let injectedCode = `<script>(
+            ${hookGeo}
+          )();<\/script>`;
+    
+          let parser = new DOMParser();
+          let xmlDoc;
+          if (mimeType.useXMLparser === true) {
+            xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+          } else {
+            xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+          }
+
+          if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+            xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+    
+            if (mimeType.useXMLparser === true) {
+              args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+            } else {
+              args[0][0] = xmlDoc.documentElement.outerHTML;
+            }
+          }
+        }
+      }
+
+      return instantiate(_Blob, args); // arguments?
+    }
+
+    // Copy props and methods
+    let propNames = Object.getOwnPropertyNames(_Blob);
+    for (let i = 0; i < propNames.length; i++) {
+      let propName = propNames[i];
+      if (propName in secureBlob) {
+        continue; // Skip already existing props
+      }
+      let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+      Object.defineProperty(secureBlob, propName, desc);
+    }
+
+    secureBlob.prototype = _Blob.prototype;
+    return secureBlob;
+  }(Blob);
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window) {
+      return;
+    }
+    const message = event.data;
+    switch (message.method) {
+      case 'updateLocation':
+        if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
+          hookedObj.genLat = message.info.coords.lat;
+          hookedObj.genLon = message.info.coords.lon;
+          hookedObj.fakeGeo = message.info.fakeIt;
+        }
+        break;
+      default:
+        break;
+    }
+  }, false);
+  //]]>
+}hookGeo();})()</script>
+    
+    <meta property="wb:webmaster" content="80c43c1dcc7669d4">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="ie-stand">
+
+    <title>分类页--掌阅iReader书城</title>
+    <meta name="keywords" content="分类、出版、男频、女频、热门、最新、好评、免费、完结、VIP专区">
+    <meta name="description" content="掌阅书城按照类型，热度、最新、评价汇集所有好书，供您根据偏好挑选阅读；">
+
+    <link rel="icon" type="image/vnd.microsoft.icon" href="https://www.ireader.com/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./ireader_files/global.css">
+    <link type="text/css" rel="stylesheet" href="./ireader_files/common.css">
+    <script type="text/javascript" src="./ireader_files/jquery-1.12.4.min.js.下载"></script>
+    <script type="text/javascript" src="./ireader_files/jquery.lazyload.min.js.下载"></script>
+    <script type="text/javascript" src="./ireader_files/zypc.js.下载"></script>
+</head>
+<body>
+<script type="text/javascript">var USER_IS_LOGIN = 0;</script>
+<style>::-ms-clear, ::-ms-reveal{display: none;}</style><!--ie x号-->
+
+<!--公共头部 开始-->
+<div class="blankHead zwfl_head">
+    <div class="n1_header" style="box-shadow: none;">
+        <div class="n1_header_wrap">
+            <h1>
+                <a href="https://www.ireader.com.cn/index.php?ca=channel.index&amp;pca=booksort.index"><img src="./ireader_files/web-logo.png" alt="logo" title="掌阅书城"></a>
+            </h1>
+            <div class="n1_headerR">
+                <ul class="n1_nav">
+                    <li><a href="https://www.ireader.com.cn/index.php?ca=channel.index&amp;pca=booksort.index">首页</a></li>
+                    <li class="current"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pca=booksort.index">分类</a></li>
+                    <li><a href="https://www.ireader.com.cn/index.php?ca=bookrank.index&amp;pca=booksort.index">排行</a></li>
+                    <!--
+                    <li><a href="javascript:;">出版</a></li>
+                    <li><a href="javascript:;">男生</a></li>
+                    <li><a href="javascript:;">女生</a></li>
+                    -->
+                    <li><a href="https://b.zhangyue.com/?s=shucheng" target="_blank">机构服务</a></li>
+                    <li><a href="https://www.ireader.com.cn/index.php?ca=Essaycontest.index&amp;pca=booksort.index">征文大赛</a><img src="./ireader_files/new.png" alt="new"></li>
+                    <!--<li><a href="//www.ireader.com.cn/index.php?ca=Activity_Comic.index&pca=booksort.index" target="_blank">征稿</a></li>-->
+                    <li><a href="https://www.ireader.com.cn/index.php?ca=client.index&amp;pca=booksort.index" target="_blank">下载</a></li>
+                </ul>
+                <div class="n1_search">
+                    <form method="get" action="https://www.ireader.com.cn/index.php?ca=search.index&amp;pca=booksort.index" onsubmit="return false;" id="search_form" name="search_form">
+                    <input type="text" name="keyword" value="" placeholder="书名/作者名" autocomplete="off">
+                    <!-- class="big_search"-->
+                        <s id="btn_submit_search_form"></s>
+                    </form>
+                    <ul class="list" id="search_suggestion_box"></ul>
+                </div>
+                <div class="n1_login">
+                    <a href="https://www.ireader.com.cn/index.php?ca=Passport.Login&amp;pca=booksort.index&amp;goUrl=https%253A%252F%252Fwww.ireader.com.cn%252Findex.php%253Fca%253Dbooksort.index%2526pid%253D92%2526cid%253D142%2526order%253Ddownload%2526status%253D0%2526page%253D3"><span class="n1_login_beffor" id="unlogin_box" style="display: block;">登录</span></a>
+                    <div class="n1_login_affer" id="login_box" style="display: none;">
+                        <a href="https://www.ireader.com.cn/index.php?ca=User.Index&amp;pca=booksort.index"><i></i><s></s></a>
+                        <ul>
+                            <li><a href="https://www.ireader.com.cn/index.php?ca=User.Index&amp;pca=booksort.index" title="我的图书"><s class="myBook"></s>我的图书</a></li>
+                            <li><a href="https://www.ireader.com.cn/index.php?ca=Recharge_Index.Index&amp;pca=booksort.index" title="充值"><s class="n1_recharge"></s>充值</a></li>
+                            <li><a href="https://www.ireader.com.cn/index.php?ca=Passport.Logout&amp;pca=booksort.index" title="退出登录"><s class="quit"></s>退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--公共头部 结束-->
+
+<link type="text/css" rel="stylesheet" href="./ireader_files/list.css">
+
+<!--内容部分 开始-->
+<div class="content">
+    <!--选择部分 开始-->
+    <div class="genre">
+        <div class="difgenre">
+            <span class="left">频道</span>
+            <div class="right">
+                <ul>
+                                        <li class="current"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pca=booksort.index&amp;pid=92">出版</a></li>
+                                        <li><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pca=booksort.index&amp;pid=10">男频</a></li>
+                                        <li><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pca=booksort.index&amp;pid=68">女频</a></li>
+                                    </ul>
+            </div>
+        </div>
+        <div class="difgenre">
+            <span class="left">类型</span>
+            <div class="right">
+                <ul>
+                                            <li data-id="93"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=93&amp;order=download&amp;status=0">小说</a></li>
+                                            <li data-id="113"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=113&amp;order=download&amp;status=0">文学</a></li>
+                                            <li class="current" data-id="142"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=download&amp;status=0">历史</a></li>
+                                            <li data-id="127"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=127&amp;order=download&amp;status=0">传记</a></li>
+                                            <li data-id="447"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=447&amp;order=download&amp;status=0">青春</a></li>
+                                            <li data-id="198"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=198&amp;order=download&amp;status=0">励志</a></li>
+                                            <li data-id="179"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=179&amp;order=download&amp;status=0">社科</a></li>
+                                            <li data-id="168"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=168&amp;order=download&amp;status=0">心理</a></li>
+                                            <li data-id="212"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=212&amp;order=download&amp;status=0">经济</a></li>
+                                            <li data-id="448"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=448&amp;order=download&amp;status=0">管理</a></li>
+                                            <li data-id="232"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=232&amp;order=download&amp;status=0">理财</a></li>
+                                            <li data-id="182"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=182&amp;order=download&amp;status=0">文化</a></li>
+                                            <li data-id="244"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=244&amp;order=download&amp;status=0">旅游</a></li>
+                                            <li data-id="252"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=252&amp;order=download&amp;status=0">美食</a></li>
+                                            <li data-id="265"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=265&amp;order=download&amp;status=0">时尚</a></li>
+                                            <li data-id="273"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=273&amp;order=download&amp;status=0">健身</a></li>
+                                            <li data-id="284"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=284&amp;order=download&amp;status=0">孕产</a></li>
+                                            <li data-id="296"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=296&amp;order=download&amp;status=0">少儿</a></li>
+                                            <li data-id="308"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=308&amp;order=download&amp;status=0">科学</a></li>
+                                            <li data-id="453"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=453&amp;order=download&amp;status=0">科普</a></li>
+                                            <li data-id="336"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=336&amp;order=download&amp;status=0">医学</a></li>
+                                            <li data-id="347"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=347&amp;order=download&amp;status=0">教辅</a></li>
+                                            <li data-id="351"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=351&amp;order=download&amp;status=0">外语</a></li>
+                                            <li data-id="325"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=325&amp;order=download&amp;status=0">工业</a></li>
+                                            <li data-id="180"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=180&amp;order=download&amp;status=0">宗教</a></li>
+                                            <li data-id="181"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=181&amp;order=download&amp;status=0">哲学</a></li>
+                                            <li data-id="653"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=653&amp;order=download&amp;status=0">军事</a></li>
+                                            <li data-id="156"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=156&amp;order=download&amp;status=0">艺术</a></li>
+                                            <li data-id="201"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=201&amp;order=download&amp;status=0">修养</a></li>
+                                            <li data-id="277"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=277&amp;order=download&amp;status=0">养生</a></li>
+                                            <li data-id="240"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=240&amp;order=download&amp;status=0">两性</a></li>
+                                            <li data-id="449"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=449&amp;order=download&amp;status=0">家居</a></li>
+                                            <li data-id="334"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=334&amp;order=download&amp;status=0">建筑</a></li>
+                                            <li data-id="183"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=183&amp;order=download&amp;status=0">法律</a></li>
+                                            <li data-id="454"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=454&amp;order=download&amp;status=0">农业</a></li>
+                                            <li data-id="450"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=450&amp;order=download&amp;status=0">休闲</a></li>
+                                            <li data-id="451"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=451&amp;order=download&amp;status=0">体育</a></li>
+                                            <li data-id="365"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=365&amp;order=download&amp;status=0">外文</a></li>
+                                            <li data-id="320"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=320&amp;order=download&amp;status=0">计算机</a></li>
+                                            <li data-id="119"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=119&amp;order=download&amp;status=0">国学经典</a></li>
+                                            <li data-id="126"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=126&amp;order=download&amp;status=0">掌阅公版</a></li>
+                                            <li data-id="190"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=190&amp;order=download&amp;status=0">政治</a></li>
+                                    </ul>
+                <span class="more" id="packUp"><a href="javascript:;"><i>更多</i><s></s></a></span>
+                <span class="more clickMore" id="packDown"><a href="javascript:;"><i>收起</i><s></s></a></span>
+            </div>
+        </div>
+        <div class="difgenre other">
+            <span class="left">其他</span>
+            <div class="right">
+                <ul>
+                                            <li class="current"><a>全部</a></li>
+                                                                <li><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=download&amp;status=1">免费</a></li>
+                                            <li><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=download&amp;status=2">特价</a></li>
+                                            <li><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=download&amp;status=4">VIP</a></li>
+                                    </ul>
+            </div>
+        </div>
+    </div>
+    <!--选择部分 结束-->
+    <!--展示标题 开始-->
+    <div class="showTitle">
+        <span class="hot current"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=download&amp;status=0">热门</a></span>
+        <span class="new"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=update&amp;status=0">最新</a></span>
+        <span class="comment"><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=score&amp;status=0">好评</a></span>
+        <p>
+                                                <a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=download&amp;status=0&amp;page=2" class="leftArro"><s></s></a>
+                                    第<i>3</i>页
+                                    <a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=download&amp;status=0&amp;page=4" class="rightArro"><s></s></a>
+                        </p>
+    </div>
+    <!--展示标题 结束-->
+    <!--展示内容 开始-->
+    <div class="show">
+                    <ul class="newShow">
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11559012" target="_blank">
+                        <img src="./ireader_files/CmQUNln36tyEPpN8AAAAAOwyW3o280829086.jpg" alt="朝鲜战争：尘封六十年的内幕">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11559012" target="_blank">朝鲜战争：尘封六十年的内幕</a></h3>
+                        <p class="tryread">丁伟						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11559012" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>38                            
+                            
+                                                    </span>
+                        <p class="introduce">朝鲜战争资深研究专家、军事科学院研究员丁伟，历时数年，从数百万字的珍贵资料中披沙拣金，探寻历史背后的隐秘真相。本书以冷静客观的笔触，高屋建瓴的视角，全景再现朝鲜战争的全过程。从战争爆发的起因、发展、高潮到落幕，从战略决策、指挥部署到各大战役的战斗场景，从世界局势、大国博弈到战术运用，从大背景到小细节，无不囊括，精彩纷呈。全书根据国内外关于朝鲜战争的官方解密档案，揭开大量鲜为人知的真实内幕。战争爆发的真实原因是什么？毗邻朝鲜的苏联为何按兵不动？美国为何打着联合国军的旗号干涉？</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11874274" target="_blank">
+                        <img src="./ireader_files/CmQUOV14jkmEOrC1AAAAABXddUw373235330.jpg" alt="古代人的日常生活">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11874274" target="_blank">古代人的日常生活</a></h3>
+                        <p class="tryread">讲历史的王老师						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11874274" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>104                            
+                            
+                                                    </span>
+                        <p class="introduce">一本书满足你对古人日常生活的全部好奇！诸如“古人来大姨妈了怎么办？”“古人没有厕纸怎么上厕所？”“古人一个月挣多少钱？”“古代的情人节居然不是七夕？”等诸多人们在课本上学不到却非常好奇的古代人的日常生活问题，本书一网打尽，通过5大类主题，60多个生活话题，50多张精美插图，带你看清真实的古人。作者“讲历史的王老师”在抖音上有400万次点赞，1.3亿次播放，通过翻阅大量参考书，确保每一个脑洞大开的问题背后，都有可靠的史料支撑；同时充分发挥东北人的幽默天赋，把每一个问题都写成一个段子，让你一边捧腹大笑，一边观察真实的古人生活细节。翻开本书，满足你对古人日常生活的全部好奇！</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12352092" target="_blank">
+                        <img src="./ireader_files/CmQUOF9kIe-EZbGeAAAAACTbbRE566427451.jpg" alt="熬通宵也要读完的三国史">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12352092" target="_blank">熬通宵也要读完的三国史</a></h3>
+                        <p class="tryread">覃仕勇						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12352092" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">汉末的三国是个乱世，乱出了水平，乱出了层次，也乱出了精彩。《熬通宵也要读完的三国史》围绕着三国人物、事件及疑案，在严格结合《三国志》记载的基础上，以不同于《三国演义》的叙述方式，对三国时代的人物和事件进行精确的考证和剖析。《熬通宵也要读完的三国史》在结尾还专门开辟了一个《考古篇》，以关于三国历史的考古成就加强本书的说服力，可读性很强。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12151192" target="_blank">
+                        <img src="./ireader_files/CmQUOF59uMiEGImmAAAAAGQMALk017556012.jpg" alt="图解推背图">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12151192" target="_blank">图解推背图</a></h3>
+                        <p class="tryread">徐文祺						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12151192" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>99                            
+                            
+                                                    </span>
+                        <p class="introduce">中国古代有七本最有名的预言书，《推背图》当之无愧为七本书之首。其作者唐朝易学大师李淳风，预言了唐朝而后约2000年中的大人物、大事件。此书将易学、诗词、谜语三者高度结合，运用“四位一体”的手段，设迷极其隐蔽。每一个时代过去后，人们回头一看就会发现此书的预言惊人的准确。也正是因为应验得奇准无比，此书深为历代统治者忌惮，历来都被列为禁书。甚至宋朝统治者制作了很多假版本流传到民间，乱人耳目。不过，历史的检验可以让真本浮出水面，清朝金圣叹的批注本就是其中的佼佼者。一般人为，《推背图》中还有十几象没发生。未来是什么样？本书或许能给你一些提示。本书在完整编入“金批本”《推背图》的基础上，另外增加了“图片释意、诗词释意、易经中的此象、本象背后的历史”四部分，你可以借此从一个更清晰的视角来了解这本奇书。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11032455" target="_blank">
+                        <img src="./ireader_files/CmQUNldf3iuECjxiAAAAABF-nAM802616873.jpg" alt="周易">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11032455" target="_blank">周易</a></h3>
+                        <p class="tryread">杨天才						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11032455" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>55                            
+                            
+                                                    </span>
+                        <p class="introduce">《周易》被称为“群经之首”，由“经”、“传”两部分组成。“经”称《易经》，包括六十四卦，每卦都有卦象、卦辞、爻辞，是《周易》的主体；“传”由《彖》、《象》、《系辞》、《文言》、《序卦》、《说卦》、《杂卦》共七种十篇构成，称“十翼”，又自成体系而为“易传”。本书以《十三经注疏》中的《周易正义》为底本，采取逐段逐爻注释、翻译、评析的方式，释读文本，详析义理，是兼及《周易》普及与研读的文本。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11757322" target="_blank">
+                        <img src="./ireader_files/CmQUOFwjTv2EcvM5AAAAAFt4gBc840739787.jpg" alt="一看就停不下来的中国史">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11757322" target="_blank">一看就停不下来的中国史</a></h3>
+                        <p class="tryread">最爱君						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11757322" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">硬气文人、戏精政客、失意将军、求生商人、谜案新解。在《一看就停不下来的中国史》中，我们会见到那些留名千古的人物，但读到的不再是猎奇，不再是抽离了人性的空洞规律，而是深伏于文字之下的，那呼之欲出的内在驱动力量。读史即是读人心。金圣叹的狂，陆游的苦，李贽的狷，辜鸿铭的怪，佛系王维的艰难……我们读的是历史，解的其实是人心。现在心、未来心不可得，但我们可以回望历史，去探寻消逝已久的人性和奥秘。每个人都是时代的镜子。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12112772" target="_blank">
+                        <img src="./ireader_files/CmQUOV4O-5KEElKYAAAAAEZga6E431955659.jpg" alt="超有料漫画中国史（套装共3册）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12112772" target="_blank">超有料漫画中国史（套装共3册）</a></h3>
+                        <p class="tryread">韩明辉						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12112772" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">本书通过令人捧腹的段子和生动形象的手绘漫画，为你徐徐拉开中国历史的大幕。在纷纷扰扰、你方唱罢我登场的历史进程背后，是一个个有性格、有脾气、有手段的皇帝、王侯、文臣和武将，他们的一举一动，塑造了精彩纷呈的上下五千年历史。希望看完本书之后大笑、爆笑的你，能够对中国历史的大致脉络有初步的了解和认识。 越王勾践是如何施行“计划生育”的？为什么说诸葛亮是个“科技发烧友”？爱写“狂人日记”的东晋叛臣桓玄，日记都写了些啥？李世民看重魏徵，却为何又砸了他的墓碑？如果生活在元朝，你属于四等人制里的哪一等？慈禧太后与光绪皇帝去世相隔不足一天，其中有何玄机？......</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11910887" target="_blank">
+                        <img src="./ireader_files/CmQUOF3CO7eEJ0VOAAAAABofaM8284880445.jpg" alt="历史的温度（4本套装）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11910887" target="_blank">历史的温度（4本套装）</a></h3>
+                        <p class="tryread">张玮						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11910887" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>137                            
+                            
+                                                    </span>
+                        <p class="introduce">本书包含《历史的温度：寻找历史背面的故事、热血和真性情》《历史的温度：细节里的故事、彷徨和信念．2》《历史的温度. 3，时代扑面而来，转瞬即成历史》 《历史的温度4：那些执念和信念、理想与梦想》。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12109198" target="_blank">
+                        <img src="./ireader_files/CmQUOF4Bv_WERKTlAAAAANBygXI100461594.jpg" alt="曾国藩的经济课">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12109198" target="_blank">曾国藩的经济课</a></h3>
+                        <p class="tryread">张宏杰						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12109198" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">曾国藩的一生，起点极低而抵达的高度极高。他从笨人到圣人，经历五次耻辱，在步步升级、脱胎换骨的持续奋斗过程中，有着怎样独特的经济生活？他立志学做圣人，为什么却又不愿意成为海瑞式的清官？本书首次解读曾国藩的私人账簿和湘军创业的财政密码，详解“最后一个圣人”的收入与支出。从经济角度描摹出曾国藩持续奋斗的升级之道，最终他通过不懈的个人努力，从一个天资平庸的普通人成长为晚清“中兴第一名臣”，完成人生逆袭。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10906093" target="_blank">
+                        <img src="./ireader_files/CmQUN1X2g5SEQK9PAAAAAE92ffw329208275.jpg" alt="耶路撒冷三千年">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10906093" target="_blank">耶路撒冷三千年</a></h3>
+                        <p class="tryread">西蒙·蒙蒂菲奥里						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=10906093" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>66                            
+                            
+                                                    </span>
+                        <p class="introduce">基辛格视若珍宝的经典巨著，为你还原一座神圣之城的历史，让你了解世界格局如何演变。一座天堂与尘世兼容的城市，一本值得一读再读的书。读“耶路撒冷三千年”，了解真实的耶路撒冷，就会明白世界为何演变成今天的模样。耶路撒冷曾被视为世界的中心，是基督教、犹太教和伊斯兰教三大宗教的圣地，是文明冲突的战略要冲，是让世人魂牵梦绕的去处，是惑人的阴谋、虚构的网络传说和二十四小时新闻发生的地方。西蒙·蒙蒂菲奥里依年代顺序，以三大宗教围绕“圣城”的角逐，以几大家族的兴衰更迭为主线，生动讲述了耶路撒冷的前世今生；作者通过大量的田野调查和文献考据，以客观、中立的角度，透过士兵与先知、诗人与国王、农民与音乐家的生活，以及创造耶路撒冷的家族来呈现这座城市的三千年瑰丽历史，还原真实的耶路撒冷……</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10869645" target="_blank">
+                        <img src="./ireader_files/CmQUN1X2C1iEYlwNAAAAAIku-Gw089580044.jpg" alt="世界简史">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10869645" target="_blank">世界简史</a></h3>
+                        <p class="tryread">赫伯特·乔治·威尔斯						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=10869645" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>18                            
+                            
+                                                    </span>
+                        <p class="introduce">本书共有六十七章，从空间中的世界到世界政治经济秩序的重建，无不渗透出宇宙之旷达，生命之奇特，以及人类无穷无尽的欲望。作者抛弃了堆积枯燥的文学史料，以一种欢快的笔调，豁达的自然观，讲述了人类成长史上所经历的磨难与成功，酸甜苦辣尽在其中。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11875748" target="_blank">
+                        <img src="./ireader_files/CmQUOV2AeEaEdQMIAAAAAPAtkss854019176.jpg" alt="三国志">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11875748" target="_blank">三国志</a></h3>
+                        <p class="tryread">陈寿						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11875748" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>104                            
+                            
+                                                    </span>
+                        <p class="introduce">西晋陈寿所撰，共六十五卷，其中《魏书》三十卷、《蜀书》十五卷、《吴书》二十卷，主要叙述三国时期的历史，与《史记》、《汉书》、《后汉书》并称“前四史”。南朝宋裴松之为之注，引魏晋时人著述两百多种，丰富了陈寿《三国志》文本本身。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11758203" target="_blank">
+                        <img src="./ireader_files/CmQUOVxMccqEedN-AAAAAG63wCM945435899.jpg" alt="四库全书">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11758203" target="_blank">四库全书</a></h3>
+                        <p class="tryread">冯慧娟						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11758203" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>53                            
+                            
+                                                    </span>
+                        <p class="introduce">《四库全书》作为国家传统、民族根基的象征，已成为中国乃至东方读书人安身立命的圭臬。《四库全书》意在秉承四库之精神，发挥国学的经世致用性，力图为传统文化在中国乃至世界多元文化中的重新定位锦上添花；希望通过呈现这样一个异彩纷呈的文化艺苑，增强我们对国学的信仰，让读国学之人为中国传统文化的深邃而自豪。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11052443" target="_blank">
+                        <img src="./ireader_files/CmQUOF70INuEK75uAAAAAKD4Qr4082167608.jpg" alt="战国七雄">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11052443" target="_blank">战国七雄</a></h3>
+                        <p class="tryread">童超						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11052443" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>19                            
+                            
+                                                    </span>
+                        <p class="introduce">这是一个风云变幻的年代，东周腐朽的统治，造就了诸侯争霸的传奇。无数次的刀光剑影，齐、楚、燕、韩、赵、魏、秦脱颖而出，成就了“战国七雄”的神话。然而，战争的号角依然高奏，雄霸中原的硝烟依然在风中盘旋。天下大势，分久必合。终于，秦国以其强盛的国力，在中原大地上建立了统一的帝国，结束了几百年的纷乱世界。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11895687" target="_blank">
+                        <img src="./ireader_files/CmQUOF3hELSEHbgHAAAAAG_VWo4475055904.jpg" alt="长短经全鉴（节选）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11895687" target="_blank">长短经全鉴（节选）</a></h3>
+                        <p class="tryread">赵蕤						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11895687" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>50                            
+                            
+                                                    </span>
+                        <p class="introduce">唐代赵蕤的《长短经》集中国古代谋略之大成，大到治国用兵、识人用人，小到世故人情、生活智慧，一网打尽，全方位、多角度地阐释了中国古代的谋略思想。本书在恢弘的历史画卷的展示中升华出谋略的内核，在鲜活生动的历史事件和生活故事的叙说中剔透出谋略的真谛，读之，既回肠荡气，又情趣盎然，令人掩卷难忘。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11702966" target="_blank">
+                        <img src="./ireader_files/CmRae1ujbh2EaWh1AAAAAOv94oM948227589.jpg" alt="推背图中的历史">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11702966" target="_blank">推背图中的历史</a></h3>
+                        <p class="tryread">李淳风						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11702966" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>47                            
+                            
+                                                    </span>
+                        <p class="introduce">《推背图中的历史》是2008年由中国友谊出版公司出版的图书，作者是袁行陪。该书的作者以推背图的六十卦象为线索，集中探讨中国自唐以后的重大历史事件，检讨了历史大势中中国文化的得与失。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12353596" target="_blank">
+                        <img src="./ireader_files/CmQUOF9gfVSERLiMAAAAAJVofnc259250902.jpg" alt="历史的坏脾气：晚近中国的另类观察（增订版）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12353596" target="_blank">历史的坏脾气：晚近中国的另类观察（增订版）</a></h3>
+                        <p class="tryread">张鸣						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12353596" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">别人看“五四”，马上想到“德先生”“赛先生”，张鸣却首先想到军阀。“臭棋篓子”段祺瑞、“三不知将军”张宗昌、“马桶将军”王怀庆……这些手里有枪的军汉武夫，在人们印象中行为粗鲁、不讲道理的莽夫，在书中，却被作者一一还原成为“五四”前后政坛上个性张扬的主角。除了政客军阀、本书还讲了有志青年、历代文人、农民、流氓和女人的故事。在作者睿智的观察下，幽默生动的文字中常有微言大义之处，细细品来，似还藏着作者检讨中国文化劣根性的良苦用心。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11875305" target="_blank">
+                        <img src="./ireader_files/CmQUOV15Bn6EG3VXAAAAAOLIhNU574298974.jpg" alt="大易人生">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11875305" target="_blank">大易人生</a></h3>
+                        <p class="tryread">曾仕强						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11875305" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>81                            
+                            
+                                                    </span>
+                        <p class="introduce">几千年来，作为中华文化的总源头，《易经》文化及其中蕴含的人生智慧影响了无数人。本书中，曾教授以其深厚的国学素养，从多个角度对《易经》的智慧进行了通俗晓畅的讲解，可谓打开《易经》大门的金钥匙。读懂《易经》，对《易经》的智慧善加运用，能让我们的人生更加顺畅，更加开阔。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12403777" target="_blank">
+                        <img src="./ireader_files/CmQUOV-WTCKESC6MAAAAAImcLO4826388756.jpg" alt="彪悍南北朝之乱世终结者杨坚">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12403777" target="_blank">彪悍南北朝之乱世终结者杨坚</a></h3>
+                        <p class="tryread">陈炜						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12403777" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>10                            
+                            
+                                                    </span>
+                        <p class="introduce">九个月取得天下；三个月统一全国；十余年海内大治。这样的成就，中国历史上唯有隋文帝杨坚一人！他，是如何做到的呢？作为一个帝王，在杨坚身上，我们读到的不仅仅是赤光满室、五柱入顶等真龙天子的出生异象，也不仅仅是天命所归式的雄主能臣风云际会的传奇，更多的是一个创业者冷静的头脑、坚强的意志、精准的远见、无懈可击的战略谋划，以及高手如林的团队建设。因此，杨坚取得了历代帝王所难以企及的成就，他使他的王朝成为最具革新精神的时代，各种制度举措和改革措施奠定了中国封建政权的基本构架；在他统治下，中国迎来了人类历史上农耕文明的巅峰时期。本书在天涯社区进行连载时，受到无数粉丝热捧，被誉为“最好看的南北朝史，没有之一”！</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10895119" target="_blank">
+                        <img src="./ireader_files/CmQUN1X2aGOEA8RKAAAAAE179uw261563881.jpg" alt="大秦帝国">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10895119" target="_blank">大秦帝国</a></h3>
+                        <p class="tryread">童超						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=10895119" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>24                            
+                            
+                                                    </span>
+                        <p class="introduce">秦王扫六合，虎视何雄哉！挥剑决浮云，诸侯尽西来。崛起于蛮荒之地的秦人，策马中原，浴血饮剑，孕育出赫赫大秦帝国。六王毕，四海一。立郡县，书同文，车同轨，创帝国统一之基；巡四方，封泰山，临碣石，宣功绩于天地沧海；以法为教，以吏为师，官僚政治空前发达。赢政雄才，治民又可称暴虐。北筑长城，南征百越，生民为之攘攘；用法苛刻，旧俗难容，天下苦秦久矣。雄丽阿房，巍巍骊山，终于见证秦亡。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11864847" target="_blank">
+                        <img src="./ireader_files/CmQUOF1SLmaEH33dAAAAAJcHgSU352145265.jpg" alt="简读中国史：世界史坐标下的中国">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11864847" target="_blank">简读中国史：世界史坐标下的中国</a></h3>
+                        <p class="tryread">张宏杰						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11864847" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>107                            
+                            
+                                                    </span>
+                        <p class="introduce">中国文明从不是孤立发展的，自它产生那一刻起，就受到世界其他文明因素的影响。但这些外来因素并未改变中华文明的本质，反而更彰显出了中华文明的独特性。本书将中国史放入世界史的大背景之下，理清中国历史发展的脉络，以期读者短时间内建立起对中国史的整体概念。同时，用“长时间，远距离，宽视野”的解读方式，全方位呈现中国历史治乱循环背后的内在逻辑与游戏规则</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10961215" target="_blank">
+                        <img src="./ireader_files/CmQUNlZKkHmEO7ohAAAAAP8e9bk514575756.jpg" alt="南京大屠杀">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10961215" target="_blank">南京大屠杀</a></h3>
+                        <p class="tryread">曹必宏						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=10961215" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">“历史不能忘记系列丛书”是中国民主法制出版社专为广大青少年读者量身定做的主题出版系列读物，旨在让青少年藉此全面了解抗日战争的面貌，激发青少年的爱国主义精神。本书是丛书的一个分册，主要反映抗日战争期间，中日双方的海军军事实力，中国海军参与一二八淞沪抗战、淞沪会战、封锁长江作战、马当与湖口等要塞防御战、布雷游击战等事迹，描述了中山舰喋血、海军受降的细节。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12358713" target="_blank">
+                        <img src="./ireader_files/CmRaIV9sUAKEQjteAAAAAPurq6M709842192.jpg" alt="大清帝国">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12358713" target="_blank">大清帝国</a></h3>
+                        <p class="tryread">增井经夫						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12358713" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">清王朝乃四千多年的中华传统在政治、经济、文化等各个方面的集大成者，这究竟是怎样的一个时代？前期，一个小小的女真部族入主北京，建立帝国；中期，清朝中央政府开始直接管理新疆、西藏地区，可谓鼎盛时期；后期，大清帝国屈服于欧洲势力，走上崩溃之路。增井经夫为我们详细描绘了最后的中华王朝在二百七十多年间的繁荣与没落，解析了近代中国的起点，其中对清代的社会经济、学术、文艺三个方面的论述尤为精彩。《大清帝国》是日本清史学习和研究者的必读参考书，对于中国读者来说，也不失为一部绝好的清史入门手册。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11670562" target="_blank">
+                        <img src="./ireader_files/CmQUOFytYDOEUZeRAAAAAFCKVbY599838767.jpg" alt="国史大纲：全2册">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11670562" target="_blank">国史大纲：全2册</a></h3>
+                        <p class="tryread">钱穆						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11670562" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>48                            
+                            
+                                                    </span>
+                        <p class="introduce">《国史大纲》是一部中国通史，力求简要，举其大纲，删其琐节。在不到1000页的篇幅里，其人物之详、事业之备，又显示了作者驾驭繁复历史的伟力，整书纲举目张，简繁得当。《国史大纲》纵论中华传统学术思想、政治制度、社会风气之演变发展，兼及中外形势，以求我国家历史之通贯一体，明其治乱盛衰之所由，阐其一脉相承之统系，指陈吾民族生命精神之所寄。九州版《国史大纲》，以“钱宾四先生全集编辑委员会”整理编辑而成的联经一九九八年《钱宾四先生全集》中版本为底本，重排新校，全面订正文中体例、格式、标号、文字等方面存在的疏误，至于本书内容以及“钱宾四先生全集编辑委员会”的注解说明等，新校本保留原貌。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11160699" target="_blank">
+                        <img src="./ireader_files/CmQUOVf9yrqELrwpAAAAADkxxaw615757217.jpg" alt="中国通史（国史经典插图版）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11160699" target="_blank">中国通史（国史经典插图版）</a></h3>
+                        <p class="tryread">吕思勉						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11160699" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>50                            
+                            
+                                                    </span>
+                        <p class="introduce">《中国通史》是吕思勉先生在抗日战争时期上海成为“孤岛”的时候，为适应当时大学教学的需要而编写的。一经出版，畅销数十年，成为读者了解中国历史的最佳读物。《中国通史》分上下编，上编是中国政治史，讲了中国历史大事及中国历史的演变，下编为中国文化史，分门别类地、有系统地叙述了社会政治制度、经济制度和文化学术的发展情况。本书不仅对想了解中国历史大事的读者有用，而且对掌握中国历史的各个方面，特别是社会经济、政治制度以及学术文化等系统的知识有很大的好处。
+原作上篇为中国文化史，下篇为为中国政治史，今为方便读者阅读，将中国政治史作为上篇，中国文化史作为下篇，文字做了少量的技术处理。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12320652" target="_blank">
+                        <img src="./ireader_files/CmQUOF8inXqEarWAAAAAAIyzWP8477679500.jpg" alt="知行合一五千年：度阴山讲中国史">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12320652" target="_blank">知行合一五千年：度阴山讲中国史</a></h3>
+                        <p class="tryread">度阴山						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12320652" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">《知行合一五千年：度阴山讲中国史》是一套通俗中国史，上起神话时代，下至满清灭亡，覆盖中华5000年历史。本书为第一册，主要讲述了从盘古创世纪到西汉王莽这期间的历史发展。
+中国人的信仰不来自宗教，而是来自历史，这也正是我们文明从未间断的根本原因。盘古牺牲自我开辟天地；“三皇”接力合作带领部族从狩猎时代进入畜牧时代；尧的“禅让”，舜的“孝悌”，大禹为天下治水，还有，功不可没的秦皇汉武，这些光辉的历史人物，是中华人民的榜样，无论顺境逆境，他们此心光明，永远向前。
+我们读中国历史，不仅要明智，更要明心见性，人心和人性就是推动历史的强大力量，知此，则可知未来中国，知此，我们才可以明白道路自信的真谛：决定一个民族命运的不是制度，而是民族性格。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10945731" target="_blank">
+                        <img src="./ireader_files/CmQUNlYWH3qEE_NlAAAAAN5csy4971967373.jpg" alt="中国通史">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10945731" target="_blank">中国通史</a></h3>
+                        <p class="tryread">吕思勉						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=10945731" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>41                            
+                            
+                                                    </span>
+                        <p class="introduce">《中国通史》是吕思勉先生早年探讨中国近代史的主要成果，从1848年鸦片战争爆发，一直写到抗战结束。全书分为五个部分，包括中国近代史讲义、中国近世史前编、中国近百年史概说、中国近世文化史补编和日俄战争。近代是中国人民不断反抗帝国主义侵略的时期，又是历史上的重要转变时期，这个转变“迄于今而犹未已”。作者编写本书的目的在于大声疾呼，唤起大家进一步抵抗侵略。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12342042" target="_blank">
+                        <img src="./ireader_files/CmQUOF9IwKGELyAsAAAAAHA1hpw462138219.jpg" alt="女王的游戏：成就16世纪欧洲历史的女性">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12342042" target="_blank">女王的游戏：成就16世纪欧洲历史的女性</a></h3>
+                        <p class="tryread">莎拉·格里斯伍德						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12342042" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>17                            
+                            
+                                                    </span>
+                        <p class="introduce">16世纪的欧洲，女性统治呈井喷之势。无论是英格兰还是苏格兰，无论是西班牙还是法国，大多时间都处于女王或女性摄政之下。她们以独特的女性方式施政，成了一个整体，相互联结，形成一个复杂的关系网，从而影响或推动了欧洲的历史进程。本书讲述了这些16世纪欧洲的女性统治者，展现了她们传奇的人生。她们或策划阴谋，争夺王位；或发动战争，开拓疆土；或签订协议，争取和平；或呼风唤雨，雄视一切；或陷入悲剧，难逃宿命。她们都在所处的时代留下了印记。全书线索清晰，史料丰富，叙述生动，是一部不可多得的佳作。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12251509" target="_blank">
+                        <img src="./ireader_files/CmQUOF6pPcuERsa6AAAAAH2JYxw533418138.jpg" alt="大流感：最致命瘟疫的史诗（“硬核医生”张文宏力荐）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12251509" target="_blank">大流感：最致命瘟疫的史诗（“硬核医生”张文宏力荐）</a></h3>
+                        <p class="tryread">约翰·M·巴里						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12251509" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>27                            
+                            
+                                                    </span>
+                        <p class="introduce">大流感指的是1918—1919年横扫世界的那次流感大流行，过去估计全球死亡人数约2000万，新的估计数字为5000万—1亿。这个数字不仅高于历年来命丧艾滋病的人数总和，更远超中世纪黑死病所造成的死亡人数。本书作者依据大量的历史资料和数据，重绘1918年的惨状，为我们再现了这场致命瘟疫发生、发展及其肆虐全球的过程。在本书中，作者多线索展开论述，纵横交错地记述了有史以来极具毁灭性的流感故事，以及20世纪科学与医学发展的历史。本书细致入微地描写了科学、政治与疾病传播互动的过程，并述及传统医学演化至现代医学的重要里程碑，以及当年科学家、医学工作者等在巨大压力下所显示出的勇气或怯懦，信仰、价值观、研究态度和方法……这部著作不只是简单讲述1918年发生的事件，它同时也是一部有关科学、政治和文化的传奇。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12131592" target="_blank">
+                        <img src="./ireader_files/CmQUOF5YsXCEZ0FBAAAAAPFqMfM941777913.jpg" alt="中国人的历史（先秦三部曲）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12131592" target="_blank">中国人的历史（先秦三部曲）</a></h3>
+                        <p class="tryread">申赋渔						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12131592" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">本书为作家申赋渔专为青少年潜心创作的全新中国历史系列，包括《中国人的历史：诸神的踪迹》《中国人的历史：君子的春秋》《中国人的历史：战国的星空》3册。从诸神闪耀的远古时代到夏商，从春秋到战国，“中国人的历史”系列聚焦于一个个杰出的历史人物，梳理了中国文化的流脉。《中国人的历史：诸神的踪迹》：“中国人的历史”开篇之作。本书仿佛是镜头感十足的纪录片，生动、清晰地描绘出中国神的谱系，一步步带你追寻诸神的踪迹，追寻中国人的根。《中国人的历史：君子的春秋》：“中国人的历史”第二部。春秋是霸主的时代，也是君子的时代。四方诸侯在追逐霸业的同时，还讲究道义和礼节，中国文化绵延千年的力量之源就蕴含其中。《中国人的历史：战国的星空》：“中国人的历史”第三部。墨翟、孙膑、孟轲、庄周、屈原、蔺相如、荆轲等等，命运彼此勾连的一个个人，微妙地影响着历史的走向，共同点亮了战国闪耀的星空。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10867713" target="_blank">
+                        <img src="./ireader_files/CmQUNlX2BjmEZ_sEAAAAADadKZc367170015.jpg" alt="司马懿吃三国">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10867713" target="_blank">司马懿吃三国</a></h3>
+                        <p class="tryread">李浩白						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=10867713" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>17                            
+                            
+                                                    </span>
+                        <p class="introduce">司马懿潜伏曹操身边几十年，任由曹操差遣，他装弱、装傻、装病、装瘫，甚至装死来麻痹敌人、对手、上司、兄弟、朋友乃至家人……公元246年，深夜，探子密奏：“回乡养病的司马懿确实新纳了一个宠妾，整日沉溺酒色，他结发老妻得知后大闹一场。老家伙不仅不听，反而大骂她‘长得丑也就罢了，还出来丢人！’</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11797925" target="_blank">
+                        <img src="./ireader_files/CmQUOVywDiWEBtrLAAAAACr9oHs698564666.jpg" alt="这个历史很有趣">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11797925" target="_blank">这个历史很有趣</a></h3>
+                        <p class="tryread">于春梅						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11797925" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>149                            
+                            
+                                                    </span>
+                        <p class="introduce">易中天式通俗、袁腾飞式幽默，历史学者于春梅趣味解说中国古代皇权、相权、王朝更替、农民起义、古代变法、税务改革、古代战争。一书通识，简明有趣！</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11594603" target="_blank">
+                        <img src="./ireader_files/CmRae1p38Q-EGpOqAAAAAHFpbAg276490882.jpg" alt="品三国">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11594603" target="_blank">品三国</a></h3>
+                        <p class="tryread">易中天						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11594603" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>213                            
+                            
+                                                    </span>
+                        <p class="introduce">《品三国》是易中天对三国时期历史的讲述和评论。三国是一个风云变幻，沧海横流，英雄辈出，令人神往的时代，不知多少盖世英雄在那里大显身手，叱咤风云，正可谓江山如画，一时多少豪杰。本书是在央视"百家讲坛"节目基础上改写而成，用通俗的语言，讲述和评论了三国时期的历史和曹操、刘备、孙权、周瑜、诸葛亮等一大批人物，其资料丰富、语言生动、逻辑严谨。最大程度上"还原"了历史的本来面目，比较了历史与流传至今的文化形象的区别，并分析了这段历史和相关文学作品对中国文化的影响。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11037678" target="_blank">
+                        <img src="./ireader_files/CmQUNlephyaEBW-nAAAAAKZVUeU680314383.jpg" alt="宋朝原来是这样">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11037678" target="_blank">宋朝原来是这样</a></h3>
+                        <p class="tryread">醉罢君山						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11037678" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>81                            
+                            
+                                                    </span>
+                        <p class="introduce">陈桥兵变，宋太祖黄袍加身，定三百年帝国基业。大宋帝国在进取与保守、图强与积弱的反复中踽踽而行。这是中国历史上最长命的王朝之一，却从未实现真正意义的大一统；这是一个文化、科技、经济繁荣的时代，却未能掩饰对外战争被动挨打的尴尬。   强干弱枝、内重外轻的政策在避免政治动荡的同时，却不可避免地埋下衰亡的种子；轰轰烈烈的变法运动本是富国强兵的锐意改革，最终却沦为无休止的党争与政治投机家的博弈；联金灭辽本是主动进取的战略，最终却引狼入室，导致北宋灭亡；当南宋中兴的曙光初现时，不作为的朝廷却轻而易举地将希望的火苗掐灭。   本书以纵横捭阖的笔法，书写了宋朝三百年波澜壮阔而又充满矛盾与纠结的历史。有对宋朝高度文明的政治、文化生态的褒扬，也有对其军事、外交败笔的解读、抨击，更有对大宋民富国弱的历史吊诡的深思。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11739073" target="_blank">
+                        <img src="./ireader_files/CmQUOFv3rBSEBeWzAAAAAGVDQA4112361785.jpg" alt="大唐兴亡三百年">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11739073" target="_blank">大唐兴亡三百年</a></h3>
+                        <p class="tryread">王觉仁						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11739073" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>38                            
+                            
+                                                    </span>
+                        <p class="introduce">唐朝是一个令后人无比向往的伟大朝代，但它近300年错综复杂的历史，也让人望而却步——正史《唐书》《资治通鉴》不但卷帙浩繁，读起来也晦涩难懂；小说《隋唐演义》虽然通俗易懂，但大量人物情节纯属虚构。知名畅销书作家王觉仁，凭借深厚的唐史功底，以幽默生动的文笔，创作出比《唐书》通俗，比《资治通鉴》有趣，比《隋唐演义》靠谱的《大唐兴亡三百年》，已成为多数读者了解唐朝历史的选择。翻开本书，领略让你全程上瘾的300年大唐全史。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11789131" target="_blank">
+                        <img src="./ireader_files/CmQUOVywOWCEORN6AAAAAAMPBsI155254401.jpg" alt="如果历史是一群喵·夏商西周篇">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11789131" target="_blank">如果历史是一群喵·夏商西周篇</a></h3>
+                        <p class="tryread">肥志						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11789131" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>300                            
+                            
+                                                    </span>
+                        <p class="introduce">本书是“如果历史是一群喵”系列中的首册，以诙谐幽默又接地气的方式，通俗地讲述了夏商西周多个时期的历史故事。十二只激萌喵咪演员将化身经典人物，搭配可爱直白的语言重新让你体会历史的魅力。摆脱条条框框、脑袋发麻的枯燥文字，该书不仅收录了一系列历史课堂外的趣闻知识，还穿插了12只喵咪的人设档案，展现它们呆萌、腹黑、热血等不同性格特点的喵生故事，12间喵咪“闺房”也将全部收录。再也不用爬楼存图，你就能将12只喵“抱”在怀里啦！这是一本让铲屎官尖叫，助学渣翻身的古代萌猫故事绘，让大家在阅读漫画之余感受到中国历史的韵味。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11709533" target="_blank">
+                        <img src="./ireader_files/CmQUOFzeLziETR9vAAAAAARKxMk592314419.jpg" alt="半小时漫画帝王史（三本套装）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11709533" target="_blank">半小时漫画帝王史（三本套装）</a></h3>
+                        <p class="tryread">胖乐胖乐						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11709533" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>18                            
+                            
+                                                    </span>
+                        <p class="introduce">每个皇帝3分钟，一本看懂中国史！以简驭繁，历史速成，深入浅出，人名、地名、年号、朝代……天呐！历史要怎样才能记得住、分得清呢？      打开这本书，你会觉得相见恨晚！从历史长河中精选50位改变中国历史的重要帝王，用超级有料的二次元漫画，海量的史料信息，将叱咤风云的历史人物和惊心动魄的重大事件完整再现，既不繁杂枯燥，也不信口开河。每个皇帝均有一句打油诗作为介绍，读者可一目了然熟记于心。      这本书里的每个主角，都是各自年代里真正的英雄(以及神奇的存在)，他们影响了今日的中国，希望你能读懂他们。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11688665" target="_blank">
+                        <img src="./ireader_files/CmRaIVtj8xmENo_bAAAAANimRVM952713604.jpg" alt="北洋往事：那些军阀那些人">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11688665" target="_blank">北洋往事：那些军阀那些人</a></h3>
+                        <p class="tryread">金满楼						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11688665" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>110                            
+                            
+                                                    </span>
+                        <p class="introduce">辛亥革命打开了中国历史的一个紧要关口，但民国的未来之路却注定要历经坎坷与波折。在内外交困的复杂局势下，一代枭雄袁世凯以权谋治天下，但洪宪帝制却将其推上绝路。袁世凯称帝败亡后，中国再度陷入南北分裂的危险境地。在南与北、血与火的冲突中，北洋军阀内部又分化为皖系、直系、奉系等派别，其间朝云暮雨、风云变幻，演绎了民国史上最纷繁复杂的一段乱世传奇。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11718155" target="_blank">
+                        <img src="./ireader_files/CmQUOFwd0tGEOvx-AAAAALsuarQ399130919.jpg" alt="增广贤文">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11718155" target="_blank">增广贤文</a></h3>
+                        <p class="tryread">佚名						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11718155" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>12                            
+                            
+                                                    </span>
+                        <p class="introduce">《增广贤文》以韵文的形式汇集了历代先贤名人的格言警句，古诗词歌赋和经典典籍里的名句、成语、谚语，日常生活中的顺口溜、俗语等。是部语言非常简单、直白的古代经典著作，包含了勤学、孝顺、家庭和睦、敬老、爱幼、睦邻、忠君、爱国、历史、礼仪，以及夫妻相处之道，嫁女娶媳等内容，涉及了日常生活的各个方面。《增广贤文》的句子简单易记，生动有趣，非常平民化和口语化，这也是它和其他蒙学经典图书的不同之处。本书选用的《增广贤文》根据目前最常见、最通行的版本，摘录了适合小读者阅读理解和学习的最精华的经典佳句，加以注音、注释、翻译，并配有小故事，让小读者能更明白、更直接地理解原文，加深印象。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12329575" target="_blank">
+                        <img src="./ireader_files/CmQUOV8ygV-EL0qLAAAAAKb4rDM460868331.jpg" alt="犹太人3000年">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12329575" target="_blank">犹太人3000年</a></h3>
+                        <p class="tryread">张倩红						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12329575" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>15                            
+                            
+                                                    </span>
+                        <p class="introduce">"犹太民族在世界民族之林中是一个很小的民族，但却对人类思想的发展与文明的演进做出了与自身人口不成比例的贡献。在长达两千余年的漫长的流散过程中，在离开故土、失去疆域的情况下，他们克服了被同化与消亡的种种危机，应对了反犹主义的重重压力，奋力延续历史、建构历史，形成了自成体系的宗教观念与历史意识，并孕育出独树一帜的民族性格与文化品质。犹太民族是如何形成的？他们是如何在遭受外部世界挤压甚至迫害的漫长历史中保持自己的民族身份和宗教认同的？他们重视教育的传统从何而来？他们善于赚钱的天赋源自何处？历尽磨难后他们是如何在强敌环伺的中东世界站稳脚跟的？他们是如何在沙漠中创造经济奇迹的？本书在世界历史发展的宏观视野下，聚焦犹太人历史上的重大事件，以生动的笔法、切实的史料讲述犹太人那令人荡气回肠的苦难与奋进的历史，引领读者走进犹太民族那不同寻常的精神世界。"</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11506640" target="_blank">
+                        <img src="./ireader_files/CmQUNlle8ZOERCooAAAAAJtgdGs101043359.jpg" alt="智囊全鉴（典藏版）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11506640" target="_blank">智囊全鉴（典藏版）</a></h3>
+                        <p class="tryread">冯梦龙						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11506640" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>26                            
+                            
+                                                    </span>
+                        <p class="introduce">《智囊》初编于明代天启六年（1626年），是一部从先秦到明代智慧故事的总集，全书分上智、明智、察智、胆智、术智、捷智、语智、兵智、闺智、杂智十部，其下又分见大、知微、雄略、敏悟等28小类，包括历代智囊故事1200余则，既是一部反映古人巧妙运用聪明才智来排忧解难、克敌制胜的处世奇书，也是中国文化史上一部篇幅庞大的智谋锦囊。《智囊全鉴》本着以古为鉴的原则，从原书中选取有代表性的篇章，精心地进行了解译。希望能够帮助读者在赏读之余，从中汲取成功的养分，丰富自己的阅历，成为一个成功的智者。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10893302" target="_blank">
+                        <img src="./ireader_files/CmQUN1X2TQKEOMXXAAAAADTZ4DA761728370.jpg" alt="光荣与梦想（全四册）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10893302" target="_blank">光荣与梦想（全四册）</a></h3>
+                        <p class="tryread">威廉·曼彻斯特						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=10893302" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>32                            
+                            
+                                                    </span>
+                        <p class="introduce">这不是一本书，这是一个时代。自1974年问世以来，《光荣与梦想》一直为无数人念念不忘。这部伟大的作品巧妙地浓缩了美国从1932-1972年的40年丰富历史。著名通俗历史作家威廉曼彻斯特以数任美国总统的执政与竞选为明线，从让胡佛颜面尽失的“胡佛村”“胡佛车”等、罗斯福史无前例的四次当选，一路说尽杜鲁门、艾森豪威尔、肯尼迪，直至让尼克松下台的水门事件，同时不动声色地细致描画美国1932-1972年的40年社会发展历程，内容涵盖“补偿金大军”风潮、经济大萧条、人权运动、麦卡锡主义、种族隔离制度、两次世界大战、原子弹研发、空间竞赛到冷战、朝鲜战争、越南战争等。曼彻斯特将美国这40年间的政治、经济、军事、社会、艺术、科学、时尚、音乐、娱乐，甚至生活热点、妇女的服装潮流、口头语的变化、性观念的更迭全景式重现。曼彻斯特更将美国社会放在全球背景下描述，如此强烈的对比，勾起读者的强烈兴趣。而最为读者推崇的是，曼彻斯特对新闻写作手法的大师级运用。他将宏大的历史大部头变成了一幕幕精彩纷呈的连续剧。他在大事时采用宏观视角，又在细节处多线并进，如电影中的蒙太奇手法，让读者穿梭于不同历史事件。在他的笔下，40年的点点滴滴尽现眼前，全书无处不在的历史厚重感和磅礴气势，与曼彻斯特恰到好处的幽默感相结合，让那一段久远的历史变得立体而鲜明。正是因为这一切，《光荣与梦想》才被誉为经典，是一个时代的记忆。这是一本了解美国精神气质缘起的书，也是一本启迪了无数作者的经典，更是无数人的精神导师，是任何人都不能拒绝的思想盛宴。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11585811" target="_blank">
+                        <img src="./ireader_files/CmQUOFovjMqEA3_vAAAAAMUyj7o242822424.jpg" alt="易中天品读中国系列（全六册）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11585811" target="_blank">易中天品读中国系列（全六册）</a></h3>
+                        <p class="tryread">易中天						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11585811" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>70                            
+                            
+                                                    </span>
+                        <p class="introduce">2018全新修订版，畅销百万册，二十年经典。套装共有易中天著作六种：《闲话中国人》《品人录》《大话方言》《读城记》《中国的男人和女人》《中国人的智慧》。《闲话中国人》一方水土养一方人，一种文化孕育一个民族。作者易中天从饮食、穿衣、单位、人情、家庭等极具中国特色的生活现象中，用闲话家常的口吻，风趣幽默的笔法，揭示了中国文化最核心最深层的秘密，仿佛于无声处听惊雷。《品人录》项羽刘邦、曹操刘备诸葛亮、武则天长孙无忌、海瑞、康熙雍正年羹尧……以五个历史人物为切入点，有据有料地告诉你，关于他们的英雄故事、政治角力、宫斗大戏。《大话方言》在本书中，作者通过“南腔北调”“朝秦暮楚”“东拉西扯”“死去活来”“张冠李戴”“指桑骂槐”六个部分，对中国各地方言文化进行全面考察，并以其一贯风趣诙谐的笔调进行阐释，内容穿古越今、走州过省，追溯方言起源，展现方言特色，充满了奇闻异趣，读时忍俊不禁欲罢不能，常有恍然大悟眼界大开之感，令人回味无穷。《读城记》城市和人一样也是有个性的。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12265164" target="_blank">
+                        <img src="./ireader_files/CmQUOV67jiCEcvZWAAAAAApeoxw406596121.jpg" alt="第三帝国的兴亡：纳粹德国史（全四册）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12265164" target="_blank">第三帝国的兴亡：纳粹德国史（全四册）</a></h3>
+                        <p class="tryread">威廉·夏伊勒						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12265164" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>82                            
+                            
+                                                    </span>
+                        <p class="introduce">1933年到1945年，被称为“第三帝国”的纳粹德国迅速兴起又急速覆亡。威廉·夏伊勒自1925年起开始观察纳粹活动，以亲身经历与采访手记，结合第二次世界大战之后缴获的大量秘密文件、军事命令、私人日记，以及纽伦堡审判席上的供词和证言等，全景式描绘了希特勒德国的历史。
+《第三帝国的兴亡：纳粹德国史》根植于海量历史文献，以无所不包的视角，呈现出阿道夫·希特勒的个人生活全史、纳粹党兴起的历史渊源和掌权过程、德国各方政治势力的角逐、西方大国的外交政策演变、第二次世界大战重大战役的转折等历史场景。书中描绘了纳粹德国每一项重大决策、每一次重要行动的制定过程与行为细节，生动地塑造出戈林、戈培尔、希姆莱、德国军中反对派代表施陶芬贝格、英国前首相张伯伦等一大批地位、性格迥异的正反面人物，不仅忠实还原了历史事件，更对人性的各个层面进行了展示与挖掘。作者威廉·夏伊勒以亲身经历的独特视角、新闻写作练就的出色文笔，以及对素材的深耕细读，为这部历史著作注入了生动而真实的生命力。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12264267" target="_blank">
+                        <img src="./ireader_files/CmQUOV7eZJ6EKk3AAAAAAEIhP54489167114.jpg" alt="黄同学漫画二战史（全两册）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12264267" target="_blank">黄同学漫画二战史（全两册）</a></h3>
+                        <p class="tryread">那个黄同学						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12264267" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">“黄同学漫画二战史”系列两部曲。第一部作品，作者通过漫画的形式，带大家重回硝烟弥漫的二战战场，重温反法西斯战士们为了全人类的和平，用热血抒写的恢宏史诗。本书内容包括著名战役、名将传奇、战场逸闻、武器简介等，通过本书，读者将对这场人类历史上最大的战争有更全面的了解和更深的体会。第二部作品系统地讲解了1914年至1941年的历史故事，向读者还原第二次世界大战的历史背景、起因和战事经过，包括德国崛起、闪击波兰、敦刻尔克大撤退、不列颠之战、珍珠港事件、莫斯科保卫战等；另外，还揭秘了纳粹藏宝，盘点了意大利的军事实力。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12404637" target="_blank">
+                        <img src="./ireader_files/CmRaIV-OmySEE9o-AAAAAB0B0Tc091040854.jpg" alt="石像、神庙与失落的文明：改写世界文明史的玛雅发现之旅">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12404637" target="_blank">石像、神庙与失落的文明：改写世界文明史的玛雅发现之旅</a></h3>
+                        <p class="tryread">威廉·卡尔森						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12404637" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">战争、密林和疟疾，石碑、浮雕和金字塔，全景描述前哥伦比亚时代的玛雅发现之旅！这是一个非凡而真实的，关于玛雅文明再发现的故事：继《迷失Z城》和《冰冻帝国》之后，我们又迎来了一段被人遗忘的探险史。1839年，美国驻中美洲特使约翰·斯蒂芬斯与享有盛誉的英国建筑师兼绘图员弗雷德里·卡瑟伍德出发前往无人涉足的尤卡坦丛林。当时，《圣经》是历史的模板，许多人仍然相信世界文明存在不过6 000年。深入丛林后，斯蒂芬斯和卡瑟伍德克服了疾病、战争、自然和地形的困难，发现并且一丝不苟地记录了一个惊人文明的遗迹。这个与古希腊和古罗马盛行于同一时期的美洲文明建立了媲美前两者的艺术、建筑成就和影响力，这一发现也改变了西方人对人类历史的认知。在《石像、神庙与失落的文明》这本书中，普利策奖入围者威廉·卡尔森将跟随斯蒂芬斯和卡瑟伍德的脚步，重游今天的危地马拉、洪都拉斯和墨西哥，揭秘玛雅遗址丰富的历史。卡尔森借助大量一手资料，包括斯蒂芬斯的日记、书信及卡瑟伍德的精妙插画，巧妙地讲述了两位伟大的旅行者以及他们发现玛雅的精彩故事。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11533843" target="_blank">
+                        <img src="./ireader_files/CmQUN1nwPbOEUY4dAAAAANxn2x0708066615.jpg" alt="盐野七生作品：文艺复兴的故事（全六册）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11533843" target="_blank">盐野七生作品：文艺复兴的故事（全六册）</a></h3>
+                        <p class="tryread">盐野七生						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11533843" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>12                            
+                            
+                                                    </span>
+                        <p class="introduce">文艺复兴的故事系列包括：《文艺复兴是什么》、《我的朋友马基雅维利》、《海都物语：威尼斯一千年（上下册）》、《文艺复兴的女人们》、《优雅的冷酷：切萨雷·波吉亚的一生》、《神的代理人》共六册。文艺复兴是想看见、想知道、想了解的欲望的爆发！全六册作者热情洋溢地描写了长达40年的文艺复兴，当属了解这段历史为精彩的入门书。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11541102" target="_blank">
+                        <img src="./ireader_files/CmQUOVmpBeGEUUJlAAAAAOs6VCo737584295.jpg" alt="历史的温度：寻找历史背面的故事、热血和真性情">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11541102" target="_blank">历史的温度：寻找历史背面的故事、热血和真性情</a></h3>
+                        <p class="tryread">张玮						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11541102" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>34                            
+                            
+                                                    </span>
+                        <p class="introduce">历史是万花筒，每个人看到的不同，每个角度看到的也不同。有的人看到了残酷，有的人看到了温情。有的人看到了杀戮，有的人看到了救赎。有的人看见了别人，有的人看见了自己。有的人假作真，有的人真作假。 史书上的一段话、一个名字，在张玮的笔下呈现出一张张意想不到的面孔。历史不是冷冰冰的。看似由时间、地点和一连串数据组成的历史事件，背后的主角是一个个活生生的人，有血有肉、有人性、有故事、有真的性情。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11227345" target="_blank">
+                        <img src="./ireader_files/CmRaIVjdDCGESZ8fAAAAAO6UdCM240362553.jpg" alt="知行合一王阳明大合集（1+2+3+传习录）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11227345" target="_blank">知行合一王阳明大合集（1+2+3+传习录）</a></h3>
+                        <p class="tryread">度阴山						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11227345" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>113                            
+                            
+                                                    </span>
+                        <p class="introduce">习近平主席九次强调知行合一，掀起阅读热潮！系列图书累计销量超过100万册！习近平：“阳明心学正是传统文化中的精华。”王岐山：“我脑海里常浮现王阳明‘致良知’和‘知行合一’两句话。”中纪委监察部官网专题力荐王阳明家训！隆庆六年初刻本“传习录”，尘封400余年原貌重现的初始定本！</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12379381" target="_blank">
+                        <img src="./ireader_files/CmQUOV-VELmEUIFiAAAAAKlqmDQ239084633.jpg" alt="文明探源：考古十讲">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12379381" target="_blank">文明探源：考古十讲</a></h3>
+                        <p class="tryread">中国社会科学院离退休干部工作局						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12379381" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">本书内容通俗易懂又不失学术性，力图从考古学视角探寻中华文明的起源和发展。以考古学实证说明民间传说“禹会诸侯于涂山，执玉帛者万国”的真实性；以玛雅文明著名城邦洪都拉斯科潘遗址的“中国龙”介绍中美洲文明与中华文明的关联；日本考古简史；等等。本书不仅包括中国的考古发现，还将中国历史文化放到世界大背景中进行分析，图文并茂，生动有趣，读后能够更深刻地认识中华文明的起源。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11590430" target="_blank">
+                        <img src="./ireader_files/CmQUOFpcLuaEPsMEAAAAACDmigQ651442503.jpg" alt="来自纳粹地狱的报告：奥斯维辛犹太医生纪述">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11590430" target="_blank">来自纳粹地狱的报告：奥斯维辛犹太医生纪述</a></h3>
+                        <p class="tryread">米克洛斯·尼斯利						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11590430" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">1944年，纳粹德国占领匈牙利，米克洛斯·尼斯利一家被遣送至奥斯维辛集中营。尼斯利曾在德国学习医学，后来成为一名法医。在集中营的“筛选”中，尼斯利被迫担任“死亡天使”门格勒的医学助手，参与了臭名昭著的人体实验。像尼斯利这样被迫与纳粹合作的人被称为“特遣队员”。虽然他们暂时逃脱死神之手，但也只能苟活三四个月的时间。在“纳粹地狱”中，尼斯利见证了犹太人和其他无辜民众遭受迫害的过程，也纪述了受害者群体难以为外人道的心路历程。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10087045" target="_blank">
+                        <img src="./ireader_files/CmQUN1X04UGEPSwnAAAAAMUeczk140122255.jpg" alt="这个历史挺靠谱2">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=10087045" target="_blank">这个历史挺靠谱2</a></h3>
+                        <p class="tryread">袁腾飞						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=10087045" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>74                            
+                            
+                                                    </span>
+                        <p class="introduce">“史上最牛历史老师”袁腾飞的最新著作。在本书中，百家讲坛最红主讲人袁腾飞感情滚烫，以一口生脆而凶猛的京片子，俏皮生动地讲述了中国史和世界史。给千万读者进行了　一次全方位的历史大普及。在袁腾飞个性独特的讲述背后，是对于这段历史温和而善意的情怀。全书配以60幅戏谑风格的精美插图，百分百再现了袁Sir可乐、生脆的讲史风格。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11543005" target="_blank">
+                        <img src="./ireader_files/CmRaIVm3V6GEHiF9AAAAACq-_cc191491885.jpg" alt="唐朝穿越指南：长安及各地人民生活手册（新版）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11543005" target="_blank">唐朝穿越指南：长安及各地人民生活手册（新版）</a></h3>
+                        <p class="tryread">森林鹿						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11543005" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>61                            
+                            
+                                                    </span>
+                        <p class="introduce">如果有一天，您一睁眼发现自己穿越到了唐朝——不要惊慌，来，拿起这本《唐朝穿越指南：长安及各地人民生活手册》：先过了语言关，学几句中古汉语、唐朝国骂；再混进官府食堂开开小灶，品茶喝酒。记住，像穿越小说中那样大大咧咧走在街上，随手拿出纹银几两是会悲剧的，户口本、暂住证一个也不能少。可随旅行团游览长安城最热门的五大景点，顺便逛逛青楼，看看马球，带上豹子去户外狩猎。更可入乡随俗，像个唐朝人一样过端午、春节、七夕情人节。想洋气一点也没问题，圣诞节唐朝就已有！运气好的话，还能受邀去别人家里做个客，唱K、跳舞，乐不思蜀，最后买套占地十亩限价房。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11524498" target="_blank">
+                        <img src="./ireader_files/CmQUOFqbrPSEJF4XAAAAAL4yChY209928514.jpg" alt="天朝的崩溃：鸦片战争再研究（修订版）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11524498" target="_blank">天朝的崩溃：鸦片战争再研究（修订版）</a></h3>
+                        <p class="tryread">茅海建						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11524498" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>33                            
+                            
+                                                    </span>
+                        <p class="introduce">《天朝的崩溃:鸦片战争再研究(修订版)》是茅海建系统研究鸦片战争历经十余年所得成果。茅海建详尽考订了与战争相关的一系列重要史实，力图以当时的道德观念、思维方式与行为规范去理解历史，使许多在今人看来是荒谬的现象得以显示其在当时环境中的“合理性”。同时，通过对有关人物及其言行活动分析，观察清王朝在历史转折关头的作为，揭示历史进程中的偶然与必然。鸦片战争在中国近代史上影响重大，有关著述已出版不少。《天朝的崩溃:鸦片战争再研究(修订版)》的研究可谓推陈出新，茅海建一系列独到创见可能在学术界引起争议，相信这种争议将有助于深化中国近代史研究。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11846356" target="_blank">
+                        <img src="./ireader_files/CmQUOF0UfXGEVrKzAAAAAIgrf58565088429.jpg" alt="世界简史">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11846356" target="_blank">世界简史</a></h3>
+                        <p class="tryread">威廉·麦克尼尔						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11846356" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">这本书中，你将收获全新的实践智慧——源自深受麦考梅克所影响的同事、客户和竞争对手们，其中汇聚了一批来自商界、传媒界和体育界的杰出人才。通过阅读麦考梅克如何管理员工和建立人际关系，以及如何掌握谈判技巧和努力发展业务，你将了解到以下信息：当谈判陷入僵局，为何要保持镇定；体育规则如何在商务活动和日常生活中发挥作用；为什么适度承诺与超值服务更受欢迎；到场的重要性。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12115370" target="_blank">
+                        <img src="./ireader_files/CmQUOV4T_TeEbY1cAAAAAJzNruc236240733.jpg" alt="邂逅秦始皇">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12115370" target="_blank">邂逅秦始皇</a></h3>
+                        <p class="tryread">中信出版·大方						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12115370" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">《邂逅秦始皇》是中信出版集团与秦始皇帝陵博物院联合出品的一本全面展现秦始皇其人其事的通俗读物。 秦始皇对于中国人的重要性怎么强调都不过分。一千个人眼里有一千个秦始皇，他是千古一帝还是暴君？抑或有更多不为人所知的一面？ 全书共分为六个部分：从秦始皇的身世谜团说起，正说秦始皇功绩、澄清秦始皇背的千年黑锅、认真回应八卦，再到秦始皇的朋友圈。*后拜见秦始皇，从秦陵考古的视角来看秦始皇生死观的转变。 邀请著名学者王子今、段清波等领衔，青年作家张不叁、柳馥、左丘萌、林屋公子等参与撰稿，更有人气插画师呼葱觅蒜参与插图创作。另外还采访了影视、企业家、文博工作者、作家等社会各界人士，说说他们心中的秦始皇形象。 轻松的形式、有趣的话题、正经说历史，带领读者一本读懂中国超级英雄秦始皇。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12189917" target="_blank">
+                        <img src="./ireader_files/CmQUOF6VYVmEJcMSAAAAAJX9JX4771614342.jpg" alt="荒野帝国：走入美国未来的旅行">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12189917" target="_blank">荒野帝国：走入美国未来的旅行</a></h3>
+                        <p class="tryread">罗伯特·D.卡普兰						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12189917" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">1995年到1997年，卡普兰在故土美国开始了一场从堪萨斯到西海岸的西部旅行，通过政治和文化的视野，在地理的细节中发现了一个转变中的美国：这个大国并非衰落，而是正在缓慢而不可逆转地蜕变出全新的身份认同。 卡普兰从美国中部的圣路易斯走到西部的波特兰，从北部的加拿大边境走到南部的墨西哥边境，在旅行中发现了一个新的美国：一个在种族、阶层、教育、地理上充满了区隔和断裂的美国。这个美国，财富在迅速增加，但贫富差距也在拉大；传统的信念已经逝去，而新的信念仅仅处于萌芽状态。 在《荒野帝国：走入美国未来的旅行中》，卡普兰以敏锐而深邃的目光审视着美国，对美国过去的思索引出对美国未来的诠释，最终指出，这个世界上最成功的国家已经进入了其历史的最后一个阶段，也是高度未知的阶段。在这个被美国文化和价值观严重影响和浸染的时代，《荒野帝国》无疑为中国读者“跨入”美国的过去和未来提供了一个入口，卡普兰对自己行迹的叙述让我们身临其境，了解这块土地上发生过以及将要发生的事情。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11666650" target="_blank">
+                        <img src="./ireader_files/CmQUN1s55JiER_eGAAAAAHzka80326968310.jpg" alt="隋唐演义（新课标小学语文阅读丛书）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=11666650" target="_blank">隋唐演义（新课标小学语文阅读丛书）</a></h3>
+                        <p class="tryread">褚人获						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=11666650" target="_blank">试读</a>                        </p>
+                        <span>
+                            
+                            
+                                                    </span>
+                        <p class="introduce">隋朝末年，隋炀帝荒淫无道，迫害忠良，以致朝纲不振，民不聊生。李世民、秦琼、程咬金、单雄信、罗成、尉迟恭、李元霸等传奇人物纷纷登场，演绎了一幕幕精彩绝伦的英雄故事。其中，秦琼卖马、程咬金劫官银、尉迟恭日抢三关、罗成大破一字长蛇阵等故事在民间广为流传，深受人们的喜爱。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12109164" target="_blank">
+                        <img src="./ireader_files/CmQUOF4h5GiESsHaAAAAAFsLp84310875924.jpg" alt="甲骨文丛书·午夜北平（全2册）">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=12109164" target="_blank">甲骨文丛书·午夜北平（全2册）</a></h3>
+                        <p class="tryread">保罗·法兰奇						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=12109164" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>12                            
+                            
+                                                    </span>
+                        <p class="introduce">《午夜北平》（Midnight in Peking）根据历史上真实案件所写，归类为非虚构写作。本书共两册，上册为《民国奇案 1937》，下册为《“恶土”，北平的堕落乐园》80年前，中国曾发生过一起涉及英国人的谋杀案，死者为英国外交官年仅19岁的女儿帕梅拉。女孩的尸体在北京福克斯瞭望塔的角落里被发现，血液被全部抽光，胸腔敞露，心脏被挖出，场面极其惨烈。中英警方随即展开调查，但因随后战乱延绵和双方当局的阻挠，案的侦破不断被搁置，凶手逍遥法外。直到75年后，历史学家保罗·法兰奇辗转中外，翻阅了所有案卷，走访了案发地点和相关人员，最终得以为这一桩悬而未决的神秘案件揭秘。这一故事基于存档文件创作，以警察或者医生的视角进行阐释，用感性的笔触描述了一个轻信他人、脆弱无力、却又被吓坏了的年轻女孩。书中身在北京的西方人像一群怪人一样，与只求生活安稳的纯良中国人截然不同。罪恶与光辉并存的奇幻般的时代重现于读者眼前。</p>
+                    </div>
+                </li>
+                                <li>
+                    <a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=1022643" target="_blank">
+                        <img src="./ireader_files/CmQUOFjdRN6EedcKAAAAAPYhSiw454579058.jpg" alt="历史">
+                    </a>
+                    <div class="bookMation">
+                        <h3><a href="https://www.ireader.com.cn/index.php?ca=bookdetail.index&amp;pca=booksort.index&amp;bid=1022643" target="_blank">历史</a></h3>
+                        <p class="tryread">（古希腊）多德						<a href="https://www.ireader.com.cn/index.php?ca=Chapter.Index&amp;pca=booksort.index&amp;bid=1022643" target="_blank">试读</a>                        </p>
+                        <span>
+                                                            <s></s>23                            
+                            
+                                                    </span>
+                        <p class="introduce">本书取材广泛、规模宏大、史料充实、内容丰富，是一部“通史”之作。本书的主题是希波战争，但是本书战争史或军事史。
+本书涵盖广阔，不仅叙述了希腊的状况，而且把他当时所知道的整个“世界”的历史状况都纳入了自己的叙述范围，其中埃及、巴比伦、叙利亚、波斯的历史和文化都占有相当多的篇幅。</p>
+                    </div>
+                </li>
+                            </ul>
+            </div>
+    <!--展示内容 结束-->
+
+
+    <!--翻页内容 结束-->
+            <div class="changepage">
+                <span>
+                    <a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=download&amp;status=0&amp;page=2" class="up"><s></s><i>上一页</i></a><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=download&amp;status=0&amp;page=1">1</a><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=download&amp;status=0&amp;page=2">2</a><a class="cur">3</a><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=download&amp;status=0&amp;page=4">4</a><a class="noBg">...</a><a href="https://www.ireader.com.cn/index.php?ca=booksort.index&amp;pid=92&amp;cid=142&amp;order=download&amp;status=0&amp;page=4" class="down"><i>下一页</i><s></s></a>                </span>
+        </div>
+        <!--翻页内容 结束-->
+
+
+</div>
+<!--内容部分 结束-->
+
+<script type="text/javascript">
+    (function () {
+        var ul =  $('#packUp').prev();
+        var all_li_width = 0;
+        var current_li_width = 0;
+        ul.children('li').each(function () {
+            var width = $(this).outerWidth(true);
+            all_li_width += width;
+            if ($(this).data('id') == '142') {
+                current_li_width = all_li_width;
+            }
+        });
+        var ul_width = ul.width();
+        if (ul_width < all_li_width) {
+            //bind click
+            $('#packUp').show()
+                    .click(function () {
+                        ul.parent().addClass("click");
+                    });
+            $('#packDown').click(function (){
+                ul.parent().removeClass("click");
+            });
+        } else {
+            $('#packUp').hide();
+        }
+        if (current_li_width > ul_width) {
+            $('#packUp').click();
+        }
+    })();
+</script>
+
+    
+<!--公共底部 开始-->
+<div class="v1_foot" style="margin-top: 0px;">
+    <div class="download">
+        <h3>获取掌阅iReader</h3>
+        <div class="loadLeft">
+            <a href="http://itunes.apple.com/cn/app/id463150061?mt=8" target="_blank" title="ios下载">
+                <span class="icon"><s></s></span>
+                <p class="explain">下载iOS版</p>
+            </a>
+        </div>
+        <div class="loadRight">
+            <a href="http://ah2.zhangyue.com/zybook3/app/app.php?ca=Down.Index&amp;p2=108044" target="_blank" title="android下载">
+                <span class="icon"><s></s></span>
+                <p class="explain">下载Android版</p>
+            </a>
+        </div>
+    </div>
+    <div class="aboutcompany">
+        <p class="link">
+            <a href="http://www.zhangyue.com/" target="_blank">掌阅官网</a>
+            <a href="http://yc.ireader.com.cn/" target="_blank">掌阅小说</a>
+            <a href="https://m.zhangyue.com/" target="_blank">掌阅书城触屏版</a>
+            <a href="http://www.idejian.com/" target="_blank">得间免费小说</a>
+            <a href="https://ah2.zhangyue.com/fe3/zybook/other/download/dl_hw.html" target="_blank">华为阅读</a>
+            <a href="https://b.zhangyue.com/?s=shucheng" target="_blank">企业服务</a>
+            <a href="http://www.hongshu.com/" target="_blank">红薯中文</a>
+            <a href="http://www.quyuewang.cn/" target="_blank">趣阅中文</a>
+            <a href="http://www.iciyuan.com/" target="_blank">iCiyuan轻小说</a>
+            <a href="http://www.moqing.com/" target="_blank">魔情言情</a>
+            <a href="http://shenqi.quyuewang.cn/" target="_blank">神起网</a>
+            <a href="http://www.iyoule.com/" target="_blank">有乐中文网</a>
+            <a href="http://www.ruokan.com/" target="_blank">若看文学</a>
+            <a href="http://w.miaoyuedu.com/" target="_blank">喵阅读</a>
+            <a href="https://www.sxyj.com/" target="_blank">书香云集</a>
+            <br>
+			<a href="http://qr.ireader.com/pv3b8" target="_blank">企业阅读代理招募</a>
+            <a href="http://www.zhangyue.com/about/contact-us" target="_blank">联系我们</a>
+            <a href="http://www.zhangyue.com/partners" target="_blank">商务合作</a>
+            <a href="https://www.ireader.com.cn/index.php?ca=about.Us&amp;pca=booksort.index" target="_blank">关于我们</a>
+            <a href="https://www.ireader.com.cn/index.php?ca=about.Terms&amp;pca=booksort.index" target="_blank">法律声明</a>
+        </p>
+        <p><a href="https://beian.miit.gov.cn/" target="_blank">京ICP备11008516号</a><a href="https://www.ireader.com/static/images/papers/ser.jpg" target="_blank">网络出版服务许可证（总）网出证（京）字第141号</a><a href="https://www.ireader.com/static/images/papers/icp.jpg" target="_blank">京ICP证090653号</a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502030452" target="_blank"><img style="margin-right:5px; display:inline; vertical-align:middle; margin-top:-2px" src="./ireader_files/web_record.png">京公网安备11010502030452</a></p>
+        <p>2015 All Rights Reserved 掌阅科技股份有限公司 版权所有</p>
+        <p>不良信息举报：jubao@zhangyue.com 举报电话：010-59845699</p>
+    </div>
+</div>
+<!--公共底部 结束-->
+
+
+<!--返回顶部 结束-->
+<span class="goTop" id="btn_back_top" style="display: none; left: 1010.5px;"><img src="./ireader_files/go_top.png" alt="返回顶部"></span>
+<!--返回顶部 结束-->
+
+<script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?2583df02aa8541db9378beae2ed00ba0";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+
+        var bp = document.createElement('script');
+        bp.src = '//push.zhanzhang.baidu.com/push.js';
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+
+
+</body></html>

@@ -1,7 +1,9 @@
 import 'package:BookSource/rule/rule.dart';
 import 'package:BookSource/rule/single/js_rule.dart';
 import 'package:BookSource/rule/single/json_rule.dart';
+import 'package:BookSource/rule/single/jsoup_rule.dart';
 import 'package:BookSource/rule/single/regex_rule.dart';
+import 'package:BookSource/rule/single/xpath_rule.dart';
 
 class SingleRule extends Rule {
   Mode mode;
@@ -29,10 +31,11 @@ class SingleParser extends IParser<SingleRule> {
         return  JsonParser(rule).getString(content,valueMap: valueMap);
         break;
       case Mode.XPath:
+        return XpathParser(rule).getString(content,valueMap: valueMap);
         break;
       case Mode.Default:
         //jsoup
-        return  JsonParser(rule).getString(content,valueMap: valueMap);
+        return  JsoupParser(rule).getString(content,valueMap: valueMap);
         break;
     }
 
@@ -55,10 +58,11 @@ class SingleParser extends IParser<SingleRule> {
         return await JsonParser(rule).getStringList(content,valueMap: valueMap);
         break;
       case Mode.XPath:
+        return XpathParser(rule).getStringList(content,valueMap: valueMap);
         break;
       case Mode.Default:
         //jsoup
-        return await JsonParser(rule).getStringList(content,valueMap: valueMap);
+        return await JsoupParser(rule).getStringList(content,valueMap: valueMap);
         break;
     }
     return <String>[];
