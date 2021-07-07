@@ -63,7 +63,7 @@ class JsParser extends IParser<JsRule> {
         execute =  'var result="$result";';
       }
       var js = rule.js.replaceAll('java.ajax(', 'await ajax(');
-      var js = rule.js.replaceAll('java.put(', 'put(');
+       js = rule.js.replaceAll('java.put(', 'put(');
       js='$execute$js';
 
       js = ' async function dothis(){$js}; dothis()';
@@ -109,9 +109,13 @@ class JsParser extends IParser<JsRule> {
         execute = execute + ' var result="$result";';
       }
 
-      var js = rule.js.replaceAll('java.', '');
-      
-      return (await engine.evaluate('$execute$js'));
+      var js = rule.js.replaceAll('java.ajax(', 'await ajax(');
+      js = rule.js.replaceAll('java.put(', 'put(');
+      js='$execute$js';
+
+      js = ' async function dothis(){$js}; dothis()';
+      var jsResult= (await engine.evaluate(js));
+      return jsResult;
     } finally {
       try {
         setToGlobalObject.free();
