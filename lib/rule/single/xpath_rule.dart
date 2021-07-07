@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:BookSource/rule/rule_factory.dart';
 import 'package:BookSource/rule/single/single_rule.dart';
-import 'package:BookSource/xpath_selector.dart';
+import 'package:BookSource/xpath/xpath_selector.dart';
 import 'package:flutter_qjs/flutter_qjs.dart';
 import 'package:json_path/json_path.dart';
 

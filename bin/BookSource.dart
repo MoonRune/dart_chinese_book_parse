@@ -7,7 +7,7 @@ import 'package:BookSource/bean/book_source_rule_old.dart';
 import 'package:BookSource/bean/book_source.dart';
 import 'package:BookSource/parse_factory.dart';
 import 'package:BookSource/rule/rule_factory.dart';
-import 'package:BookSource/xpath_selector.dart';
+import '../lib/xpath/xpath_selector.dart';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import '../lib/parttern_rule.dart';

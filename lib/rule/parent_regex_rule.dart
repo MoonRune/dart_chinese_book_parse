@@ -1,7 +1,7 @@
 import 'package:BookSource/rule/rule.dart';
 import 'package:BookSource/rule/single/single_rule.dart';
 
-
+@Deprecated('use regex rule instead')
 class ParentRegexRule extends Rule{
   String parentRegex;
   String currentRegex;

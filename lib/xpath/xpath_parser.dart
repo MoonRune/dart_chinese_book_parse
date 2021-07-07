@@ -1,7 +1,7 @@
 
 
-import 'package:BookSource/token_kind.dart';
-import 'package:BookSource/xpath_selector.dart';
+import 'token_kind.dart';
+import 'xpath_selector.dart';
 
 /// Parse the [XPath] string to [SelectorGroup]
 ///

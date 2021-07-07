@@ -1,5 +1,5 @@
-import 'package:BookSource/token_kind.dart';
-import 'package:BookSource/xpath_parser.dart';
+import 'token_kind.dart';
+import 'xpath_parser.dart';
 import 'package:html/dom.dart';
 import 'package:html/parser.dart';
 
