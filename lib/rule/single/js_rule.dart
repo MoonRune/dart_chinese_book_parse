@@ -92,8 +92,10 @@ class JsParser extends IParser<JsRule> {
     final setToGlobalObject = await engine.evaluate(" (key, val) => { this[key] = val; }");
     await setToGlobalObject.invoke([
       "put",
-      IsolateFunction((String url) {
-        print(url);
+      IsolateFunction((String key,String value) {
+        if(valueMap!=null){
+          valueMap[key]=value;
+        }
       }),
     ]);
     await setToGlobalObject.invoke([

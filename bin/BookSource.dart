@@ -38,10 +38,10 @@ void main(List<String> arguments) {
   // callRegex();
   // callXpath();
   // testGet();
-  // search();
+  search();
 
   // testDetailJsoup();
-  testJsJavaAjax();
+  // testJsJavaAjax();
 }
 
 
@@ -394,7 +394,12 @@ void printBookSourceUrl(BookSource source) async {
       var list = await ParseFactory.getParser(source.ruleToc!.chapterList)
           .getStringList(response.toString());
       for (var item in list) {
-        print(await parseChapt(source, item));
+        var chapter= await parseChapt(source, item);
+        if(item == list[1]){
+          var bookChatperContent=await BookSearch.searchBookChapter(chapter['chapterUrl']);
+          chapter['content']=await ParseFactory.getParser(source.ruleContent!.content).getString(bookChatperContent);
+          print(chapter);
+        }
       }
       // .
       //     .then((value) => value.forEach((element) {
@@ -484,7 +489,6 @@ parseBook(BookSource source, String content) async {
 }
 
 parseChapt(BookSource source, String content) async {
-  print(content);
   var chapt = {};
   chapt['chapterName'] =
       await ParseFactory.getParser(source.ruleToc!.chapterName)

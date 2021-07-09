@@ -194,7 +194,7 @@ class BookSourceOld {
           RuleFactory.parse(""),
           RuleFactory.parse(this.ruleChapterUrlNext)),
         ContentRule(
-          content,
+          RuleFactory.parse(this.ruleBookContent),
           this.ruleContentUrlNext,
           "", //this.webJs,
           "", //this.sourceRegex,

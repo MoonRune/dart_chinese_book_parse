@@ -43,6 +43,11 @@ class RuleFactory {
     } else if (vRuleStr.toUpperCase().startsWith("@JSON:")) {
       _mode = Mode.Json;
       vRuleStr = vRuleStr.substring(6);
+    } else if (vRuleStr.toUpperCase().contains(r'$.') ) {
+      _mode = Mode.Json;
+    }  else if (vRuleStr.toUpperCase().startsWith(r'.') ) {
+      _mode = Mode.Json;
+      vRuleStr=r'$'+vRuleStr;
     } else if (vRuleStr.startsWith(":")) {
       _mode = Mode.Regex;
       // isRegex = true

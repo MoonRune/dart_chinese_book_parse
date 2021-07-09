@@ -198,7 +198,7 @@ class TocRule {
 
 @JsonSerializable()
 class ContentRule {
-  String? content;
+  Rule content;
   String? nextContentUrl;
   String? webJs;
   String? sourceRegex;

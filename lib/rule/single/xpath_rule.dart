@@ -16,11 +16,11 @@ class XpathParser extends IParser<SingleRule> {
   @override
   Future<String> getString(String json,{Map<String,dynamic>? valueMap}) async {
 
-   return XPath(json).query(rule.ruleContent).get();
+   return XPath.source(json).query(rule.ruleContent).get();
   }
 
   @override
   Future<List<String>> getStringList(String json,{Map<String,dynamic>? valueMap}) async {
-    return XPath(json).query(rule.ruleContent).list();
+    return XPath.source(json).query(rule.ruleContent).list();
   }
 }

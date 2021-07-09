@@ -16,7 +16,7 @@ class JsoupParser extends IParser<SingleRule> {
   @override
   Future<String> getString(String xml,{Map<String,dynamic>? valueMap}) async {
     var element=parse(xml);
-    print(element);
+    // print(element);
 //"class.sResult@tag.li|class.newShow@tag.li
     var r= rule.ruleContent;
     var attr= '';
@@ -35,7 +35,7 @@ class JsoupParser extends IParser<SingleRule> {
   @override
   Future<List<String>> getStringList(String xml,{Map<String,dynamic>? valueMap}) async {
     var element=parse(xml);
-    print(element);
+    // print(element);
 //"class.sResult@tag.li|class.newShow@tag.li
     var r= rule.ruleContent;
     var attr= '';
