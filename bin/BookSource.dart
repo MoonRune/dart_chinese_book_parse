@@ -338,14 +338,13 @@ void jsonPathSoup() {
 }
 
 void search() {
-  // new io.File(r'C:\Users\baziii\IdeaProjects\BookSource\lib\book_source.json')
-  new io.File(
-          r'C:\Users\baziii\IdeaProjects\BookSource\single_test_book_source.json')
+  new io.File(r'C:\Users\baziii\IdeaProjects\BookSource\lib\book_source.json')
+  // new io.File(r'C:\Users\baziii\IdeaProjects\BookSource\single_test_book_source.json')
       .readAsString()
       .then((value) => BookSourcesReader.read(value))
-      .then((value) => value.forEach((element) {
-            printBookSourceUrl(element);
-          }));
+      .then((value) =>
+            printBookSourceUrl(value.first)
+          );
 }
 
 void printBookSourceUrl(BookSource source) async {
@@ -397,7 +396,7 @@ void printBookSourceUrl(BookSource source) async {
         var chapter= await parseChapt(source, item);
         if(item == list[1]){
           var bookChatperContent=await BookSearch.searchBookChapter(chapter['chapterUrl']);
-          chapter['content']=await ParseFactory.getParser(source.ruleContent!.content).getString(bookChatperContent);
+          // chapter['content']=await ParseFactory.getParser(source.ruleContent!.content).getString(bookChatperContent);
           print(chapter);
         }
       }

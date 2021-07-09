@@ -53,12 +53,12 @@ class SingleParser extends IParser<SingleRule> {
       //   break;
 
       case Mode.Regex:
-        return RegexParser(rule).getStringList(content,valueMap: valueMap);
+        return await RegexParser(rule).getStringList(content,valueMap: valueMap);
       case Mode.Json:
         return await JsonParser(rule).getStringList(content,valueMap: valueMap);
         break;
       case Mode.XPath:
-        return XpathParser(rule).getStringList(content,valueMap: valueMap);
+        return await XpathParser(rule).getStringList(content,valueMap: valueMap);
         break;
       case Mode.Default:
         //jsoup
