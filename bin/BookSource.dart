@@ -364,7 +364,7 @@ void printBookSourceUrl(BookSource source) async {
     if (source.ruleSearch != null) {
       print((source.searchUrl).toString());
       var book =
-      await BookSearch.fromRule(source, "天外飞仙", 1)
+      await BookSearch.fromRule(source, Uri.encodeComponent("传说"), 1)
           .init()
           .searchBooks()
 
