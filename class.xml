@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="applicable-device" content="pc,mobile">
+        <title>搜索结果：传说,云山千叠</title>
+        <meta name="keywords" content="搜索结果：传说,云山千叠" />
+        <meta name="description" content="搜索结果：传说,云山千叠" />
+        <link rel="stylesheet" type="text/css" href="/yunshanqiandie/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/yunshanqiandie/css/common.css">
+        <link rel="stylesheet" type="text/css" href="/yunshanqiandie/css/book.css">
+    </head>
+    <nav class="navbar navbar-inverse">
+
+        <div class="container">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sort" aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://www.yunshanqiandie.com">欢迎光临云山千叠</a>
+            </div>
+            <div class="collapse navbar-collapse" id="sort">
+                <ul class="nav navbar-nav visible-xs">
+                    <li class="active"><a href="https://www.yunshanqiandie.com">返回首页</a></li>
+                    <li><a href="/sort/xuanhuanmofa">玄幻魔法</a></li>
+                    <li><a href="/sort/wuxiaxiuzhen">武侠修真</a></li>
+                    <li><a href="/sort/dushiyanqing">都市言情</a></li>
+                    <li><a href="/sort/lishijunshi">历史军事</a></li>
+                    <li><a href="/sort/wangyoudongman">网游动漫</a></li>
+                    <li><a href="/sort/kehuanxiaoshuo">科幻小说</a></li>
+                    <li><a href="/sort/kongbulingyi">恐怖灵异</a></li>
+                    <li><a href="/sort/qita">其他类型</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <section class="container header">
+        <div class="row">
+            <div class="col-md-5 hidden-sm hidden-xs">
+                <a href="https://www.yunshanqiandie.com"><img src="/yunshanqiandie/images/logo.png" title="云山千叠"></a>
+            </div>
+            <form action="/search.php" target="_blank" method="post">
+                <div class="input-group col-md-5 col-sm-12 col-xs-12">
+                    <input type="text" class="form-control input-lg" name="search" placeholder="你想要找什么书！">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary btn-lg" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+    <section class="container">
+        <div class="row">
+            <div class="headernav col-md-12 col-sm-12 hidden-xs">
+                <ul>
+                    <li class="col-xs-6 hidden-sm hidden-xs"><a href="https://www.yunshanqiandie.com">返回首页</a></li>
+                    <li class="col-xs-6"><a href="/sort/xuanhuanmofa">玄幻魔法</a></li>
+                    <li class="col-xs-6"><a href="/sort/wuxiaxiuzhen">武侠修真</a></li>
+                    <li class="col-xs-6"><a href="/sort/dushiyanqing">都市言情</a></li>
+                    <li class="col-xs-6"><a href="/sort/lishijunshi">历史军事</a></li>
+                    <li class="col-xs-6"><a href="/sort/wangyoudongman">网游动漫</a></li>
+                    <li class="col-xs-6"><a href="/sort/kehuanxiaoshuo">科幻小说</a></li>
+                    <li class="col-xs-6"><a href="/sort/kongbulingyi">恐怖灵异</a></li>
+                    <li class="col-xs-6"><a href="/sort/qita">其他类型</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="container top">
+        <div class="row">
+            <div class="panel panel-default col-lg-9 col-md-9 col-xs-12 col-sm-12">
+                <div class="panel-heading">搜索结果：传说</div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th class="col-md-3 col-sm-8 col-xs-8">书名</th>
+                            <th class="col-md-5 hidden-sm hidden-xs">最新章节</th>
+                            <th class="col-md-2 col-sm-4 col-xs-4">作者</th>
+                            <th class="col-md-2 hidden-sm hidden-xs">最后更新</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVYLAgdX.html" title="人在东京签到都市传说">人在东京签到都市传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVYLAgdX.html" title="第286章 0285.雪奈姐再次驾到！（三更求订阅！）">第286章 0285.雪奈姐再次驾到！（三更求订阅！）</a></td><td class="col-md-2 col-sm-4 col-xs-4">仟回</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-19</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/A1MLDgU.html" title="贝兰德传说">贝兰德传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/A1MLDgU.html" title="第二三章第 空间陷阱">第二三章第 空间陷阱</a></td><td class="col-md-2 col-sm-4 col-xs-4">虚傲</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-19</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/BlUJAgY.html" title="在港综成为传说">在港综成为传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/BlUJAgY.html" title="第六百零九章 神对手不可怕，猪队友才可怕">第六百零九章 神对手不可怕，猪队友才可怕</a></td><td class="col-md-2 col-sm-4 col-xs-4">凤嘲凰</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-19</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVYKAgdd.html" title="从港综签到成为传说">从港综签到成为传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVYKAgdd.html" title="第374章 第0390-0391章 我竟无言以对">第374章 第0390-0391章 我竟无言以对</a></td><td class="col-md-2 col-sm-4 col-xs-4">曾经拥有的方向感</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-19</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVYNDw9W.html" title="鹿谷传说">鹿谷传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVYNDw9W.html" title="第三百六十三话 试炼之间">第三百六十三话 试炼之间</a></td><td class="col-md-2 col-sm-4 col-xs-4">阅亮国王</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-19</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/BFsADwU.html" title="龙王殿之龙王传说">龙王殿之龙王传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/BFsADwU.html" title="第1818章 成功忽悠到手！一起进去修炼！二人反应！">第1818章 成功忽悠到手！一起进去修炼！二人反应！</a></td><td class="col-md-2 col-sm-4 col-xs-4">慕金玉</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-19</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVQJBw5Q.html" title="千叶家教传说">千叶家教传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVQJBw5Q.html" title="第193章 我真的吃饱了">第193章 我真的吃饱了</a></td><td class="col-md-2 col-sm-4 col-xs-4">千崎真央</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-19</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/BFsKAQY.html" title="迪迦的传说">迪迦的传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/BFsKAQY.html" title="第750章 分歧">第750章 分歧</a></td><td class="col-md-2 col-sm-4 col-xs-4">槭落枫叶</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-19</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AlcIBwY.html" title="网游之最强传说">网游之最强传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AlcIBwY.html" title="第2749章 狂徒的自信">第2749章 狂徒的自信</a></td><td class="col-md-2 col-sm-4 col-xs-4">八二年自来水</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-19</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVIPBgFR.html" title="刀神传说上部">刀神传说上部</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVIPBgFR.html" title="第171章 陆青山篇（48）">第171章 陆青山篇（48）</a></td><td class="col-md-2 col-sm-4 col-xs-4">高依弟</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-18</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVMOBgVU.html" title="狂婿传说">狂婿传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVMOBgVU.html" title="第四百三十八章 警钟！">第四百三十八章 警钟！</a></td><td class="col-md-2 col-sm-4 col-xs-4">静待轮回</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-18</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/BVcIBwM.html" title="真玄传说">真玄传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/BVcIBwM.html" title="第三百四十二章 终于还是来十了">第三百四十二章 终于还是来十了</a></td><td class="col-md-2 col-sm-4 col-xs-4">一切尘埃</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-18</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVEKAAdX.html" title="奥特格斗传说">奥特格斗传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVEKAAdX.html" title="第304章 乔尼亚斯:嚯，没有远离我，反而在朝我接近吗？（错乱）">第304章 乔尼亚斯:嚯，没有远离我，反而在朝我接近吗？（错乱）</a></td><td class="col-md-2 col-sm-4 col-xs-4">名剑收天</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-18</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/BlQLBwE.html" title="斗罗大陆之刘小枭传说">斗罗大陆之刘小枭传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/BlQLBwE.html" title="第500章 混沌之力">第500章 混沌之力</a></td><td class="col-md-2 col-sm-4 col-xs-4">萌皮卡丘桑</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-18</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVcMAwZR.html" title="龙帝传说之龙起蛮荒">龙帝传说之龙起蛮荒</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVcMAwZR.html" title="第448章 孔家二公子">第448章 孔家二公子</a></td><td class="col-md-2 col-sm-4 col-xs-4">冬日雪松</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-18</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVcBDgFT.html" title="万王之界主传说">万王之界主传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVcBDgFT.html" title="第162章 大力">第162章 大力</a></td><td class="col-md-2 col-sm-4 col-xs-4">壹三四</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-18</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/BVQOBgA.html" title="异界之武力传说">异界之武力传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/BVQOBgA.html" title="第687章 警告">第687章 警告</a></td><td class="col-md-2 col-sm-4 col-xs-4">半个书仙</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-17</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/CVcOBQc.html" title="将传说变成现实">将传说变成现实</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/CVcOBQc.html" title="第1078章 很难逃脱">第1078章 很难逃脱</a></td><td class="col-md-2 col-sm-4 col-xs-4">皇帝</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-17</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/CVsKAQY.html" title="传说系统之称霸万界">传说系统之称霸万界</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/CVsKAQY.html" title="第1章 给楚岚一箭">第1章 给楚岚一箭</a></td><td class="col-md-2 col-sm-4 col-xs-4">皇帝</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-17</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVALAgJW.html" title="晃狂传说">晃狂传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVALAgJW.html" title="第279章 灵石牢狱">第279章 灵石牢狱</a></td><td class="col-md-2 col-sm-4 col-xs-4">空天地</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-17</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/BVsABAc.html" title="古夜传说">古夜传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/BVsABAc.html" title="第一百零六章：大功告成">第一百零六章：大功告成</a></td><td class="col-md-2 col-sm-4 col-xs-4">默雷止音</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-17</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVAMAQJU.html" title="野蛮人传说">野蛮人传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVAMAQJU.html" title="第340章 精灵王的自由（上）">第340章 精灵王的自由（上）</a></td><td class="col-md-2 col-sm-4 col-xs-4">天下人F</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-17</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AlMOBgA.html" title="哈利波特之圣殿传说">哈利波特之圣殿传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AlMOBgA.html" title="第三百九十二章 巨人族魔法师">第三百九十二章 巨人族魔法师</a></td><td class="col-md-2 col-sm-4 col-xs-4">零度天狼</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-16</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/CVcMAA4.html" title="剑与盾的传说之守护者之歌">剑与盾的传说之守护者之歌</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/CVcMAA4.html" title="第492章 风云际会（十八）">第492章 风云际会（十八）</a></td><td class="col-md-2 col-sm-4 col-xs-4">樱落紫殇</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-16</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/BFUIAwA.html" title="我在东京与都市传说为敌">我在东京与都市传说为敌</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/BFUIAwA.html" title="第945章 945.留下有用之身……【求推荐~】">第945章 945.留下有用之身……【求推荐~】</a></td><td class="col-md-2 col-sm-4 col-xs-4">天空向前冲</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-16</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/CFEIDgM.html" title="骑士王传说">骑士王传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/CFEIDgM.html" title="第四百五十七章.为这美好的世界">第四百五十七章.为这美好的世界</a></td><td class="col-md-2 col-sm-4 col-xs-4">旧烛残枫</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-15</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVQKAQFT.html" title="星魂传说">星魂传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVQKAQFT.html" title="第192章 蛇蜕之术">第192章 蛇蜕之术</a></td><td class="col-md-2 col-sm-4 col-xs-4">角天涯</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-15</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVcOBQdR.html" title="龙王传说之完美精灵">龙王传说之完美精灵</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVcOBQdR.html" title="大结局情报">大结局情报</a></td><td class="col-md-2 col-sm-4 col-xs-4">万界主角</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-14</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AVQAAARc.html" title="我写的传说成真了">我写的传说成真了</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AVQAAARc.html" title="29、不存在的同学八">29、不存在的同学八</a></td><td class="col-md-2 col-sm-4 col-xs-4">减到95</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-14</td></tr>
+                        <tr>
+                            <td class="col-md-2 col-sm-6 col-xs-8"><a href="/book/AlAKAwM.html" title="终焉时代传说">终焉时代传说</a></td><td class="col-md-6 hidden-sm hidden-xs"><a href="/book/AlAKAwM.html" title="第420章">第420章</a></td><td class="col-md-2 col-sm-4 col-xs-4">黑色邪阳</td><td class="col-md-2 col-sm-2 hidden-xs">21-07-14</td></tr>
+                    </tbody>
+                </table>
+
+                <ul class="pagination">
+                </ul>
+            </div>
+            <div class="panel panel-default vv-p col-lg-3 col-md-3 hidden-xs hidden-sm">
+                <div class="panel-heading">好书推荐</div>
+                <ol>
+                    <li><a class="pull-left" href="/book/CVcBBA8.html" target="_blank" title="玄幻之大反派系统">玄幻之大反派系统</a><small class="pull-right">天策校尉</small></li><li><a class="pull-left" href="/book/AVcJDgFV.html" target="_blank" title="洪荒：地道之主，人族圣父">洪荒：地道之主，人族圣父</a><small class="pull-right">我九幽之主</small></li><li><a class="pull-left" href="/book/BlQMDgM.html" target="_blank" title="都市无敌战神苏漠">都市无敌战神苏漠</a><small class="pull-right">苏漠林清漪</small></li><li><a class="pull-left" href="/book/A1EJDgM.html" target="_blank" title="最强掌门从签到开始">最强掌门从签到开始</a><small class="pull-right">不朽爷</small></li><li><a class="pull-left" href="/book/AVcMAwBR.html" target="_blank" title="我师父是绝世高人">我师父是绝世高人</a><small class="pull-right">五条小白龙</small></li><li><a class="pull-left" href="/book/BVcOAAU.html" target="_blank" title="盘天之战">盘天之战</a><small class="pull-right">东方奇龙</small></li><li><a class="pull-left" href="/book/CFANAw4.html" target="_blank" title="万古帝婿夜玄">万古帝婿夜玄</a><small class="pull-right">老鬼</small></li><li><a class="pull-left" href="/book/AVEMBgJT.html" target="_blank" title="心弦之曲">心弦之曲</a><small class="pull-right">钟离春雨</small></li><li><a class="pull-left" href="/book/AVcMDwdV.html" target="_blank" title="四灵守护之青龙退魔师">四灵守护之青龙退魔师</a><small class="pull-right">铁磨</small></li><li><a class="pull-left" href="/book/BlsPBgc.html" target="_blank" title="人到中年：青云直上">人到中年：青云直上</a><small class="pull-right">阿诸</small></li>                </ol>
+            </div>
+        </div>
+    </section>
+
+    <footer class="navbar navbar-default y-footer">
+        <div class="container">
+            <a href="https://www.yunshanqiandie.com"><button type="button" class="btn btn-page pull-left">云山千叠</button></a>
+        </div>
+    </footer>
+
+
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/yunshanqiandie/js/common.js"></script>
+    <div id="tongji"></div>
+</body>
+        </html>
