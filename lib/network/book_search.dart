@@ -173,7 +173,7 @@ class BookSearch {
       //   // you can also create a HttpClient to dio
       //   // return HttpClient();
       // };
-      var response = await dio.getUri(uri);
+      var response = await dio.postUri(uri);
       if (response.statusCode == 200) {
         // print(uri);
         // print(response);
